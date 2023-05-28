@@ -1,10 +1,9 @@
-import Calendar from "./Calendar";
+import Calendar from "./components/Calendar";
 
 export default function App() {
   return (
-    <>
+    <main>
       <Calendar />
-      <h1 className="">Hello</h1>
-    </>
+    </main>
   );
 }
