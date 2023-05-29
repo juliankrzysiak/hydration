@@ -1,4 +1,4 @@
-import logger from './logger';
+import logger from './logger.js';
 import { RequestHandler, ErrorRequestHandler } from 'express';
 
 const requestLogger: RequestHandler = async (_req, res, next) => {
