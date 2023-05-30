@@ -2,7 +2,7 @@ import express from 'express';
 const plantsRouter = express.Router();
 import sql from '../db';
 
-plantsRouter.get('/', async (req, res) => {
+plantsRouter.get('/', async (_req, res) => {
 	const plants = await sql`
     select *
     from plants
