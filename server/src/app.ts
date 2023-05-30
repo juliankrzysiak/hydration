@@ -1,9 +1,9 @@
 import express from 'express';
 require('express-async-errors');
-const app = express();
+export const app = express();
 import cors from 'cors';
-import middleware from './utils/middleware';
-import plantsRouter from './controllers/plants';
+import { middleware } from './utils/middleware';
+import { plantsRouter } from './controllers/plants';
 
 app.use(cors());
 app.use(express.json());
@@ -15,4 +15,4 @@ app.use('/api/plants', plantsRouter);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
-export default app;
+

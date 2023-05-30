@@ -1,9 +1,9 @@
 import supertest from 'supertest';
-import app from '../app';
-import { dbURI } from '../db';
-import { plants } from '../utils/testHelper';
 import { beforeAll, it, describe, afterAll, expect } from 'vitest';
-import config from '../utils/config';
+import { dbURI } from '../utils/db';
+import { app } from '../app';
+import { plants } from '../utils/testHelper';
+import { config } from '../utils/config';
 
 const api = supertest(app);
 
@@ -37,15 +37,3 @@ describe('get all route', () => {
 		expect(res.body[1]).toEqual(secondPlant);
 	});
 });
-
-// describe('get water_schedule route', () => {
-// 	it('returns successfuly', async () => {
-// 		await api.get('/api/plants/water').expect(200);
-// 	});
-
-// 	it('returns correct calculation', async () => {
-// 		const res = await api.get('/api/plants/water');
-// 		expect(res.body[0].water_date).toBe('2023-06-28T00:00:00.000Z');
-// 		expect(res.body[1].water_date).toBe('2023-06-28T00:00:00.000Z');
-// 	});
-// });

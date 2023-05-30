@@ -1,4 +1,4 @@
-import config from './utils/config.js';
+import { config } from './config.js';
 import postgres from 'postgres';
 
 export const dbURI =
@@ -6,6 +6,4 @@ export const dbURI =
 		? (config.TEST_DB_URI as string)
 		: (config.DB_URI as string);
 
-const sql = postgres(dbURI);
-
-export default sql;
+export const sql = postgres(dbURI);

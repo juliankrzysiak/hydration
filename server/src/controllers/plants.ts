@@ -1,6 +1,6 @@
 import express from 'express';
-const plantsRouter = express.Router();
-import sql from '../db';
+export const plantsRouter = express.Router();
+import { sql } from '../utils/db';
 
 plantsRouter.get('/', async (_req, res) => {
 	const plants = await sql`
@@ -13,16 +13,6 @@ plantsRouter.get('/', async (_req, res) => {
     `;
 	res.status(200).send(plants);
 });
-
-plantsRouter.get('/water', async (_req, res) => {
-	const plants = await sql`
-    
-    `;
-
-	res.status(200).json(plants);
-});
-
-export default plantsRouter;
 
 // INSERT INTO water (date, plant_id) VALUES
 // ('2023-04-13', (SELECT id FROM plants WHERE id = 2))
