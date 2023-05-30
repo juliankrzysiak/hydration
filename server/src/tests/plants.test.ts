@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import app from '../app';
-import sql, { dbURI } from '../db';
+import { dbURI } from '../db';
+import { plants } from '../utils/testHelper';
 import { beforeAll, it, describe, afterAll, expect } from 'vitest';
 import config from '../utils/config';
 
@@ -9,51 +10,13 @@ const api = supertest(app);
 beforeAll(async () => {
 	// Just in case, don't wanna delete prod DB
 	if (dbURI !== config.TEST_DB_URI) return;
-
-	await sql`
-    DROP TABLE IF EXISTS water`;
-	await sql`
-    DROP TABLE IF EXISTS plants;
-    `;
-
-	await sql`
-	CREATE TABLE plants (
-		id SERIAL PRIMARY KEY,
-		name text NOT NULL,
-		schedule integer);
-    `;
-
-	await sql`
-    CREATE TABLE water (
-        id SERIAL PRIMARY KEY,
-        date date,
-        plant_id int NOT NULL,
-			CONSTRAINT fk_id 
-			FOREIGN KEY (plant_id)
-        	REFERENCES plants(id))`;
-
-	await sql`
-    INSERT INTO plants (name, schedule)
-    VALUES 
-		('purple sage', 30),
-        ('black sage', 7)
-    `;
-
-	await sql`
-    INSERT INTO water (date, plant_id)
-	VALUES 
-		('2023-05-20', 1),
-        ('2023-05-29', 2),
-		('2023-05-20', 2)
-		`;
+	await plants.dropTables();
+	await plants.createTables();
+	await plants.insertIntoTables();
 });
 
 afterAll(async () => {
-	await sql`
-    DROP TABLE IF EXISTS water`;
-	await sql`
-        DROP TABLE IF EXISTS plants;
-    `;
+	await plants.dropTables();
 });
 
 describe('get all route', () => {
