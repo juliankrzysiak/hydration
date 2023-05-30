@@ -7,33 +7,56 @@ import config from '../utils/config';
 const api = supertest(app);
 
 beforeAll(async () => {
+	// Just in case, don't wanna delete prod DB
 	if (dbURI !== config.TEST_DB_URI) return;
+
 	await sql`
-    DROP TABLE IF EXISTS plants
+    DROP TABLE IF EXISTS water`;
+	await sql`
+    DROP TABLE IF EXISTS plants;
     `;
+
 	await sql`
-        CREATE TABLE plants (
-            id SERIAL PRIMARY KEY,
-            name text,
-            watered date[],
-            schedule text);
+	CREATE TABLE plants (
+		id SERIAL PRIMARY KEY,
+		name text NOT NULL,
+		schedule integer);
     `;
+
 	await sql`
-    INSERT INTO plants (name, watered, schedule)
+    CREATE TABLE water (
+        id SERIAL PRIMARY KEY,
+        date date,
+        plant_id int NOT NULL,
+			CONSTRAINT fk_id 
+			FOREIGN KEY (plant_id)
+        	REFERENCES plants(id))`;
+
+	await sql`
+    INSERT INTO plants (name, schedule)
     VALUES 
-    ('purple sage', '{"2023-05-29"}', '1w'),
-    ('black sage','{"2023-05-29"}', '1m'),
-    ('white sage','{"2023-05-29"}', '1w');
+		('purple sage', 30),
+        ('black sage', 7)
     `;
+
+	await sql`
+    INSERT INTO water (date, plant_id)
+	VALUES 
+		('2023-05-20', 1),
+        ('2023-05-29', 2),
+		('2023-05-20', 2)
+		`;
 });
 
 afterAll(async () => {
+	await sql`
+    DROP TABLE IF EXISTS water`;
 	await sql`
         DROP TABLE IF EXISTS plants;
     `;
 });
 
-describe('get route', () => {
+describe('get all route', () => {
 	it('returns successfuly', async () => {
 		await api.get('/api/plants').expect(200);
 	});
@@ -41,12 +64,25 @@ describe('get route', () => {
 		const secondPlant = {
 			id: 2,
 			name: 'black sage',
-			watered: ['2023-05-29T00:00:00.000Z'],
-			schedule: '1m',
+			watered: ['2023-05-20T00:00:00.000Z', '2023-05-29T00:00:00.000Z'],
+			schedule: 7,
+			next_water: '2023-06-05T00:00:00.000Z',
 		};
 
 		const res = await api.get('/api/plants');
-		expect(res.body).toHaveLength(3);
+		expect(res.body).toHaveLength(2);
 		expect(res.body[1]).toEqual(secondPlant);
 	});
 });
+
+// describe('get water_schedule route', () => {
+// 	it('returns successfuly', async () => {
+// 		await api.get('/api/plants/water').expect(200);
+// 	});
+
+// 	it('returns correct calculation', async () => {
+// 		const res = await api.get('/api/plants/water');
+// 		expect(res.body[0].water_date).toBe('2023-06-28T00:00:00.000Z');
+// 		expect(res.body[1].water_date).toBe('2023-06-28T00:00:00.000Z');
+// 	});
+// });
