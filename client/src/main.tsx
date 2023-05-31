@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import App from "./App.js";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </LocalizationProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
