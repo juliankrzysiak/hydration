@@ -35,14 +35,12 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
   }
 
   return (
-    <div>
-      <DateCalendar
-        onChange={onChange}
-        value={value}
-        calendarType="US"
-        view="month"
-        tileContent={tileContent}
-      />
-    </div>
+    <DateCalendar
+      onChange={onChange}
+      value={value}
+      calendarType="US"
+      view="month"
+      tileContent={tileContent}
+    />
   );
 }
