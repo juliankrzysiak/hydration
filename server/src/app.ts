@@ -9,10 +9,8 @@ app.use(cors());
 app.use(express.json());
 app.use(middleware.requestLogger);
 
-// route
+app.set('json replacer', middleware.replacer);
 app.use('/api/plants', plantsRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
-
-

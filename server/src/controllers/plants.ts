@@ -11,7 +11,7 @@ plantsRouter.get('/', async (_req, res) => {
         ON plants.id = water.plant_id
         GROUP BY plants.id, name, schedule
     `;
-	res.status(200).send(plants);
+	res.status(200).json(plants);
 });
 
 // INSERT INTO water (date, plant_id) VALUES
