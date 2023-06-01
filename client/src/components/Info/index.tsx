@@ -9,6 +9,16 @@ interface Props {
 export const Info = ({ plants }: Props) => {
   const date = useDateStore((state) => state.date);
 
+  const scheduledPlants = plants.filter((plant) =>
+    dayjs(plant.next_water).isSame(dayjs(date), "day")
+  );
+
+  const wateredPlants = plants.filter((plant) =>
+    plant.watered.some((wateredDate) =>
+      dayjs(wateredDate).isSame(dayjs(date), "day")
+    )
+  );
+
   return (
     <section className="m-4 rounded-md bg-gray-900/20 p-4 shadow-lg">
       <h2 className="mb-2 text-2xl underline ">
@@ -16,7 +26,14 @@ export const Info = ({ plants }: Props) => {
           ? "Today"
           : dayjs(date).format("MMMM D")}
       </h2>
-      {plants.map((plant) => {
+      {scheduledPlants.map((plant) => {
+        return (
+          <div className="mb-2 flex text-lg" key={plant.id}>
+            <h3 className="text-lg">{plant.name}</h3>
+          </div>
+        );
+      })}
+      {wateredPlants.map((plant) => {
         return (
           <div className="mb-2 flex text-lg" key={plant.id}>
             <h3 className="text-lg">{plant.name}</h3>
