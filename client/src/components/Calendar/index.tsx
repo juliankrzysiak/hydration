@@ -4,6 +4,7 @@ import { default as DateCalendar } from "react-calendar";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
+import { useDateStore } from "../../store";
 
 type ValuePiece = Date | null;
 
@@ -15,34 +16,43 @@ interface Args {
 }
 
 export default function Calendar({ plants }: { plants: Plant[] }) {
-  const [value, onChange] = useState<Value>(new Date());
+  const [value, setValue] = useState<Value>(new Date());
+  const setDate = useDateStore((state) => state.setDate);
 
   function tileContent({ date, view }: Args) {
     if (view === "month") {
       const allNextDate = plants.map((plant) => plant.next_water);
       if (allNextDate.find((dDate) => dayjs(dDate).isSame(date, "day"))) {
         return (
-          <svg
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute right-0 top-0 m-1  w-2 fill-gray-700"
-          >
-            <circle cx="50" cy="50" r="50" />
-          </svg>
+          <img
+            src="/droplet.svg"
+            alt="water droplet"
+            className="absolute right-0 top-0 w-4"
+          />
         );
       }
     }
   }
 
+  function tileClassName({ date, view }: Args) {
+    if (view === "month") {
+      const allPastDate = plants.flatMap((plant) => plant.watered);
+      console.log();
+      if (allPastDate.find((dDate) => dayjs(dDate).isSame(date, "day"))) {
+        return "bg-gray-900/30 border border-gray-900/30";
+      }
+    }
+  }
+
   return (
-    <div>
-      <DateCalendar
-        onChange={onChange}
-        value={value}
-        calendarType="US"
-        view="month"
-        tileContent={tileContent}
-      />
-    </div>
+    <DateCalendar
+      onChange={setValue}
+      onClickDay={setDate}
+      value={value}
+      calendarType="US"
+      view="month"
+      tileContent={tileContent}
+      tileClassName={tileClassName}
+    />
   );
 }
