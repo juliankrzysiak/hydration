@@ -8,10 +8,13 @@ interface Props {
 
 export const Info = ({ plants }: Props) => {
   const date = useDateStore((state) => state.date);
+
   return (
     <section className="m-4 rounded-md bg-gray-900/20 p-4 shadow-lg">
       <h2 className="mb-2 text-2xl underline ">
-        {dayjs(date).format("MMMM D")}
+        {dayjs(date).isSame(dayjs(), "day")
+          ? "Today"
+          : dayjs(date).format("MMMM D")}
       </h2>
       {plants.map((plant) => {
         return (

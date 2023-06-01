@@ -24,14 +24,13 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
       const allNextDate = plants.map((plant) => plant.next_water);
       if (allNextDate.find((dDate) => dayjs(dDate).isSame(date, "day"))) {
         return (
-          <svg
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute right-0 top-0 m-1  w-2 fill-gray-700"
-          >
-            <circle cx="50" cy="50" r="50" />
-          </svg>
+          <img
+            src="/droplet.svg"
+            alt="water droplet"
+            className="absolute right-0 top-0 w-4"
+          />
         );
+        // return <Droplet className="absolute right-0 top-0  w-4" />;
       }
     }
   }
