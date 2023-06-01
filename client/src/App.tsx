@@ -2,6 +2,7 @@ import Calendar from "./components/Calendar";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { getAllPlants } from "./api";
 import { Info } from "./components/Info";
+import { Menu } from "./components/Menu";
 
 export default function App() {
   const queryClient = useQueryClient();
@@ -17,6 +18,7 @@ export default function App() {
     <main>
       <Calendar plants={data} />
       <Info plants={data} />
+      <Menu />
     </main>
   );
 }
