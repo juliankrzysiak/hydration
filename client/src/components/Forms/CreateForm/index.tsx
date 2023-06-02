@@ -1,8 +1,15 @@
 import { useField } from "../../../hooks/useField";
+import { useShowStore } from "../../../store";
 
 export const CreateForm = () => {
   const [name, setName] = useField({ id: "name", type: "text" });
   const [schedule, setSchedule] = useField({ id: "schedule", type: "number" });
+
+  const submitForm = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    setName("");
+    setSchedule("");
+  };
 
   return (
     <section className="m-4 rounded-md bg-gray-900/20 p-4 shadow-lg">
@@ -40,8 +47,15 @@ export const CreateForm = () => {
         </div>
 
         <div className="flex gap-6">
-          <button className="btn">Add Plant</button>
-          <button className="btn">Cancel</button>
+          <button className="btn" onClick={submitForm}>
+            Add Plant
+          </button>
+          <button
+            className="btn"
+            onClick={() => useShowStore.setState({ createForm: false })}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </section>
