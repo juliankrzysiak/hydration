@@ -4,7 +4,7 @@ import { default as DateCalendar } from "react-calendar";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
-import { useDateStore } from "../../store";
+import { useDateStore, useShowStore } from "../../store";
 
 type ValuePiece = Date | null;
 
@@ -17,7 +17,6 @@ interface Args {
 
 export default function Calendar({ plants }: { plants: Plant[] }) {
   const [value, setValue] = useState<Value>(new Date());
-  const setDate = useDateStore((state) => state.setDate);
 
   function tileContent({ date, view }: Args) {
     if (view === "month") {
@@ -44,10 +43,15 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
     }
   }
 
+  const onClickDay = (date: Date) => {
+    useDateStore.setState({ date });
+    useShowStore.setState({ createForm: false });
+  };
+
   return (
     <DateCalendar
       onChange={setValue}
-      onClickDay={setDate}
+      onClickDay={onClickDay}
       value={value}
       calendarType="US"
       view="month"

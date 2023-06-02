@@ -19,7 +19,7 @@ afterAll(async () => {
 	await plants.dropTables();
 });
 
-describe('get all route', () => {
+describe('GET all route', () => {
 	it('returns successfuly', async () => {
 		await api.get('/api/plants').expect(200);
 	});
@@ -27,13 +27,37 @@ describe('get all route', () => {
 		const secondPlant = {
 			id: 2,
 			name: 'black sage',
-			watered: ['2023-05-20T00:00:00.000Z', '2023-05-29T00:00:00.000Z'],
+			watered: ['2023-05-20', '2023-05-29'],
 			schedule: 7,
-			next_water: '2023-06-05T00:00:00.000Z',
+			next_water: '2023-06-05',
 		};
 
 		const res = await api.get('/api/plants');
 		expect(res.body).toHaveLength(2);
 		expect(res.body[1]).toEqual(secondPlant);
+	});
+});
+
+describe('POST route', () => {
+	it('returns posted plant', async () => {
+		const req = {
+			name: 'white sage',
+			schedule: 3,
+		};
+
+		const res = await api.post('/api/plants').send(req).expect(201);
+		expect(res.body).toEqual([req]);
+	});
+	it('shows posted plant with GET', async () => {
+		const res = await api.get('/api/plants').expect(200);
+
+		expect(res.body).toHaveLength(3);
+		expect(res.body).toContainEqual({
+			id: 3,
+			name: 'white sage',
+			schedule: 3,
+			watered: [null],
+			next_water: null,
+		});
 	});
 });
