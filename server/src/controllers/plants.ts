@@ -14,5 +14,19 @@ plantsRouter.get('/', async (_req, res) => {
 	res.status(200).json(plants);
 });
 
-// INSERT INTO water (date, plant_id) VALUES
-// ('2023-04-13', (SELECT id FROM plants WHERE id = 2))
+interface PostBody {
+	name: string;
+	schedule: number;
+}
+
+plantsRouter.post('/', async (req, res) => {
+	const { name, schedule } = req.body as PostBody;
+	const plants = await sql`
+    INSERT INTO plants 
+        (name, schedule) 
+    VALUES 
+        (${name}, ${schedule})
+    RETURNING name, schedule
+    `;
+	res.status(201).json(plants);
+});
