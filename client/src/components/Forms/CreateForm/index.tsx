@@ -1,12 +1,23 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useField } from "../../../hooks/useField";
 import { useShowStore } from "../../../store";
+import { createPlant } from "../../../api";
 
 export const CreateForm = () => {
+  const queryClient = useQueryClient();
+  const createPlantMutation = useMutation({
+    mutationFn: createPlant,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["plants"] }),
+  });
   const [name, setName] = useField({ id: "name", type: "text" });
   const [schedule, setSchedule] = useField({ id: "schedule", type: "number" });
 
   const submitForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    createPlantMutation.mutate({
+      name: name.value,
+      schedule: Number(schedule.value),
+    });
     setName("");
     setSchedule("");
   };
@@ -14,7 +25,7 @@ export const CreateForm = () => {
   return (
     <section className="m-4 rounded-md bg-gray-900/20 p-4 shadow-lg">
       <h2 className="mb-4 text-xl">Add Plant</h2>
-      <form className="flex flex-col gap-3">
+      <form className="flex flex-col gap-3" onSubmit={submitForm}>
         <div className=" flex max-w-[10rem] flex-col">
           <label className="text-lg" htmlFor="name">
             Plant name
@@ -47,11 +58,12 @@ export const CreateForm = () => {
         </div>
 
         <div className="flex gap-6">
-          <button className="btn" onClick={submitForm}>
+          <button className="btn" type="submit" onClick={submitForm}>
             Add Plant
           </button>
           <button
             className="btn"
+            type="button"
             onClick={() => useShowStore.setState({ createForm: false })}
           >
             Cancel
