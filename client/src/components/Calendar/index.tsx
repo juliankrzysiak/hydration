@@ -17,7 +17,6 @@ interface Args {
 
 export default function Calendar({ plants }: { plants: Plant[] }) {
   const [value, setValue] = useState<Value>(new Date());
-  const setDate = useDateStore((state) => state.setDate);
 
   function tileContent({ date, view }: Args) {
     if (view === "month") {
@@ -47,7 +46,7 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
   return (
     <DateCalendar
       onChange={setValue}
-      onClickDay={setDate}
+      onClickDay={(date) => useDateStore.setState({ date })}
       value={value}
       calendarType="US"
       view="month"
