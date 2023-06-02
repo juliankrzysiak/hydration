@@ -19,7 +19,7 @@ export const Menu = () => {
       >
         <img src={`/${pressed ? "cancel" : "menu"}.svg`} alt="Hamburger menu" />
       </button>
-      <CreateButton pressed={pressed} direction={translate.N} />
+      <CreateButton pressed={pressed} direction={translate.N} setPressed={setPressed}/>
       {/* <MenuButton pressed={pressed} direction={translate.NW} /> */}
       {/* <MenuButton pressed={pressed} direction={translate.W} /> */}
     </nav>
