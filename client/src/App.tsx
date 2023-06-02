@@ -3,6 +3,8 @@ import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { getAllPlants } from "./api";
 import { Info } from "./components/Info";
 import { Menu } from "./components/Menu";
+import { useShowStore } from "./store";
+import { CreateForm } from "./components/Forms/CreateForm";
 
 export default function App() {
   const queryClient = useQueryClient();
@@ -10,6 +12,7 @@ export default function App() {
     queryKey: ["plants"],
     queryFn: getAllPlants,
   });
+  const showCreateForm = useShowStore((state) => state.createForm);
 
   if (isLoading) return <main>Loading...</main>;
   if (isError) return <main>Something went wrong!</main>;
@@ -17,7 +20,7 @@ export default function App() {
   return (
     <main>
       <Calendar plants={data} />
-      <Info plants={data} />
+      {showCreateForm ? <CreateForm /> : <Info plants={data} />}
       <Menu />
     </main>
   );

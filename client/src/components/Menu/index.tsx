@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MenuButton } from "./MenuButton";
+import { CreateButton } from "./CreateButton";
 
 export const Menu = () => {
   const [pressed, setPressed] = useState(false);
@@ -8,6 +9,7 @@ export const Menu = () => {
     NW: "-translate-y-16 -translate-x-16",
     W: "-translate-x-16",
   };
+
   return (
     <nav className="fixed bottom-6 right-6 grid place-content-center">
       <button
@@ -17,9 +19,9 @@ export const Menu = () => {
       >
         <img src={`/${pressed ? "cancel" : "menu"}.svg`} alt="Hamburger menu" />
       </button>
-      <MenuButton pressed={pressed} translate={translate.N} />
-      <MenuButton pressed={pressed} translate={translate.NW} />
-      <MenuButton pressed={pressed} translate={translate.W} />
+      <CreateButton pressed={pressed} direction={translate.N} />
+      {/* <MenuButton pressed={pressed} direction={translate.NW} /> */}
+      {/* <MenuButton pressed={pressed} direction={translate.W} /> */}
     </nav>
   );
 };
