@@ -30,4 +30,9 @@ const errorHandler: ErrorRequestHandler = (error, _req, res, next) => {
 	next(error);
 };
 
-export const middleware = { requestLogger, unknownEndpoint, errorHandler, replacer};
+export const middleware = {
+	requestLogger,
+	unknownEndpoint,
+	errorHandler,
+	replacer,
+};

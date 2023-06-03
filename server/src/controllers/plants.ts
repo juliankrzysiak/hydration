@@ -11,7 +11,7 @@ plantsRouter.get('/', async (_req, res) => {
         ON plants.id = water.plant_id
         GROUP BY plants.id, name, schedule
     `;
-	res.status(200).json(plants);
+	return res.status(200).json(plants);
 });
 
 interface PostBody {
@@ -28,5 +28,22 @@ plantsRouter.post('/', async (req, res) => {
         (${name}, ${schedule})
     RETURNING name, schedule
     `;
-	res.status(201).json(plants);
+	return res.status(201).json(plants);
+});
+
+interface PostBodyWater {
+	id: number;
+	date: Date;
+}
+
+plantsRouter.post('/water', async (req, res) => {
+	const { id, date } = req.body as PostBodyWater;
+	const plants = await sql`
+    INSERT INTO water
+        (plant_id, date)
+    VALUES 
+        (${id}, ${date})
+    RETURNING plant_id, date
+    `;
+	return res.status(201).json(plants);
 });
