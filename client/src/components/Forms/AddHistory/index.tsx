@@ -5,6 +5,7 @@ import { ComboBox } from "./ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addDate } from "../../../api";
 import { useDateStore } from "../../../store";
+import dayjs from "dayjs";
 
 interface Props {
   plants: Plant[];
@@ -22,6 +23,16 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    if (
+      // Stop duplicates of dates on same plant
+      plants
+        .filter((plant) => plant.id === selected.id)
+        .at(0)
+        ?.watered.some((wDate) => dayjs(date).isSame(wDate, "day"))
+    ) {
+      handleInput(false);
+      return;
+    }
     addDateMutation.mutate({
       id: selected.id,
       date,
