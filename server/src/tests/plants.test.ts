@@ -38,7 +38,7 @@ describe('GET all route', () => {
 	});
 });
 
-describe('POST route', () => {
+describe('POST plant route', () => {
 	it('returns posted plant', async () => {
 		const req = {
 			name: 'white sage',
@@ -59,5 +59,28 @@ describe('POST route', () => {
 			watered: [null],
 			next_water: null,
 		});
+	});
+});
+
+describe('POST water history route', () => {
+	it('returns posted date', async () => {
+		const req = {
+			id: 3,
+			date: '2023-04-20',
+		};
+		const res = await api.post('/api/plants/water').send(req).expect(201);
+		expect(res.body).toEqual([{ plant_id: 3, date: '2023-04-20' }]);
+	});
+
+	it('shows correct date', async () => {
+		const res = await api.get('/api/plants').expect(200);
+
+		expect(res.body).toHaveLength(3);
+		expect(res.body[2].watered).toEqual(['2023-04-20']);
+	});
+	it('shows correct calculated date', async () => {
+		const res = await api.get('/api/plants').expect(200);
+
+		expect(res.body[2].next_water).toEqual('2023-04-23');
 	});
 });

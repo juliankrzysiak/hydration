@@ -1,4 +1,4 @@
-import { PlantCreate } from "./types";
+import { PlantAddDate, PlantCreate } from "./types";
 
 const url = "http://localhost:3001/api/plants";
 
@@ -20,6 +20,18 @@ export const createPlant = async (plant: PlantCreate) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(plant),
+  });
+
+  return res.json();
+};
+
+export const addDate = async (date: PlantAddDate) => {
+  const res = await fetch(`${url}/water`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(date),
   });
 
   return res.json();
