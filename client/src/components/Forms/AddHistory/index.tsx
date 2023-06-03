@@ -5,7 +5,6 @@ import { ComboBox } from "./ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addDate } from "../../../api";
 import { useDateStore } from "../../../store";
-import dayjs from "dayjs";
 
 interface Props {
   plants: Plant[];
@@ -20,7 +19,6 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   });
   const date = useDateStore((state) => state.date);
   const [selected, setSelected] = useState({} as Plant);
-  console.log(selected.id, date);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -28,6 +26,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
       id: selected.id,
       date,
     });
+    handleInput(false);
   };
 
   return (
