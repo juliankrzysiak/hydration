@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Plant } from "../../../types";
 import { ConfirmButtons } from "./ConfirmButtons";
 import { ComboBox } from "./ComboBox";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addDate } from "../../../api";
+import { useDateStore } from "../../../store";
+import dayjs from "dayjs";
 
 interface Props {
   plants: Plant[];
@@ -9,11 +13,21 @@ interface Props {
 }
 
 export const AddHistory = ({ plants, handleInput }: Props) => {
-  const [selected, setSelected] = useState("");
+  const queryClient = useQueryClient();
+  const addDateMutation = useMutation({
+    mutationFn: addDate,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["plants"] }),
+  });
+  const date = useDateStore((state) => state.date);
+  const [selected, setSelected] = useState({} as Plant);
+  console.log(selected.id, date);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    setSelected("");
+    addDateMutation.mutate({
+      id: selected.id,
+      date,
+    });
   };
 
   return (

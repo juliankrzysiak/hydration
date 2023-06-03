@@ -4,9 +4,9 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Plant } from "../../../types";
 
 interface Props {
-  selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  selected: Plant;
   plants: Plant[];
+  setSelected: React.Dispatch<React.SetStateAction<Plant>>;
 }
 
 export const ComboBox = ({ selected, setSelected, plants }: Props) => {

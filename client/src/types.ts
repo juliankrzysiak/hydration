@@ -7,3 +7,8 @@ export interface Plant {
 }
 
 export type PlantCreate = Pick<Plant, "name" | "schedule">;
+
+export interface PlantAddDate {
+  id: number;
+  date: Date;
+}
