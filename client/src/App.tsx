@@ -1,5 +1,5 @@
 import Calendar from "./components/Calendar";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getAllPlants } from "./api";
 import { Info } from "./components/Info";
 import { Menu } from "./components/Menu";
@@ -7,7 +7,6 @@ import { useShowStore } from "./store";
 import { CreateForm } from "./components/Forms/CreateForm";
 
 export default function App() {
-  const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["plants"],
     queryFn: getAllPlants,
