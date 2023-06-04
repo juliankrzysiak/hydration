@@ -7,6 +7,7 @@ interface Props {
   selected: Plant;
   plants: Plant[];
   setSelected: React.Dispatch<React.SetStateAction<Plant>>;
+  type: "ADD" | "DELETE";
 }
 
 export const ComboBox = ({ selected, setSelected, plants }: Props) => {
