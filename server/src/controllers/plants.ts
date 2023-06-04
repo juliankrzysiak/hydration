@@ -31,19 +31,32 @@ plantsRouter.post('/', async (req, res) => {
 	return res.status(201).json(plants);
 });
 
-interface PostBodyWater {
+interface BodyWater {
 	id: number;
 	date: Date;
 }
 
 plantsRouter.post('/water', async (req, res) => {
-	const { id, date } = req.body as PostBodyWater;
-	const plants = await sql`
+	const { id, date } = req.body as BodyWater;
+	const plant = await sql`
     INSERT INTO water
         (plant_id, date)
     VALUES 
         (${id}, ${date})
     RETURNING plant_id, date
     `;
-	return res.status(201).json(plants);
+	return res.status(201).json(plant);
+});
+
+plantsRouter.delete('/water', async (req, res) => {
+	const { id, date } = req.body as BodyWater;
+	const deletedPlant = await sql`
+    DELETE FROM water 
+    WHERE 
+        plant_id = ${id}
+    AND 
+        date = ${date}
+    RETURNING plant_id, date
+    `;
+	return res.status(200).json(deletedPlant);
 });
