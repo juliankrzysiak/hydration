@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Plant } from "../../../types";
+import { useFilter } from "../../../hooks/useFilter";
 
 interface Props {
   selected: Plant;
@@ -12,16 +13,8 @@ interface Props {
 
 export const ComboBox = ({ selected, setSelected, plants }: Props) => {
   const [query, setQuery] = useState("");
+  const [filteredPlants] = useFilter({ plants, query });
 
-  const filteredPlants =
-    query === ""
-      ? plants
-      : plants.filter((plant) =>
-          plant.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
   return (
     <Combobox value={selected} onChange={setSelected}>
       <div className="relative mt-1">

@@ -17,5 +17,5 @@ export const useShowStore = create<ShowState>(() => ({
 }));
 
 export const useToastStore = create(() => ({
-  toast: "stuff",
+  toast: "",
 }));

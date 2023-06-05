@@ -1,33 +1,20 @@
-import { useDateStore } from "../../store";
 import { Plant } from "../../types";
-import dayjs from "dayjs";
 import { ShowForm } from "./ShowForm";
+import { useCalendarDates } from "../../hooks/useCalendarDates";
 
 interface Props {
   plants: Plant[];
 }
 
 export const Info = ({ plants }: Props) => {
-  const date = useDateStore((state) => state.date);
-
-  const scheduledPlants = plants.filter((plant) =>
-    dayjs(plant.next_water).isSame(dayjs(date), "day")
-  );
-
-  const wateredPlants = plants.filter((plant) =>
-    plant.watered.some((wateredDate) =>
-      dayjs(wateredDate).isSame(dayjs(date), "day")
-    )
-  );
+  const [scheduledPlants, wateredPlants, todayOrDate] = useCalendarDates({
+    plants,
+  });
 
   return (
     <section className="m-4 flex flex-col rounded-md bg-gray-900/20 p-4 shadow-lg">
       <div className="flex">
-        <h2 className="mb-2 text-2xl underline ">
-          {dayjs(date).isSame(dayjs(), "day")
-            ? "Today"
-            : dayjs(date).format("MMMM D")}
-        </h2>
+        <h2 className="mb-2 text-2xl underline ">{todayOrDate}</h2>
       </div>
       {scheduledPlants.length > 0 && <h3>To Water</h3>}
       {scheduledPlants.map((plant) => {
