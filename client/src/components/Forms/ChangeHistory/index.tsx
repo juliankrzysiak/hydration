@@ -4,7 +4,7 @@ import { ConfirmButtons } from "./ConfirmButtons";
 import { ComboBox } from "./ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addDate, deleteDate } from "../../../api";
-import { useDateStore } from "../../../store";
+import { useDateStore, useToastStore } from "../../../store";
 import dayjs from "dayjs";
 
 interface Props {
@@ -17,11 +17,17 @@ export const ChangeHistory = ({ plants, handleInput, type }: Props) => {
   const queryClient = useQueryClient();
   const addDateMutation = useMutation({
     mutationFn: addDate,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["plants"] }),
+    onSuccess: () => {
+      useToastStore.setState({ toast: "Date added!" });
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+    },
   });
   const deleteDateMutation = useMutation({
     mutationFn: deleteDate,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["plants"] }),
+    onSuccess: () => {
+      useToastStore.setState({ toast: "Date removed!" });
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+    },
   });
 
   const date = useDateStore((state) => state.date);

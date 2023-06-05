@@ -5,6 +5,7 @@ import { Info } from "./components/Info";
 import { Menu } from "./components/Menu";
 import { useShowStore } from "./store";
 import { CreateForm } from "./components/Forms/CreateForm";
+import { Toast } from "./components/Toast";
 
 export default function App() {
   const { data, isLoading, isError } = useQuery({
@@ -21,6 +22,7 @@ export default function App() {
       <Calendar plants={data} />
       {showCreateForm ? <CreateForm /> : <Info plants={data} />}
       <Menu />
+      <Toast />
     </main>
   );
 }
