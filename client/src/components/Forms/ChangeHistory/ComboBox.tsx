@@ -11,9 +11,9 @@ interface Props {
   type: "ADD" | "DELETE";
 }
 
-export const ComboBox = ({ selected, setSelected, plants }: Props) => {
+export const ComboBox = ({ selected, setSelected, plants, type }: Props) => {
   const [query, setQuery] = useState("");
-  const [filteredPlants] = useFilter({ plants, query });
+  const filteredPlants = useFilter({ plants, query, type });
 
   return (
     <Combobox value={selected} onChange={setSelected}>
