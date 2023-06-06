@@ -8,6 +8,8 @@ interface Args {
 }
 
 const filterWithQuery = (plants: Plant[], query: string) => {
+  if (!query) return plants;
+
   return plants.filter((plant) =>
     plant.name
       .toLowerCase()
@@ -17,19 +19,18 @@ const filterWithQuery = (plants: Plant[], query: string) => {
 };
 
 export const useFilter = ({ plants, query, type }: Args) => {
-  const [, watered] = useCalendarDates({ plants });
+  const [, addedPlants] = useCalendarDates({ plants });
 
-  const notAddedPlants = plants.filter((plant) => !watered.includes(plant));
+  const notAddedPlants = plants.filter((plant) => !addedPlants.includes(plant));
 
   // Plants that are already listed are not allowed to be ADDED again
   if (type === "ADD") {
-    if (!query) return notAddedPlants;
     return filterWithQuery(notAddedPlants, query);
   }
   // Plants that are already listed are the only ones that can be Deleted
   if (type === "DELETE") {
-    if (!query) return watered;
-    return filterWithQuery(watered, query);
+    return filterWithQuery(addedPlants, query);
   }
+
   return plants;
 };
