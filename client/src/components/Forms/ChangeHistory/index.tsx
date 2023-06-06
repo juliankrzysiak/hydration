@@ -63,7 +63,7 @@ export const ChangeHistory = ({ plants, handleInput, type }: Props) => {
   };
 
   return (
-    <form className="flex w-3/4 flex-col gap-4" onSubmit={handleSubmit}>
+    <form className="flex w-3/4 flex-col" onSubmit={handleSubmit}>
       <ComboBox
         type={type}
         selected={selected}

@@ -17,7 +17,10 @@ export const ComboBox = ({ selected, setSelected, plants, type }: Props) => {
 
   return (
     <Combobox value={selected} onChange={setSelected}>
-      <div className="relative mt-1">
+      <Combobox.Label>
+        {type === "ADD" ? "Add plant" : "Delete plant"}
+      </Combobox.Label>
+      <div className="relative mb-6 mt-1">
         <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
             className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
