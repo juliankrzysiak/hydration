@@ -7,6 +7,12 @@ interface Args {
   type: "ADD" | "DELETE";
 }
 
+// Asc
+const sortPlants = (plants: Plant[]) =>
+  plants.sort((a, b) =>
+    a.name.localeCompare(b.name, "en", { sensitivity: "base" })
+  );
+
 const filterWithQuery = (plants: Plant[], query: string) => {
   if (!query) return plants;
 
@@ -25,11 +31,11 @@ export const useFilter = ({ plants, query, type }: Args) => {
 
   // Plants that are already listed are not allowed to be ADDED again
   if (type === "ADD") {
-    return filterWithQuery(notAddedPlants, query);
+    return filterWithQuery(sortPlants(notAddedPlants), query);
   }
   // Plants that are already listed are the only ones that can be Deleted
   if (type === "DELETE") {
-    return filterWithQuery(addedPlants, query);
+    return filterWithQuery(sortPlants(addedPlants), query);
   }
 
   return plants;
