@@ -2,28 +2,25 @@ import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Plant } from "../../../types";
+import { useFilter } from "../../../hooks/useFilter";
 
 interface Props {
   selected: Plant;
   plants: Plant[];
   setSelected: React.Dispatch<React.SetStateAction<Plant>>;
+  type: "ADD" | "DELETE";
 }
 
-export const ComboBox = ({ selected, setSelected, plants }: Props) => {
+export const ComboBox = ({ selected, setSelected, plants, type }: Props) => {
   const [query, setQuery] = useState("");
+  const filteredPlants = useFilter({ plants, query, type });
 
-  const filteredPlants =
-    query === ""
-      ? plants
-      : plants.filter((plant) =>
-          plant.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
   return (
     <Combobox value={selected} onChange={setSelected}>
-      <div className="relative mt-1">
+      <Combobox.Label>
+        {type === "ADD" ? "Add plant" : "Delete plant"}
+      </Combobox.Label>
+      <div className="relative mb-6 mt-1">
         <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
             className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"

@@ -62,7 +62,7 @@ describe('POST plant route', () => {
 	});
 });
 
-describe('POST water history route', () => {
+describe('POST single date route', () => {
 	it('returns posted date', async () => {
 		const req = {
 			id: 3,
@@ -82,5 +82,33 @@ describe('POST water history route', () => {
 		const res = await api.get('/api/plants').expect(200);
 
 		expect(res.body[2].next_water).toEqual('2023-04-23');
+	});
+});
+
+describe('DELETE single date route', () => {
+	it('returns deleted date', async () => {
+		const req = {
+			id: 3,
+			date: '2023-04-20',
+		};
+		const res = await api.delete('/api/plants/water').send(req).expect(200);
+		expect(res.body).toEqual([{ plant_id: 3, date: '2023-04-20' }]);
+	});
+	it('should be deleted with GET', async () => {
+		const res = await api.get('/api/plants').expect(200);
+
+		expect(res.body).toHaveLength(3);
+		expect(res.body[2].watered).toEqual([null]);
+	});
+	it('should have null calculation when date emptied', async () => {
+		const res = await api.get('/api/plants').expect(200);
+
+		expect(res.body[2].next_water).toEqual(null);
+	});
+	it('did not delete other dates', async () => {
+		const res = await api.get('/api/plants').expect(200);
+
+		expect(res.body).toHaveLength(3);
+		expect(res.body[1].watered).toContain('2023-05-20');
 	});
 });

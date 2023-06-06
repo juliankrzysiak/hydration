@@ -15,3 +15,7 @@ interface ShowState {
 export const useShowStore = create<ShowState>(() => ({
   createForm: false,
 }));
+
+export const useToastStore = create(() => ({
+  toast: "",
+}));
