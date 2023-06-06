@@ -30,7 +30,8 @@ export const ChangeHistory = ({ plants, handleInput, type }: Props) => {
     },
   });
 
-  const date = useDateStore((state) => state.date);
+  const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
+  console.log(date);
   const [selected, setSelected] = useState({} as Plant);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
