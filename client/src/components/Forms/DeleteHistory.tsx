@@ -45,6 +45,7 @@ export const DeleteHistory = ({ plants, handleInput }: Props) => {
         query={query}
         setQuery={setQuery}
         plants={filteredPlants}
+        label="Delete Date"
       />
       <ConfirmButtons handleInput={handleInput} />
     </form>

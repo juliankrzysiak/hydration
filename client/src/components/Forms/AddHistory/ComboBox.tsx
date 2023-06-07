@@ -9,6 +9,7 @@ interface Props {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   plants: Plant[];
+  label?: string;
 }
 
 export const ComboBox = ({
@@ -17,12 +18,11 @@ export const ComboBox = ({
   query,
   setQuery,
   plants,
+  label,
 }: Props) => {
   return (
     <Combobox value={selected} onChange={setSelected}>
-      {/* <Combobox.Label>
-        
-      </Combobox.Label> */}
+      <Combobox.Label>{label}</Combobox.Label>
       <div className="relative mb-6 mt-1">
         <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input

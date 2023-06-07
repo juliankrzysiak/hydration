@@ -5,7 +5,7 @@ import { sortAsc } from "@/utils/sortAsc";
 interface Args {
   plants: Plant[];
   query: string;
-  type: "ADD" | "DELETE";
+  type?: "ADD" | "DELETE";
 }
 
 const filterWithQuery = (plants: Plant[], query: string) => {

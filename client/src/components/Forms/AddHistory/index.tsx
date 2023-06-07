@@ -22,10 +22,10 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },
   });
+  const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
   const [selected, setSelected] = useState({} as Plant);
   const [query, setQuery] = useState("");
-  const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
-  const filteredPlants = useFilter({ plants, query, type: "ADD" });
+  const filteredPlants = useFilter({ plants, query });
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -56,6 +56,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
         query={query}
         setQuery={setQuery}
         plants={filteredPlants}
+        label="Add Date"
       />
       <ConfirmButtons handleInput={handleInput} />
     </form>
