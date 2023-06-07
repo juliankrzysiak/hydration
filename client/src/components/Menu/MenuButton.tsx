@@ -1,17 +1,12 @@
 import { motion } from "framer-motion";
 
 interface Props {
-  ADD?: boolean;
-  DELETE?: boolean;
   direction: string;
   handleClick: () => void;
+  children: React.ReactNode;
 }
 
-export const MenuButton = ({ ADD, DELETE, handleClick, direction }: Props) => {
-  let type;
-  if (ADD) type = "plus";
-  if (DELETE) type = "cancel";
-
+export const MenuButton = ({ direction, handleClick, children }: Props) => {
   return (
     <div
       className={`absolute grid aspect-square w-16 place-content-center transition-all duration-200 ${direction}`}
@@ -22,7 +17,7 @@ export const MenuButton = ({ ADD, DELETE, handleClick, direction }: Props) => {
         className="aspect-square w-12 rounded-xl border-2 border-gray-900 bg-gray-500/10 p-1"
         onClick={handleClick}
       >
-        <img src={`/${type}.svg`} alt={type} />
+        {children}
       </motion.button>
     </div>
   );

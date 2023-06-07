@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { MenuButton } from "./MenuButton";
 import { useShowStore } from "../../store";
+import menu from "@/assets/menu.svg";
+import plus from "@/assets/plus.svg";
+import cancel from "@/assets/cancel.svg";
 
 export const Menu = () => {
   const [pressed, setPressed] = useState(false);
@@ -23,12 +26,16 @@ export const Menu = () => {
         aria-pressed={pressed}
         onClick={() => setPressed(!pressed)}
       >
-        <img src="/menu.svg" alt="Hamburger menu" />
+        <img src={menu} alt="Hamburger menu" />
       </button>
       {pressed && (
         <>
-          <MenuButton ADD handleClick={addPlant} direction={translate.N} />
-          <MenuButton DELETE handleClick={addPlant} direction={translate.W} />
+          <MenuButton handleClick={addPlant} direction={translate.N}>
+            <img src={plus} alt="Add new plant" />
+          </MenuButton>
+          <MenuButton handleClick={addPlant} direction={translate.W}>
+            <img src={cancel} alt="Delete existing plant" />
+          </MenuButton>
         </>
       )}
     </nav>

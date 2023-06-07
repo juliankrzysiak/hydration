@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Plant } from "@/types";
 import { AddHistory } from "@/components/Forms/AddHistory/";
 import { DeleteHistory } from "@/components/Forms/DeleteHistory";
+import plus from "@/assets/plus.svg";
+import cancel from "@/assets/cancel.svg";
 
 interface Props {
   plants: Plant[];
@@ -23,13 +25,13 @@ export const ShowForm = ({ plants }: Props) => {
             className="rounded-md bg-gray-700/20 p-1"
             onClick={() => setShowAddForm(true)}
           >
-            <img className=" w-5" src="/plus.svg" alt="plus symbol" />
+            <img className=" w-5" src={plus} alt="Add plant" />
           </button>
           <button
             className="rounded-md bg-gray-700/20 p-1"
             onClick={() => setShowDeleteForm(true)}
           >
-            <img className=" w-5" src="/cancel.svg" alt="plus symbol" />
+            <img className=" w-5" src={cancel} alt="Delete plant" />
           </button>
         </>
       );
