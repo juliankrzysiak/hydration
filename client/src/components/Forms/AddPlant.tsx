@@ -3,7 +3,7 @@ import { useField } from "@/hooks/useField";
 import { useShowStore } from "@/store";
 import { createPlant } from "@/api";
 
-export const AddForm = () => {
+export const AddPlant = () => {
   const queryClient = useQueryClient();
   const createPlantMutation = useMutation({
     mutationFn: createPlant,

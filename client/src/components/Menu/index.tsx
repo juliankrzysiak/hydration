@@ -19,6 +19,11 @@ export const Menu = () => {
     setPressed(false);
   };
 
+  const deletePlant = () => {
+    useShowStore.setState({ deletePlant: true });
+    setPressed(false);
+  };
+
   return (
     <nav className="fixed bottom-6 right-6 grid place-content-center">
       <button
@@ -33,7 +38,7 @@ export const Menu = () => {
           <MenuButton handleClick={addPlant} direction={translate.N}>
             <img src={plus} alt="Add new plant" />
           </MenuButton>
-          <MenuButton handleClick={addPlant} direction={translate.W}>
+          <MenuButton handleClick={deletePlant} direction={translate.W}>
             <img src={cancel} alt="Delete existing plant" />
           </MenuButton>
         </>
