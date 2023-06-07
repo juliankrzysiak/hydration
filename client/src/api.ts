@@ -25,25 +25,37 @@ export const createPlant = async (plant: PlantCreate) => {
   return res.json();
 };
 
-export const addDate = async (date: PlantDate) => {
+export const addDate = async (body: PlantDate) => {
   const res = await fetch(`${url}/water`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(date),
+    body: JSON.stringify(body),
   });
 
   return res.json();
 };
 
-export const deleteDate = async (date: PlantDate) => {
+export const deleteDate = async (body: PlantDate) => {
   const res = await fetch(`${url}/water`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(date),
+    body: JSON.stringify(body),
+  });
+
+  return res.json();
+};
+
+export const deletePlant = async (id: { id: number }) => {
+  const res = await fetch(`${url}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(id),
   });
 
   return res.json();

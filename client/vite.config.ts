@@ -6,5 +6,8 @@ export default defineConfig({
   build: {
     outDir: "./dist",
   },
+  resolve: {
+    alias: [{ find: "@", replacement: "/src" }],
+  },
   plugins: [react()],
 });

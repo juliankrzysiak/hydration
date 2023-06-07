@@ -4,6 +4,7 @@ import { dbURI } from '../utils/db';
 import { app } from '../app';
 import { plants } from '../utils/testHelper';
 import { config } from '../utils/config';
+import { sql } from '../utils/db';
 
 const api = supertest(app);
 
@@ -110,5 +111,28 @@ describe('DELETE single date route', () => {
 
 		expect(res.body).toHaveLength(3);
 		expect(res.body[1].watered).toContain('2023-05-20');
+	});
+});
+
+describe('DELETE entire plant and data route', () => {
+	it('returns deleted date', async () => {
+		const req = {
+			id: 3,
+		};
+		const res = await api.delete('/api/plants/').send(req).expect(200);
+		expect(res.body).toEqual([{ id: 3, name: 'white sage' }]);
+	});
+	it('should be deleted with GET', async () => {
+		const res = await api.get('/api/plants').expect(200);
+
+		expect(res.body).toHaveLength(2);
+		expect(res.body[2]).toBeUndefined();
+	});
+	it('should not have anything left in water table', async () => {
+		const dates = await sql`
+		SELECT * FROM water
+		WHERE plant_id = 3
+		`;
+		expect(dates).toEqual([]);
 	});
 });

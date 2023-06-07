@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 import { useDateStore, useShowStore } from "../../store";
+import droplet from "@/assets/droplet.svg";
 
 type ValuePiece = Date | null;
 
@@ -24,8 +25,8 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
       if (allNextDate.find((dDate) => dayjs(dDate).isSame(date, "day"))) {
         return (
           <img
-            src="/droplet.svg"
-            alt="water droplet"
+            src={droplet}
+            alt="Plant watered today"
             className="absolute right-0 top-0 w-4"
           />
         );

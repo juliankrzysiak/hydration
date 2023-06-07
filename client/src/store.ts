@@ -1,19 +1,12 @@
 import { create } from "zustand";
 
-interface DateState {
-  date: Date;
-}
-
-export const useDateStore = create<DateState>(() => ({
+export const useDateStore = create(() => ({
   date: new Date(Date.now()),
 }));
 
-interface ShowState {
-  createForm: boolean;
-}
-
-export const useShowStore = create<ShowState>(() => ({
+export const useShowStore = create(() => ({
   createForm: false,
+  deletePlant: false,
 }));
 
 export const useToastStore = create(() => ({

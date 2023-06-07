@@ -60,3 +60,20 @@ plantsRouter.delete('/water', async (req, res) => {
     `;
 	return res.status(200).json(deletedPlant);
 });
+
+plantsRouter.delete('/', async (req, res) => {
+	const { id } = req.body as BodyWater;
+	await sql`
+    DELETE FROM water 
+    WHERE 
+        plant_id = ${id}
+    RETURNING plant_id
+    `;
+	const deletedPlant = await sql`
+    DELETE FROM plants
+    WHERE 
+        id = ${id}
+    RETURNING id, name
+    `;
+	return res.status(200).json(deletedPlant);
+});

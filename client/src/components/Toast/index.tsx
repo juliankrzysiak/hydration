@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useToastStore } from "../../store";
 import { motion, AnimatePresence } from "framer-motion";
+import cancel from "@/assets/cancel.svg";
 
 export const Toast = () => {
   const content = useToastStore((state) => state.toast);
@@ -25,7 +26,7 @@ export const Toast = () => {
             onClick={() => useToastStore.setState({ toast: "" })}
             className=""
           >
-            <img className="w-6" src="/cancel.svg" alt="Cancel" />
+            <img className="w-6" src={cancel} alt="Cancel" />
           </button>
         </motion.div>
       )}
