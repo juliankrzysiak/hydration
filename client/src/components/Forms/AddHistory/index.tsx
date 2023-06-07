@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { Plant } from "../../../types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Plant } from "@/types.js";
 import { ConfirmButtons } from "./ConfirmButtons";
 import { ComboBox } from "./ComboBox";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addDate, deleteDate } from "../../../api";
-import { useDateStore, useToastStore } from "../../../store";
+import { addDate } from "@/api.js";
+import { useDateStore, useToastStore } from "@/store.js";
 import dayjs from "dayjs";
+import { useFilter } from "@/hooks/useFilter";
 
 interface Props {
   plants: Plant[];
   handleInput: React.Dispatch<React.SetStateAction<boolean>>;
-  type: "ADD" | "DELETE";
 }
 
-export const ChangeHistory = ({ plants, handleInput, type }: Props) => {
+export const AddHistory = ({ plants, handleInput }: Props) => {
   const queryClient = useQueryClient();
   const addDateMutation = useMutation({
     mutationFn: addDate,
@@ -22,23 +22,15 @@ export const ChangeHistory = ({ plants, handleInput, type }: Props) => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },
   });
-  const deleteDateMutation = useMutation({
-    mutationFn: deleteDate,
-    onSuccess: () => {
-      useToastStore.setState({ toast: "Date removed!" });
-      queryClient.invalidateQueries({ queryKey: ["plants"] });
-    },
-  });
-
-  const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
-  console.log(date);
   const [selected, setSelected] = useState({} as Plant);
+  const [query, setQuery] = useState("");
+  const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
+  const filteredPlants = useFilter({ plants, query, type: "ADD" });
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (
       // Stop duplicates of dates on same plant
-      type === "ADD" &&
       plants
         .filter((plant) => plant.id === selected.id)
         .at(0)
@@ -47,18 +39,11 @@ export const ChangeHistory = ({ plants, handleInput, type }: Props) => {
       handleInput(false);
       return;
     }
-    if (type === "ADD") {
-      addDateMutation.mutate({
-        id: selected.id,
-        date,
-      });
-    }
-    if (type === "DELETE") {
-      deleteDateMutation.mutate({
-        id: selected.id,
-        date,
-      });
-    }
+
+    addDateMutation.mutate({
+      id: selected.id,
+      date,
+    });
 
     handleInput(false);
   };
@@ -66,10 +51,11 @@ export const ChangeHistory = ({ plants, handleInput, type }: Props) => {
   return (
     <form className="flex w-3/4 flex-col" onSubmit={handleSubmit}>
       <ComboBox
-        type={type}
         selected={selected}
         setSelected={setSelected}
-        plants={plants}
+        query={query}
+        setQuery={setQuery}
+        plants={filteredPlants}
       />
       <ConfirmButtons handleInput={handleInput} />
     </form>
