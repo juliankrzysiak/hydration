@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plant } from "@/types.js";
-import { ConfirmButtons } from "./ConfirmButtons";
-import { ComboBox } from "./ComboBox";
+import { ConfirmButtons } from "./Common/ConfirmButtons";
+import { ComboBox } from "./Common/ComboBox";
 import { addDate } from "@/api.js";
 import { useDateStore, useToastStore } from "@/store.js";
 import dayjs from "dayjs";

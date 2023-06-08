@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plant } from "@/types";
-import { AddHistory } from "@/components/Forms/AddHistory/";
+import { AddHistory } from "@/components/Forms/AddHistory";
 import { DeleteHistory } from "@/components/Forms/DeleteHistory";
 import plus from "@/assets/plus.svg";
 import cancel from "@/assets/cancel.svg";

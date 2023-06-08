@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useShowStore, useToastStore } from "@/store";
 import { deletePlant } from "@/api";
-import { ComboBox } from "./AddHistory/ComboBox";
+import { ComboBox } from "./Common/ComboBox";
 import { Plant } from "@/types";
 import { sortAsc } from "@/utils/sortAsc";
 

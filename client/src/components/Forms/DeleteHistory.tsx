@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plant } from "@/types";
-import { ConfirmButtons } from "./AddHistory/ConfirmButtons";
-import { ComboBox } from "./AddHistory/ComboBox";
+import { ConfirmButtons } from "./Common/ConfirmButtons";
+import { ComboBox } from "./Common/ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDate } from "@/api";
 import { useDateStore, useToastStore } from "@/store";
