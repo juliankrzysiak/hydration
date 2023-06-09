@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import { ErrorPage } from "@/routes/ErrorPage";
 import { Login } from "@/features/auth/routes/Login";
+import { LoginForm } from "@/features/auth/components/Forms/LoginForm";
+import { RegisterForm } from "@/features/auth/components/Forms/RegisterForm";
 
 const queryClient = new QueryClient();
 
@@ -16,8 +18,19 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/login",
+    path: "/account",
     element: <Login />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "login",
+        element: <LoginForm />,
+      },
+      {
+        path: "register",
+        element: <RegisterForm />,
+      },
+    ],
   },
 ]);
 
