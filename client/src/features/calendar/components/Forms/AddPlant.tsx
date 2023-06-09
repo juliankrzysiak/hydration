@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useField } from "@/hooks/useField";
-import { useShowStore } from "@/store";
-import { createPlant } from "@/api";
+import { useShowStore } from "../../stores/showStore";
+import { createPlant } from "../../api";
 
 export const AddPlant = () => {
   const queryClient = useQueryClient();

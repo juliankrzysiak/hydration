@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllPlants } from "../api";
 import { Info } from "../components/Info";
 import { Menu } from "../components/Menu";
-import { useShowStore } from "../store";
-import { AddPlant } from "@/components/Forms/AddPlant";
-import { Toast } from "@/components/Toast";
+import { useShowStore } from "../stores/showStore";
+import { AddPlant } from "@/features/calendar/components/Forms/AddPlant";
+import { Notification } from "@/components/Notification";
 import { DeletePlant } from "../components/Forms/DeletePlant";
 
 export const Home = () => {
@@ -30,7 +30,7 @@ export const Home = () => {
       <Calendar plants={data} />
       {showForm()}
       <Menu />
-      <Toast />
+      <Notification />
     </main>
   );
 };

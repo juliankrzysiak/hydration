@@ -1,4 +1,4 @@
-import { ReactComponent as Leaf } from "@/assets/droplet.svg";
+import leaf from "@/assets/droplet.svg";
 
 interface Props {
   title: string;
@@ -7,7 +7,7 @@ interface Props {
 export const Title = ({ title }: Props) => {
   return (
     <div className="justify-left relative mb-8 flex gap-4">
-      <Leaf className="w-8 fill-gray-200" />
+      <img className="w-8" src={leaf} alt="Leaf" />
       <h1 className=" text-4xl  font-medium tracking-wider">{title}</h1>
     </div>
   );

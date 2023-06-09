@@ -1,4 +1,4 @@
-import { useDateStore } from "../store";
+import { useDateStore } from "../stores/dateStore";
 import { Plant } from "../types";
 import dayjs from "dayjs";
 

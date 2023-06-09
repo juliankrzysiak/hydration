@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useToastStore } from "../../store";
+import { useNotificationStore } from "../../stores/notificationStore";
 import { motion, AnimatePresence } from "framer-motion";
 import cancel from "@/assets/cancel.svg";
 
-export const Toast = () => {
-  const content = useToastStore((state) => state.toast);
+export const Notification = () => {
+  const content = useNotificationStore((state) => state.message);
 
   useEffect(() => {
     setTimeout(() => {
-      useToastStore.setState({ toast: "" });
+      useNotificationStore.setState({ message: "" });
     }, 5000);
   }, [content]);
 
@@ -23,7 +23,7 @@ export const Toast = () => {
         >
           <h3 className="text-lg">{content}</h3>
           <button
-            onClick={() => useToastStore.setState({ toast: "" })}
+            onClick={() => useNotificationStore.setState({ message: "" })}
             className=""
           >
             <img className="w-6" src={cancel} alt="Cancel" />

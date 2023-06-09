@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Plant } from "@/types";
-import { AddHistory } from "@/components/Forms/AddHistory";
-import { DeleteHistory } from "@/components/Forms/DeleteHistory";
-import plus from "@/assets/plus.svg";
-import cancel from "@/assets/cancel.svg";
+import { Plant } from "../../types";
+import { AddHistory } from "@/features/calendar/components/Forms/AddHistory";
+import { DeleteHistory } from "@/features/calendar/components/Forms/DeleteHistory";
+import plus from "@/features/calendar/assets/plus.svg";
+import cancel from "@/features/calendar/assets/cancel.svg";
 
 interface Props {
   plants: Plant[];
@@ -23,15 +23,17 @@ export const ShowForm = ({ plants }: Props) => {
         <>
           <button
             className="rounded-md bg-gray-700/20 p-1"
+            aria-label="Show Add Date Form"
             onClick={() => setShowAddForm(true)}
           >
-            <img className=" w-5" src={plus} alt="Add plant" />
+            <img className="w-5" src={plus} alt="Plus" />
           </button>
           <button
             className="rounded-md bg-gray-700/20 p-1"
+            aria-label="Show Delete Date Form"
             onClick={() => setShowDeleteForm(true)}
           >
-            <img className=" w-5" src={cancel} alt="Delete plant" />
+            <img className="w-5" src={cancel} alt="Cancel" />
           </button>
         </>
       );

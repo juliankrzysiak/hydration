@@ -1,4 +1,4 @@
-import { PlantDate, PlantCreate } from "./types";
+import { PlantDate, PlantCreate } from "../types";
 
 const url = "http://localhost:3001/api/plants";
 

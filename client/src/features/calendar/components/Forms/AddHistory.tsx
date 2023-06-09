@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plant } from "@/types.js";
+import { Plant } from "@/features/calendar/types";
 import { ConfirmButtons } from "./Common/ConfirmButtons";
 import { ComboBox } from "./Common/ComboBox";
-import { addDate } from "@/api.js";
-import { useDateStore, useToastStore } from "@/store.js";
+import { addDate } from "@/features/calendar/api";
+import { useDateStore} from "@/features/calendar/stores/dateStore";
+import { useNotificationStore } from "@/stores/notificationStore";
 import dayjs from "dayjs";
-import { useFilter } from "@/hooks/useFilter";
+import { useFilter } from "@/features/calendar/hooks/useFilter";
 
 interface Props {
   plants: Plant[];
@@ -18,7 +19,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   const addDateMutation = useMutation({
     mutationFn: addDate,
     onSuccess: () => {
-      useToastStore.setState({ toast: "Date added!" });
+      useNotificationStore.setState({ message: "Date added!" });
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },
   });

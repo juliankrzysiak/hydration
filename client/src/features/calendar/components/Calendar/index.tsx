@@ -4,7 +4,9 @@ import { default as DateCalendar } from "react-calendar";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
-import { useDateStore, useShowStore } from "../../store";
+import { useDateStore } from "../../stores/dateStore";
+import { useShowStore } from "../../stores/showStore";
+
 import droplet from "@/assets/droplet.svg";
 
 type ValuePiece = Date | null;
@@ -25,9 +27,9 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
       if (allNextDate.find((dDate) => dayjs(dDate).isSame(date, "day"))) {
         return (
           <img
-            src={droplet}
-            alt="Plant watered today"
             className="absolute right-0 top-0 w-4"
+            src={droplet}
+            alt="Droplet"
           />
         );
       }

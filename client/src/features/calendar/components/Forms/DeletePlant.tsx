@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useShowStore, useToastStore } from "@/store";
-import { deletePlant } from "@/api";
+import { useShowStore } from "../../stores/showStore";
+import { useNotificationStore } from "@/stores/notificationStore";
+import { deletePlant } from "../../api";
 import { ComboBox } from "./Common/ComboBox";
-import { Plant } from "@/types";
+import { Plant } from "../../types";
 import { sortAsc } from "@/utils/sortAsc";
 
 interface Props {
@@ -15,7 +16,7 @@ export const DeletePlant = ({ plants }: Props) => {
   const deletePlantMutation = useMutation({
     mutationFn: deletePlant,
     onSuccess: () => {
-      useToastStore.setState({ toast: "Plant deleted" });
+      useNotificationStore.setState({ message: "Plant deleted" });
       useShowStore.setState({ deletePlant: false });
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },

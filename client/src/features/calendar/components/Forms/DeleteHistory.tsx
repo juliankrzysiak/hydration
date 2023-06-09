@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Plant } from "@/types";
+import { Plant } from "../../types";
 import { ConfirmButtons } from "./Common/ConfirmButtons";
 import { ComboBox } from "./Common/ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteDate } from "@/api";
-import { useDateStore, useToastStore } from "@/store";
+import { deleteDate } from "../../api";
+import { useDateStore } from "../../stores/dateStore";
+import { useNotificationStore } from "@/stores/notificationStore";
 import dayjs from "dayjs";
-import { useFilter } from "@/hooks/useFilter";
+import { useFilter } from "../../hooks/useFilter";
 
 interface Props {
   plants: Plant[];
@@ -18,7 +19,7 @@ export const DeleteHistory = ({ plants, handleInput }: Props) => {
   const deleteDateMutation = useMutation({
     mutationFn: deleteDate,
     onSuccess: () => {
-      useToastStore.setState({ toast: "Date removed!" });
+      useNotificationStore.setState({ message: "Date removed!" });
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },
   });

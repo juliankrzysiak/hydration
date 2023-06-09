@@ -19,6 +19,7 @@ export const RegisterForm = () => {
           Email address
         </label>
         <input
+          required
           className="w-full rounded-md border border-gray-300 bg-gray-800 px-2 py-1 text-gray-200"
           id="email"
           type="text"
@@ -29,6 +30,7 @@ export const RegisterForm = () => {
           Your Password
         </label>
         <input
+          required
           className="w-full rounded-md border border-gray-300 bg-gray-800 px-2 py-1 text-gray-200"
           id="pwd"
           type="password"
