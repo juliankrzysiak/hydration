@@ -35,10 +35,18 @@ export const Menu = () => {
       </button>
       {pressed && (
         <>
-          <MenuButton handleClick={addPlant} direction={translate.N}>
+          <MenuButton
+            handleClick={addPlant}
+            direction={translate.N}
+            label="Open form to add new plant"
+          >
             <img src={plus} alt="Plus" />
           </MenuButton>
-          <MenuButton handleClick={deletePlant} direction={translate.W}>
+          <MenuButton
+            handleClick={deletePlant}
+            direction={translate.W}
+            label="Open form to delete existing plant"
+          >
             <img src={cancel} alt="Cancel" />
           </MenuButton>
         </>
