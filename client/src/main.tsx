@@ -13,6 +13,8 @@ import { Login } from "@/features/auth/routes/Login";
 import { LoginForm } from "@/features/auth/components/Forms/LoginForm";
 import { RegisterForm } from "@/features/auth/components/Forms/RegisterForm";
 import { supabase } from "@/features/auth/lib/auth";
+import { User } from "./features/user/routes/User";
+import { Account } from "./features/user/components/Account";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,16 @@ const router = createBrowserRouter([
       {
         path: "/account/register",
         element: <RegisterForm />,
+      },
+    ],
+  },
+  {
+    path: "/user",
+    element: <User />,
+    children: [
+      {
+        path: "/user/account",
+        element: <Account />,
       },
     ],
   },

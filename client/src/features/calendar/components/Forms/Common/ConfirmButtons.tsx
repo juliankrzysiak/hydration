@@ -1,5 +1,5 @@
 import checkmark from "@/features/calendar/assets/checkmark.svg";
-import cancel from "@/features/calendar/assets/cancel.svg";
+import cancel from "@/assets/cancel.svg";
 
 interface Props {
   handleInput: React.Dispatch<React.SetStateAction<boolean>>;

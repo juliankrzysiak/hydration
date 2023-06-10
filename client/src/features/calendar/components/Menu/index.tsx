@@ -3,7 +3,8 @@ import { MenuButton } from "./MenuButton";
 import { useShowStore } from "../../stores/showStore";
 import menu from "../../assets/menu.svg";
 import plus from "../../assets/plus.svg";
-import cancel from "../../assets/cancel.svg";
+import cancel from "@/assets/cancel.svg";
+import person from "@/assets/person.svg";
 
 export const Menu = () => {
   const [pressed, setPressed] = useState(false);
@@ -48,6 +49,13 @@ export const Menu = () => {
             label="Open form to delete existing plant"
           >
             <img src={cancel} alt="Cancel" />
+          </MenuButton>
+          <MenuButton
+            handleClick={deletePlant}
+            direction={translate.NW}
+            label="Navigate to User Account Page"
+          >
+            <img src={person} alt="Person" />
           </MenuButton>
         </>
       )}

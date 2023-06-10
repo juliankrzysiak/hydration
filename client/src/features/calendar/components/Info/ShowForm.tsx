@@ -3,7 +3,7 @@ import { Plant } from "../../types";
 import { AddHistory } from "@/features/calendar/components/Forms/AddHistory";
 import { DeleteHistory } from "@/features/calendar/components/Forms/DeleteHistory";
 import plus from "@/features/calendar/assets/plus.svg";
-import cancel from "@/features/calendar/assets/cancel.svg";
+import cancel from "@/assets/cancel.svg";
 
 interface Props {
   plants: Plant[];
