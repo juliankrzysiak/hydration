@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { Notification } from "@/components/Notification";
 
 export const Login = () => {
   return (
@@ -6,6 +7,7 @@ export const Login = () => {
       <div className="absolute left-1/2 top-1/4 w-5/6 max-w-sm -translate-x-1/2 -translate-y-1/4 rounded-2xl bg-gray-700">
         <Outlet />
       </div>
+      <Notification />
     </main>
   );
 };
