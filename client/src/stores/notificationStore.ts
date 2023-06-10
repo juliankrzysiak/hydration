@@ -6,6 +6,6 @@ interface State {
 }
 
 export const useNotificationStore = create<State>(() => ({
-  message: "sd",
-  type: "info",
+  message: "Password should be at least 6 characters long",
+  type: "error",
 }));
