@@ -2,7 +2,7 @@ import { logger } from './logger';
 import { RequestHandler, ErrorRequestHandler } from 'express';
 
 const replacer = (key: string, value: unknown) => {
-	if (typeof value === 'string' && key !== 'name')
+	if (typeof value === 'string' && key !== 'name' && key !== 'uid')
 		return value.substring(0, 10);
 	return value;
 };

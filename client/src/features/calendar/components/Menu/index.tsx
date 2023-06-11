@@ -6,7 +6,7 @@ import plus from "../../assets/plus.svg";
 import cancel from "@/assets/cancel.svg";
 import person from "@/assets/person.svg";
 import { supabase } from "@/features/auth/lib/auth";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Menu = () => {
   const [pressed, setPressed] = useState(false);
@@ -28,8 +28,8 @@ export const Menu = () => {
     setPressed(false);
   };
 
-  const signOut = () => {
-    supabase.auth.signOut();
+  const signOut = async () => {
+    await supabase.auth.signOut();
     navigate("/account/login");
   };
 
