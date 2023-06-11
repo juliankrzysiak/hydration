@@ -1,8 +1,9 @@
 import { logger } from './logger';
 import { RequestHandler, ErrorRequestHandler } from 'express';
 
-const replacer = (_key: string, value: unknown) => {
-	if (typeof value === 'string') return value.substring(0, 10);
+const replacer = (key: string, value: unknown) => {
+	if (typeof value === 'string' && key !== 'name')
+		return value.substring(0, 10);
 	return value;
 };
 
