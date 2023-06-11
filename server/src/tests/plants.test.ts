@@ -7,6 +7,7 @@ import { config } from '../utils/config';
 import { sql } from '../utils/db';
 
 const api = supertest(app);
+const uid = '196e5ea6-bae9-417e-b0c2-66c1c5adab4a';
 
 beforeAll(async () => {
 	// Just in case, don't wanna delete prod DB
@@ -20,22 +21,23 @@ afterAll(async () => {
 	await plants.dropTables();
 });
 
-describe('GET all route', () => {
+describe.only('GET all route', () => {
+	const req = { uid };
 	it('returns successfuly', async () => {
-		await api.get('/api/plants').expect(200);
+		await api.get('/api/plants').send(req).expect(200);
 	});
-	it('returns second plant info', async () => {
-		const secondPlant = {
-			id: 2,
-			name: 'black sage',
-			watered: ['2023-05-20', '2023-05-29'],
+	it('returns correct user plant ', async () => {
+		const plant = {
+			id: 1,
+			name: 'purple sage',
+			watered: ['2023-05-20'],
 			schedule: 7,
-			next_water: '2023-06-05',
+			next_water: '2023-05-27',
 		};
 
-		const res = await api.get('/api/plants');
-		expect(res.body).toHaveLength(2);
-		expect(res.body[1]).toEqual(secondPlant);
+		const res = await api.get('/api/plants').send(req);
+		expect(res.body).toHaveLength(1);
+		expect(res.body[0]).toEqual(plant);
 	});
 });
 

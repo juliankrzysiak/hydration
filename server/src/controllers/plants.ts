@@ -2,15 +2,22 @@ import express from 'express';
 export const plantsRouter = express.Router();
 import { sql } from '../utils/db';
 
-plantsRouter.get('/', async (_req, res) => {
+interface GetBody {
+	uid: string;
+}
+
+plantsRouter.get('/', async (req, res) => {
+	const { uid } = req.body as GetBody;
 	const plants = await sql`
     SELECT plants.id, name, schedule, array_agg(water.date ORDER BY water.date ASC) as watered,
     MAX(water.date) + schedule as next_water
         FROM plants
         LEFT JOIN water
         ON plants.id = water.plant_id
+        WHERE uid = ${uid}
         GROUP BY plants.id, name, schedule
     `;
+	console.log(plants);
 	return res.status(200).json(plants);
 });
 
