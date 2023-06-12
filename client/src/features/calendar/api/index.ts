@@ -1,16 +1,30 @@
+import { supabase } from "@/features/auth/lib/auth";
 import { PlantDate, PlantCreate } from "../types";
+import { useNotificationStore } from "@/stores/notificationStore";
 
 const url = "http://localhost:3001/api/plants";
 
 export const getAllPlants = async () => {
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  try {
+    const { data } = await supabase.auth.getSession();
+    if (!data.session)
+      throw new Error("Session does not exist, please log in.");
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        uid: `${data.session.user.id}`,
+      },
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    if (error instanceof Error)
+      useNotificationStore.setState({
+        type: "error",
+        message: error.message || "Could not retreive plants!",
+      });
+  }
 };
 
 export const createPlant = async (plant: PlantCreate) => {

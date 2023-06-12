@@ -26,7 +26,6 @@ const router = createBrowserRouter([
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      console.log(session);
       if (!session) return redirect("/account/login");
       return null;
     },
