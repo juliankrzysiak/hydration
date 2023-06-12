@@ -42,7 +42,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
     }
 
     addDateMutation.mutate({
-      id: selected.id,
+      plant_id: selected.id,
       date,
     });
 

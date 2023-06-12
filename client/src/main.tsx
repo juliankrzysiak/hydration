@@ -23,9 +23,10 @@ const router = createBrowserRouter([
     path: "/home",
     element: <Home />,
     loader: async () => {
-      const session = await supabase.auth.getSession();
-      console.log(session);
-      if (!session) return redirect("account/login");
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) return redirect("/account/login");
       return null;
     },
     errorElement: <ErrorPage />,

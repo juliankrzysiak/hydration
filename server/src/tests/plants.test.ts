@@ -7,6 +7,8 @@ import { config } from '../utils/config';
 import { sql } from '../utils/db';
 
 const api = supertest(app);
+const uid = '196e5ea6-bae9-417e-b0c2-66c1c5adab4a';
+const uidB = '196e5ea6-bae9-417e-b0c2-66c1c5adab4b';
 
 beforeAll(async () => {
 	// Just in case, don't wanna delete prod DB
@@ -22,20 +24,20 @@ afterAll(async () => {
 
 describe('GET all route', () => {
 	it('returns successfuly', async () => {
-		await api.get('/api/plants').expect(200);
+		await api.get('/api/plants').set('uid', `${uid}`).expect(200);
 	});
-	it('returns second plant info', async () => {
-		const secondPlant = {
-			id: 2,
-			name: 'black sage',
-			watered: ['2023-05-20', '2023-05-29'],
+	it('returns correct user plant ', async () => {
+		const plant = {
+			id: 1,
+			name: 'purple sage',
+			watered: ['2023-05-20'],
 			schedule: 7,
-			next_water: '2023-06-05',
+			next_water: '2023-05-27',
 		};
 
-		const res = await api.get('/api/plants');
-		expect(res.body).toHaveLength(2);
-		expect(res.body[1]).toEqual(secondPlant);
+		const res = await api.get('/api/plants').set('uid', `${uid}`);
+		expect(res.body).toHaveLength(1);
+		expect(res.body[0]).toEqual(plant);
 	});
 });
 
@@ -46,13 +48,17 @@ describe('POST plant route', () => {
 			schedule: 3,
 		};
 
-		const res = await api.post('/api/plants').send(req).expect(201);
-		expect(res.body).toEqual([req]);
+		const res = await api
+			.post('/api/plants')
+			.send(req)
+			.set('uid', `${uid}`)
+			.expect(201);
+		expect(res.body).toContainEqual(req);
 	});
 	it('shows posted plant with GET', async () => {
-		const res = await api.get('/api/plants').expect(200);
+		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
 
-		expect(res.body).toHaveLength(3);
+		expect(res.body).toHaveLength(2);
 		expect(res.body).toContainEqual({
 			id: 3,
 			name: 'white sage',
@@ -66,73 +72,81 @@ describe('POST plant route', () => {
 describe('POST single date route', () => {
 	it('returns posted date', async () => {
 		const req = {
-			id: 3,
-			date: '2023-04-20',
+			plant_id: 1,
+			date: '2023-05-22',
 		};
 		const res = await api.post('/api/plants/water').send(req).expect(201);
-		expect(res.body).toEqual([{ plant_id: 3, date: '2023-04-20' }]);
+		expect(res.body).toContainEqual(req);
 	});
 
 	it('shows correct date', async () => {
-		const res = await api.get('/api/plants').expect(200);
+		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
 
-		expect(res.body).toHaveLength(3);
-		expect(res.body[2].watered).toEqual(['2023-04-20']);
+		expect(res.body[0].watered).toEqual(['2023-05-20', '2023-05-22']);
 	});
 	it('shows correct calculated date', async () => {
-		const res = await api.get('/api/plants').expect(200);
+		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
 
-		expect(res.body[2].next_water).toEqual('2023-04-23');
+		expect(res.body[0].next_water).toEqual('2023-05-29');
 	});
 });
 
 describe('DELETE single date route', () => {
 	it('returns deleted date', async () => {
 		const req = {
-			id: 3,
-			date: '2023-04-20',
+			plant_id: 1,
+			date: '2023-05-22',
 		};
 		const res = await api.delete('/api/plants/water').send(req).expect(200);
-		expect(res.body).toEqual([{ plant_id: 3, date: '2023-04-20' }]);
+		// BUG: Currently this test fails, I need to figure out why the query doesn not retun what was deleted
+		expect(res.body).toContainEqual(req);
 	});
 	it('should be deleted with GET', async () => {
-		const res = await api.get('/api/plants').expect(200);
+		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
 
-		expect(res.body).toHaveLength(3);
-		expect(res.body[2].watered).toEqual([null]);
+		expect(res.body[0].watered).toContain('2023-05-20');
+		expect(res.body[0].watered).not.toContain('2023-05-22');
 	});
-	it('should have null calculation when date emptied', async () => {
-		const res = await api.get('/api/plants').expect(200);
+	it('should have next_water recalculated', async () => {
+		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
 
-		expect(res.body[2].next_water).toEqual(null);
-	});
-	it('did not delete other dates', async () => {
-		const res = await api.get('/api/plants').expect(200);
-
-		expect(res.body).toHaveLength(3);
-		expect(res.body[1].watered).toContain('2023-05-20');
+		expect(res.body[0].next_water).toEqual('2023-05-27');
 	});
 });
 
 describe('DELETE entire plant and data route', () => {
-	it('returns deleted date', async () => {
+	it('returns deleted plant', async () => {
 		const req = {
-			id: 3,
+			plant_id: 1,
 		};
-		const res = await api.delete('/api/plants/').send(req).expect(200);
-		expect(res.body).toEqual([{ id: 3, name: 'white sage' }]);
+		const res = await api
+			.delete('/api/plants')
+			.set('uid', `${uid}`)
+			.send(req)
+			.expect(200);
+		expect(res.body).toContainEqual({ id: 1, name: 'purple sage' });
 	});
-	it('should be deleted with GET', async () => {
-		const res = await api.get('/api/plants').expect(200);
 
-		expect(res.body).toHaveLength(2);
-		expect(res.body[2]).toBeUndefined();
+	it('should not delete other plant', async () => {
+		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
+		expect(res.body).toContainEqual({
+			id: 3,
+			name: 'white sage',
+			schedule: 3,
+			watered: [null],
+			next_water: null,
+		});
 	});
 	it('should not have anything left in water table', async () => {
 		const dates = await sql`
 		SELECT * FROM water
-		WHERE plant_id = 3
+		WHERE plant_id = 1
 		`;
 		expect(dates).toEqual([]);
+	});
+	it('should not delete anything else', async () => {
+		const res = await api.get('/api/plants').set('uid', `${uidB}`).expect(200);
+		expect(res.body[0]).toBeDefined();
+		expect(res.body[0].watered).toHaveLength(2);
 	});
 });

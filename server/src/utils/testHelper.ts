@@ -1,5 +1,8 @@
 import { sql } from './db';
 
+const uid = '196e5ea6-bae9-417e-b0c2-66c1c5adab4a';
+const uidB = '196e5ea6-bae9-417e-b0c2-66c1c5adab4b';
+
 const dropTables = async () => {
 	await sql`
     DROP TABLE IF EXISTS water`;
@@ -13,7 +16,9 @@ const createTables = async () => {
 	CREATE TABLE plants (
 		id SERIAL PRIMARY KEY,
 		name text NOT NULL,
-		schedule integer);
+		schedule integer,
+		uid uuid NOT NULL
+		);
     `;
 
 	await sql`
@@ -28,10 +33,10 @@ const createTables = async () => {
 
 const insertIntoTables = async () => {
 	await sql`
-    INSERT INTO plants (name, schedule)
+    INSERT INTO plants (name, schedule, uid)
     VALUES 
-		('purple sage', 30),
-        ('black sage', 7)
+		('purple sage', 7, ${uid}),
+        ('black sage', 30, ${uidB})
     `;
 
 	await sql`
