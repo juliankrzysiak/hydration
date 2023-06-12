@@ -1,76 +1,91 @@
-import { supabase } from "@/features/auth/lib/auth";
 import { PlantDate, PlantCreate } from "../types";
-import { useNotificationStore } from "@/stores/notificationStore";
+import { getUid } from "../utils/getUid";
+import { catchApiError } from "../utils/catchApiError";
 
 const url = "http://localhost:3001/api/plants";
 
 export const getAllPlants = async () => {
   try {
-    const { data } = await supabase.auth.getSession();
-    if (!data.session)
-      throw new Error("Session does not exist, please log in.");
+    const uid = await getUid();
     const res = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        uid: `${data.session.user.id}`,
+        uid,
       },
     });
 
     return res.json();
   } catch (error) {
-    if (error instanceof Error)
-      useNotificationStore.setState({
-        type: "error",
-        message: error.message || "Could not retreive plants!",
-      });
+    catchApiError(error, "Could not retrieve plants!");
   }
 };
 
 export const createPlant = async (plant: PlantCreate) => {
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(plant),
-  });
+  try {
+    const uid = await getUid();
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+      body: JSON.stringify(plant),
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not create plant!");
+  }
 };
 
 export const addDate = async (body: PlantDate) => {
-  const res = await fetch(`${url}/water`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  console.log(body);
+  try {
+    const res = await fetch(`${url}/water`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not add date!");
+  }
 };
 
 export const deleteDate = async (body: PlantDate) => {
-  const res = await fetch(`${url}/water`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  try {
+    const res = await fetch(`${url}/water`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not delete date!");
+  }
 };
 
 export const deletePlant = async (id: { id: number }) => {
-  const res = await fetch(`${url}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(id),
-  });
+  try {
+    const uid = await getUid();
+    const res = await fetch(`${url}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+      body: JSON.stringify(id),
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not delete plant!");
+  }
 };
