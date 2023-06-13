@@ -1,26 +1,22 @@
-import { supabase } from "@/features/auth/lib/auth";
 import { useField } from "@/hooks/useField";
 import { useNotificationStore } from "@/stores/notificationStore";
-
-const changeName = async (name: string) => {
-  try {
-    await supabase.auth.updateUser({ data: { first_name: name } });
-  } catch (error) {
-    if (error instanceof Error)
-      useNotificationStore.setState({
-        type: "error",
-        message: "Could not change name",
-      });
-  }
-};
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { changeName } from "../../api";
 
 export const Account = () => {
   const [{ ...name }, setName] = useField({ type: "text", id: "name" });
+  const queryClient = useQueryClient();
+  const nameMutation = useMutation({
+    mutationFn: (name: string) => changeName(name),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["name"] });
+    },
+  });
 
   const saveChanges = (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (name.value) {
-      changeName(name.value);
+      nameMutation.mutate(name.value);
       setName("");
       useNotificationStore.setState({
         type: "action",
