@@ -13,7 +13,7 @@ export const Password = () => {
     id: "pwd",
   });
   const [{ ...confirmPassword }, setConfirmPassword] = useField({
-    type: "confirmPassword",
+    type: "password",
     id: "cpwd",
   });
   const passwordMutation = useMutation({
@@ -33,6 +33,12 @@ export const Password = () => {
       className="flex flex-col gap-4"
       onSubmit={(event: React.SyntheticEvent) => {
         event.preventDefault();
+        if (password.value !== confirmPassword.value) {
+          notify("error", "Passwords do not match");
+          setPassword("");
+          setConfirmPassword("");
+          return;
+        }
         passwordMutation.mutate(password.value);
       }}
     >
