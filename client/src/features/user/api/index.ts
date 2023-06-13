@@ -1,17 +1,20 @@
 import { supabase } from "@/features/auth/lib/auth";
-import { notify } from "@/utils/notify";
 
 export const getName = async () => {
-  const { data } = await supabase.auth.getSession();
+  const { data, error } = await supabase.auth.getSession();
+  if (error) throw error;
   const name = await data.session?.user.user_metadata.first_name;
-  if (typeof name !== "string") return "Jane";
   return name;
 };
 
 export const changeName = async (name: string) => {
-  try {
-    await supabase.auth.updateUser({ data: { first_name: name } });
-  } catch (error) {
-    if (error instanceof Error) notify("error", "Could not change name");
-  }
+  const { error } = await supabase.auth.updateUser({
+    data: { first_name: name },
+  });
+  if (error) throw error;
+};
+
+export const changeEmail = async (email: string) => {
+  const { error } = await supabase.auth.updateUser({ email });
+  if (error) throw error;
 };

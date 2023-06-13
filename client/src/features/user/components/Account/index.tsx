@@ -1,24 +1,39 @@
 import { useField } from "@/hooks/useField";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { changeName } from "../../api";
+import { changeEmail, changeName } from "../../api";
 import { notify } from "@/utils/notify";
+import { AuthError } from "@supabase/supabase-js";
 
 export const Account = () => {
   const [{ ...name }, setName] = useField({ type: "text", id: "name" });
+  const [{ ...email }, setEmail] = useField({ type: "email", id: "email" });
+
   const queryClient = useQueryClient();
   const nameMutation = useMutation({
     mutationFn: (name: string) => changeName(name),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["name"] });
+      notify("action", "Name changed");
+      setName("");
     },
+    onError: (error: AuthError) => notify("error", error.message),
+  });
+  const emailMutation = useMutation({
+    mutationFn: (name: string) => changeEmail(name),
+    onSuccess: () => {
+      notify("action", "Email sent, please confirm your email");
+      setEmail("");
+    },
+    onError: (error: AuthError) => notify("error", error.message),
   });
 
-  const saveChanges = (event: React.SyntheticEvent) => {
+  const saveChanges = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (name.value) {
       nameMutation.mutate(name.value);
-      setName("");
-      notify("action", "Name changed");
+    }
+    if (email.value) {
+      emailMutation.mutate(email.value);
     }
   };
 
@@ -31,7 +46,7 @@ export const Account = () => {
       </fieldset>
       <fieldset className="mb-2 flex flex-col">
         <label htmlFor="email">Email</label>
-        <input type="email" />
+        <input {...email} />
       </fieldset>
       <button className="self-end rounded border-2 border-gray-800 px-2 py-2">
         Save Changes
