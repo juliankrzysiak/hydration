@@ -12,23 +12,20 @@ import "./index.css";
 import { Login } from "@/features/auth/routes/Login";
 import { LoginForm } from "@/features/auth/components/Forms/LoginForm";
 import { RegisterForm } from "@/features/auth/components/Forms/RegisterForm";
-import { supabase } from "@/features/auth/lib/auth";
 import { User } from "./features/user/routes/User";
-import { Account } from "./features/user/components/Account";
+import { checkSession } from "./utils/checkSession";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    loader: () => redirect("/account/login"),
+  },
+  {
     path: "/home",
     element: <Home />,
-    loader: async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!session) return redirect("/account/login");
-      return null;
-    },
+    loader: checkSession,
     errorElement: <ErrorPage />,
   },
   {
@@ -49,12 +46,8 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: <User />,
-    children: [
-      {
-        path: "/user/account",
-        element: <Account />,
-      },
-    ],
+    loader: checkSession,
+    errorElement: <ErrorPage />,
   },
 ]);
 
