@@ -18,3 +18,8 @@ export const changeEmail = async (email: string) => {
   const { error } = await supabase.auth.updateUser({ email });
   if (error) throw error;
 };
+
+export const changePassword = async (password: string) => {
+    const {error} = await supabase.auth.updateUser({password})
+    if (error) throw error;
+}

@@ -4,7 +4,7 @@ import { Password } from "../Password";
 
 export const Tabs = () => {
   return (
-    <Tab.Root defaultValue="tab1">
+    <Tab.Root defaultValue="tab1" className="w-full max-w-xs">
       <Tab.List
         aria-label="Manage your account"
         className="flex justify-around"
@@ -16,7 +16,7 @@ export const Tabs = () => {
       <Tab.Content value="tab1" className="w-full rounded-xl bg-gray-300 p-4">
         <Account />
       </Tab.Content>
-      <Tab.Content value="tab2" className=" rounded-xl bg-gray-300 p-4">
+      <Tab.Content value="tab2" className="w-full rounded-xl bg-gray-300 p-4">
         <Password />
       </Tab.Content>
     </Tab.Root>

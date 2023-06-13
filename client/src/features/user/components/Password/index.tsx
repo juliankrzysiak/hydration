@@ -1,6 +1,13 @@
 import { useField } from "@/hooks/useField";
+import { useMutation } from "@tanstack/react-query";
+import { changePassword } from "../../api";
+import { supabase } from "@/features/auth/lib/auth";
+import { useNavigate } from "react-router-dom";
+import { AuthError } from "@supabase/supabase-js";
+import { notify } from "@/utils/notify";
 
 export const Password = () => {
+  const navigate = useNavigate();
   const [{ ...password }, setPassword] = useField({
     type: "password",
     id: "pwd",
@@ -9,12 +16,30 @@ export const Password = () => {
     type: "confirmPassword",
     id: "cpwd",
   });
-
-  const changePassword = () => {};
+  const passwordMutation = useMutation({
+    mutationFn: changePassword,
+    onSuccess: async () => {
+      await supabase.auth.signOut();
+      notify("action", "Password changed");
+      navigate("/account/login");
+      setPassword("");
+      setConfirmPassword("");
+    },
+    onError: (error: AuthError) => notify("error", error.message),
+  });
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={changePassword}>
-      <p>Change your password here.</p>
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={(event: React.SyntheticEvent) => {
+        event.preventDefault();
+        passwordMutation.mutate(password.value);
+      }}
+    >
+      <div>
+        <p>Change your password here.</p>
+        <p>You will be logged out.</p>
+      </div>
       <fieldset className=" flex flex-col">
         <label htmlFor="pwd">Password</label>
         <input className="rounded-md" {...password} />
