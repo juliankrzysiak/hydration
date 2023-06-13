@@ -3,7 +3,7 @@ import { Account } from "../Account";
 
 export const Tabs = () => {
   return (
-    <Tab.Root defaultValue="">
+    <Tab.Root defaultValue="tab1">
       <Tab.List
         aria-label="Manage your account"
         className="flex justify-around"

@@ -1,6 +1,7 @@
 import person from "@/assets/person.svg";
 import { Tabs } from "../components/Tabs";
 import { useName } from "../hooks/useName";
+import { Notification } from "@/components/Notification";
 
 export const User = () => {
   const name = useName();
@@ -11,6 +12,7 @@ export const User = () => {
         <p>Hello, {name}</p>
       </div>
       <Tabs />
+      <Notification />
     </main>
   );
 };
