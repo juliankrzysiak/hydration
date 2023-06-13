@@ -1,7 +1,7 @@
 import { useField } from "@/hooks/useField";
-import { useNotificationStore } from "@/stores/notificationStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { changeName } from "../../api";
+import { notify } from "@/utils/notify";
 
 export const Account = () => {
   const [{ ...name }, setName] = useField({ type: "text", id: "name" });
@@ -18,10 +18,7 @@ export const Account = () => {
     if (name.value) {
       nameMutation.mutate(name.value);
       setName("");
-      useNotificationStore.setState({
-        type: "action",
-        message: "Name changed",
-      });
+      notify("action", "Name changed");
     }
   };
 
