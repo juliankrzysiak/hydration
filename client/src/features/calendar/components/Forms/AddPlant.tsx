@@ -63,7 +63,6 @@ export const AddPlant = () => {
           </button>
           <button
             className="btn"
-            type="button"
             onClick={() => useShowStore.setState({ createForm: false })}
           >
             Cancel
