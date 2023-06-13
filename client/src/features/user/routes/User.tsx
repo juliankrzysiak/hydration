@@ -5,8 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getName } from "../api";
 import { AuthError } from "@supabase/supabase-js";
 import { notify } from "@/utils/notify";
+import { supabase } from "@/features/auth/lib/auth";
+import { useNavigate } from "react-router-dom";
 
 export const User = () => {
+  const navigate = useNavigate();
   const { data: name } = useQuery({
     queryKey: ["name"],
     queryFn: getName,
@@ -19,7 +22,15 @@ export const User = () => {
         <img className="w-12" src={person} alt="Person" />
         <p>Hello, {name ?? "Jane"}</p>
       </div>
-      <button className="btn-warning mb-10">Sign Out</button>
+      <button
+        className="btn-warning mb-10"
+        onClick={() => {
+          supabase.auth.signOut();
+          navigate("/account/login");
+        }}
+      >
+        Sign Out
+      </button>
       <Tabs />
       <Notification />
     </main>

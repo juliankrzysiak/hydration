@@ -5,7 +5,6 @@ import menu from "../../assets/menu.svg";
 import plus from "../../assets/plus.svg";
 import cancel from "@/assets/cancel.svg";
 import person from "@/assets/person.svg";
-import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 
 export const Menu = () => {
@@ -26,11 +25,6 @@ export const Menu = () => {
   const deletePlant = () => {
     useShowStore.setState({ deletePlant: true });
     setPressed(false);
-  };
-
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/account/login");
   };
 
   return (
@@ -59,7 +53,7 @@ export const Menu = () => {
             <img src={cancel} alt="Cancel" />
           </MenuButton>
           <MenuButton
-            handleClick={signOut}
+            handleClick={() => navigate("/user")}
             direction={translate.NW}
             label="Navigate to User Account Page"
           >
