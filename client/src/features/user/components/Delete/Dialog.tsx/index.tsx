@@ -27,7 +27,7 @@ export const Dialog = forwardRef<DialogHandle, Props>(
     return (
       <dialog
         ref={dialogRef}
-        className="rounded-lg bg-gray-600 backdrop-brightness-50 backdrop:bg-gray-900/40"
+        className="rounded-lg bg-gray-600 backdrop:bg-gray-900/30 "
       >
         <div className="flex flex-col items-center gap-6">
           <p className="text-lg font-bold text-neutral-100">

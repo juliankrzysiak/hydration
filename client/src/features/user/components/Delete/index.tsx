@@ -3,7 +3,7 @@ import { Dialog, DialogHandle } from "./Dialog.tsx";
 
 export const Delete = () => {
   const dataModalRef = useRef<DialogHandle>(null);
-  // const accountModalRef = useRef<HTMLDialogElement>(null);
+  const accountModalRef = useRef<DialogHandle>(null);
 
   return (
     <fieldset className="flex flex-col items-center gap-4">
@@ -15,9 +15,15 @@ export const Delete = () => {
         >
           Delete Data
         </button>
-        <button className="btn-warning">Delete Account</button>
+        <button
+          className="btn-warning"
+          onClick={() => accountModalRef.current?.open()}
+        >
+          Delete Account
+        </button>
       </div>
       <Dialog ref={dataModalRef} />
+      <Dialog ref={accountModalRef} />
     </fieldset>
   );
 };
