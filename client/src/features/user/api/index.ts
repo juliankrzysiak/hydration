@@ -16,6 +16,6 @@ export const deleteData = async () => {
 
     return res.json();
   } catch (error) {
-    catchApiError(error, "Could not retrieve plants!");
+    catchApiError(error, "Could not delete plants!");
   }
 };

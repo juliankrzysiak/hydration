@@ -2,6 +2,7 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 
 export type DialogHandle = {
   open: () => void;
+  close: () => void;
 };
 
 interface Props {
@@ -18,6 +19,9 @@ export const Dialog = forwardRef<DialogHandle, Props>(
         return {
           open() {
             dialogRef.current?.showModal();
+          },
+          close() {
+            dialogRef.current?.close();
           },
         };
       },
