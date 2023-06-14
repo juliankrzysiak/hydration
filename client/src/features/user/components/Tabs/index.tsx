@@ -1,6 +1,7 @@
 import * as Tab from "@radix-ui/react-tabs";
 import { Account } from "../Account";
 import { Password } from "../Password";
+import { Delete } from "../Delete";
 
 export const Tabs = () => {
   return (
@@ -18,6 +19,9 @@ export const Tabs = () => {
       </Tab.Content>
       <Tab.Content value="tab2" className="w-full rounded-xl bg-gray-300 p-4">
         <Password />
+      </Tab.Content>
+      <Tab.Content value="tab3" className="w-full rounded-xl bg-gray-300 p-4">
+        <Delete />
       </Tab.Content>
     </Tab.Root>
   );
