@@ -12,7 +12,7 @@ export const PasswordForm = () => {
   const passwordMutation = useMutation({
     mutationFn: async () => {
       await supabase.auth.resetPasswordForEmail(email.value, {
-        redirectTo: "http://localhost:5173/account/ ",
+        redirectTo: "http://localhost:5173/account/update-password",
       });
     },
     onSuccess: () => {
