@@ -57,7 +57,7 @@ export const LoginForm = () => {
         Sign in
       </button>
       <div className="flex flex-col items-center gap-1 font-light underline">
-        <a>Forgot your password?</a>
+        <Link to="/account/password">Forgot your password?</Link>
         <Link to="/account/register">Don't have an account? Sign up</Link>
       </div>
     </form>
