@@ -1,6 +1,6 @@
 import { useField } from "@/hooks/useField";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { changeEmail, changeName } from "../../api";
+import { changeEmail, changeName } from "../../api/supabase";
 import { notify } from "@/utils/notify";
 import { AuthError } from "@supabase/supabase-js";
 

@@ -1,6 +1,6 @@
 import { useField } from "@/hooks/useField";
 import { useMutation } from "@tanstack/react-query";
-import { changePassword } from "../../api";
+import { changePassword } from "../../api/supabase";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { AuthError } from "@supabase/supabase-js";

@@ -1,25 +1,21 @@
-import { supabase } from "@/features/auth/lib/auth";
+import { getUid } from "@/features/calendar/utils/getUid";
+import { catchApiError } from "@/features/calendar/utils/catchApiError";
 
-export const getName = async () => {
-  const { data, error } = await supabase.auth.getSession();
-  if (error) throw error;
-  const name = await data.session?.user.user_metadata.first_name;
-  return name;
+const url = "http://localhost:3001/api/plants";
+
+export const deleteData = async () => {
+  try {
+    const uid = await getUid();
+    const res = await fetch(`${url}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+    });
+
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not retrieve plants!");
+  }
 };
-
-export const changeName = async (name: string) => {
-  const { error } = await supabase.auth.updateUser({
-    data: { first_name: name },
-  });
-  if (error) throw error;
-};
-
-export const changeEmail = async (email: string) => {
-  const { error } = await supabase.auth.updateUser({ email });
-  if (error) throw error;
-};
-
-export const changePassword = async (password: string) => {
-    const {error} = await supabase.auth.updateUser({password})
-    if (error) throw error;
-}

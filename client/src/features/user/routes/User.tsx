@@ -2,7 +2,7 @@ import person from "@/assets/person.svg";
 import { Tabs } from "../components/Tabs";
 import { Notification } from "@/components/Notification";
 import { useQuery } from "@tanstack/react-query";
-import { getName } from "../api";
+import { getName } from "../api/supabase";
 import { AuthError } from "@supabase/supabase-js";
 import { notify } from "@/utils/notify";
 import { supabase } from "@/features/auth/lib/auth";

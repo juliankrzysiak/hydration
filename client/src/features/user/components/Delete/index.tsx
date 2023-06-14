@@ -1,9 +1,18 @@
 import { useRef } from "react";
 import { Dialog, DialogHandle } from "./Dialog.tsx";
+import { useMutation } from "@tanstack/react-query";
+import { notify } from "@/utils/notify.ts";
+import { deleteData } from "../../api/index.ts";
 
 export const Delete = () => {
   const dataModalRef = useRef<DialogHandle>(null);
   const accountModalRef = useRef<DialogHandle>(null);
+  const dataMutation = useMutation({
+    mutationFn: deleteData,
+    onSuccess: () => {
+      notify("action", "All data deleted");
+    },
+  });
 
   return (
     <fieldset className="flex flex-col items-center gap-4">
@@ -22,7 +31,7 @@ export const Delete = () => {
           Delete Account
         </button>
       </div>
-      <Dialog ref={dataModalRef} />
+      <Dialog handleClick={() => dataMutation.mutate()} ref={dataModalRef} />
       <Dialog ref={accountModalRef} />
     </fieldset>
   );
