@@ -2,9 +2,12 @@ import { useRef } from "react";
 import { Dialog, DialogHandle } from "./Dialog.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notify } from "@/utils/notify.ts";
-import { deleteData } from "../../api/index.ts";
+import { deleteAccount, deleteData } from "../../api/index.ts";
+import { AuthError } from "@supabase/supabase-js";
+import { useNavigate } from "react-router-dom";
 
 export const Delete = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const dataModalRef = useRef<DialogHandle>(null);
   const accountModalRef = useRef<DialogHandle>(null);
@@ -12,9 +15,19 @@ export const Delete = () => {
     mutationFn: deleteData,
     onSuccess: () => {
       dataModalRef.current?.close();
-      notify("action", "All data deleted");
       queryClient.invalidateQueries({ queryKey: ["plants"] });
+      notify("action", "All data deleted");
     },
+    onError: (error: AuthError) => notify("error", error.message),
+  });
+  const accountMutation = useMutation({
+    mutationFn: deleteAccount,
+    onSuccess: async () => {
+      accountModalRef.current?.close();
+      notify("action", "Account deleted");
+      navigate("/account/login");
+    },
+    onError: (error: AuthError) => notify("error", error.message),
   });
 
   return (
@@ -34,8 +47,11 @@ export const Delete = () => {
           Delete Account
         </button>
       </div>
-      <Dialog handleClick={() => dataMutation.mutate()} ref={dataModalRef} />
-      <Dialog ref={accountModalRef} />
+      <Dialog ref={dataModalRef} handleClick={() => dataMutation.mutate()} />
+      <Dialog
+        ref={accountModalRef}
+        handleClick={() => accountMutation.mutate()}
+      />
     </fieldset>
   );
 };
