@@ -4,7 +4,15 @@
 
 @layer components {
   .btn {
-    @apply rounded-xl border-2 border-gray-600 bg-gray-300 px-4 py-2 font-bold;
+    @apply rounded-xl border-2 border-gray-900 bg-gray-700 px-4 py-2 font-bold tracking-wide text-neutral-100 hover:opacity-90;
+  }
+
+  .btn-warning {
+    @apply rounded-lg border-2 border-neutral-800 bg-red-200 px-4 py-2 font-bold  text-red-800 hover:opacity-90;
+  }
+
+  .btn-delete {
+    @apply rounded-xl border-2 border-yellow-400 bg-yellow-200 px-4 py-2 font-bold tracking-wide text-yellow-800 hover:opacity-90;
   }
 
   .react-calendar {

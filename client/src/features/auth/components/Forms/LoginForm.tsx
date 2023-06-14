@@ -6,8 +6,11 @@ import { useField } from "@/hooks/useField";
 import { useNotificationStore } from "@/stores/notificationStore";
 
 export const LoginForm = () => {
-  const [{ ...email }] = useField({ type: "text", id: "email" });
-  const [{ ...password }] = useField({ type: "password", id: "pwd" });
+  const [{ ...email }, setEmail] = useField({ type: "text", id: "email" });
+  const [{ ...password }, setPassword] = useField({
+    type: "password",
+    id: "pwd",
+  });
   const navigate = useNavigate();
 
   const login = async (event: React.SyntheticEvent) => {
@@ -19,7 +22,11 @@ export const LoginForm = () => {
     if (error) {
       useNotificationStore.setState({ message: error.message, type: "error" });
     }
-    if (data.session) navigate("/home");
+    if (data.session) {
+      setEmail("");
+      setPassword("");
+      navigate("/home");
+    }
   };
 
   return (

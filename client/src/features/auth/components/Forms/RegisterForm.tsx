@@ -2,18 +2,20 @@ import { Title } from "./Common/Title";
 import { supabase } from "../../lib/auth";
 import { useField } from "@/hooks/useField";
 import { useNotificationStore } from "@/stores/notificationStore";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
-  const [{ ...email }] = useField({ type: "text", id: "email" });
-  const [{ ...password }] = useField({
+  const navigate = useNavigate();
+  const [{ ...name }, setName] = useField({ type: "text", id: "name" });
+  const [{ ...email }, setEmail] = useField({ type: "text", id: "email" });
+  const [{ ...password }, setPassword] = useField({
     type: "password",
     id: "pwd",
   });
-  const [{ ...name }] = useField({ type: "text", id: "name" });
 
   const signUp = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
       options: {
@@ -28,11 +30,14 @@ export const RegisterForm = () => {
         type: "error",
       });
     }
-
+    setName("");
+    setEmail("");
+    setPassword("");
     useNotificationStore.setState({
-      message: "Email sent",
+      message: "Email sent!",
       type: "action",
     });
+    navigate("/account/login");
   };
   return (
     <form
