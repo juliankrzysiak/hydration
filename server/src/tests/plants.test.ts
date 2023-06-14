@@ -150,3 +150,25 @@ describe('DELETE entire plant and data route', () => {
 		expect(res.body[0].watered).toHaveLength(2);
 	});
 });
+
+describe('DELETE all plants from one user', () => {
+	it('should return deleted plants', async () => {
+		const res = await api
+			.delete('/api/plants/delete')
+			.set('uid', `${uid}`)
+			.expect(200);
+		expect(res.body).toContainEqual({ id: 3, name: 'white sage' });
+	});
+	it('should not have anything left in water table', async () => {
+		const dates = await sql`
+		SELECT * FROM water
+		WHERE plant_id = 3
+		`;
+		expect(dates).toEqual([]);
+	});
+	it('should not delete from other user', async () => {
+		const res = await api.get('/api/plants').set('uid', `${uidB}`).expect(200);
+		expect(res.body[0]).toBeDefined();
+		expect(res.body[0].watered).toHaveLength(2);
+	});
+});

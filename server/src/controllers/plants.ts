@@ -75,6 +75,7 @@ plantsRouter.delete('/water', async (req, res) => {
 plantsRouter.delete('/', async (req, res) => {
 	const { plant_id } = req.body as BodyWater;
 	const uid = req.get('uid');
+	// Replace this and other validation with zod
 	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
 
 	await sql`
@@ -91,4 +92,27 @@ plantsRouter.delete('/', async (req, res) => {
     RETURNING id, name
     `;
 	return res.status(200).json(deletedPlant);
+});
+
+// Delete all plants
+plantsRouter.delete('/delete', async (req, res) => {
+	const uid = req.get('uid');
+	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
+
+	await sql`
+    DELETE FROM water
+    WHERE 
+        plant_id IN (
+    SELECT 
+        id from plants
+    WHERE 
+        uid = ${uid}
+)
+    `;
+	const deletedPlants = await sql`
+    DELETE FROM plants
+    WHERE uid = ${uid}
+    RETURNING id, name
+    `;
+	return res.status(200).json(deletedPlants);
 });
