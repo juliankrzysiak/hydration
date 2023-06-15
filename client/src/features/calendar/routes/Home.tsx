@@ -7,6 +7,7 @@ import { useShowStore } from "../stores/showStore";
 import { AddPlant } from "@/features/calendar/components/Forms/AddPlant";
 import { Notification } from "@/components/Notification";
 import { DeletePlant } from "../components/Forms/DeletePlant";
+import { Filter } from "../components/Filter";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -26,8 +27,9 @@ export const Home = () => {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500">
+    <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500 p-4">
       <Calendar plants={data} />
+      <Filter />
       {showForm()}
       <Menu />
       <Notification />

@@ -22,7 +22,7 @@
     border: 1px solid #a0a096;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em; */
-    @apply max-w-screen-md border-none bg-transparent p-4 text-lg;
+    @apply max-w-screen-md border-none bg-transparent text-lg;
   }
 
   .react-calendar--doubleView {
