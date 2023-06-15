@@ -8,6 +8,7 @@ import { AddPlant } from "@/features/calendar/components/Forms/AddPlant";
 import { Notification } from "@/components/Notification";
 import { DeletePlant } from "../components/Forms/DeletePlant";
 import { Filter } from "../components/Filter";
+import { FilterForm } from "../components/Filter/FilterForm";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -16,6 +17,7 @@ export const Home = () => {
   });
   const showCreateForm = useShowStore((state) => state.createForm);
   const showDeleteForm = useShowStore((state) => state.deletePlant);
+  const showFilterForm = useShowStore((state) => state.filterForm);
 
   if (isLoading) return <main>Loading...</main>;
   if (isError) return <main>Something went wrong!</main>;
@@ -23,6 +25,8 @@ export const Home = () => {
   const showForm = () => {
     if (showCreateForm) return <AddPlant />;
     if (showDeleteForm) return <DeletePlant plants={data} />;
+    if (showFilterForm) return <FilterForm plants={data} />;
+
     return <Info plants={data} />;
   };
 

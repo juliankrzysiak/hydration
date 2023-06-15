@@ -1,7 +1,6 @@
 import { Plant } from "../../types";
 import { ShowForm } from "./ShowForm";
 import { useCalendarDates } from "../../hooks/useCalendarDates";
-import { FilterButton } from "../Filter/FilterButton";
 
 interface Props {
   plants: Plant[];
