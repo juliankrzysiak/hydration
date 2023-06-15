@@ -3,8 +3,10 @@ import { MenuButton } from "./MenuButton";
 import { useShowStore } from "../../stores/showStore";
 import menu from "../../assets/menu.svg";
 import plus from "../../assets/plus.svg";
+import filter from "../../assets/filter.svg";
 import cancel from "@/assets/cancel.svg";
 import person from "@/assets/person.svg";
+
 import { useNavigate } from "react-router-dom";
 
 export const Menu = () => {
@@ -13,6 +15,7 @@ export const Menu = () => {
 
   const translate = {
     N: "-translate-y-[4.5rem]",
+    NN: "-translate-y-[8.5rem]",
     NW: "-translate-y-[4.5rem] -translate-x-[4.5rem]",
     W: `-translate-x-[4.5rem]`,
   };
