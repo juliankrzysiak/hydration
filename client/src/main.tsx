@@ -14,6 +14,8 @@ import { LoginForm } from "@/features/auth/components/Forms/LoginForm";
 import { RegisterForm } from "@/features/auth/components/Forms/RegisterForm";
 import { User } from "./features/user/routes/User";
 import { checkSession } from "./utils/checkSession";
+import { PasswordForm } from "@/features/auth/components/Forms/PasswordForm";
+import { NewPasswordForm } from "./features/auth/components/Forms/NewPasswordForm";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
       {
         path: "/account/register",
         element: <RegisterForm />,
+      },
+      {
+        path: "/account/password",
+        element: <PasswordForm />,
+      },
+      {
+        path: "/account/update-password",
+        element: <NewPasswordForm />,
       },
     ],
   },

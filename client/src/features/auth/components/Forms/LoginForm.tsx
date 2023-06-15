@@ -53,11 +53,11 @@ export const LoginForm = () => {
           {...password}
         />
       </div>
-      <button className="mb-8 w-full rounded-md bg-blue-400 py-1 font-bold text-gray-50">
+      <button className="mb-8 w-full rounded-md bg-blue-600 py-1 font-bold text-gray-50">
         Sign in
       </button>
       <div className="flex flex-col items-center gap-1 font-light underline">
-        <a>Forgot your password?</a>
+        <Link to="/account/password">Forgot your password?</Link>
         <Link to="/account/register">Don't have an account? Sign up</Link>
       </div>
     </form>
