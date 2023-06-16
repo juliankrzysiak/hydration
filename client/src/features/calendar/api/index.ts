@@ -1,10 +1,11 @@
 import { PlantDate, PlantCreate } from "../types";
 import { getUid } from "../utils/getUid";
 import { catchApiError } from "../utils/catchApiError";
+import { Plant } from "../types";
 
 const url = "http://localhost:3001/api/plants";
 
-export const getAllPlants = async () => {
+export const getAllPlants = async (): Promise<Plant[] | undefined> => {
   try {
     const uid = await getUid();
     const res = await fetch(url, {

@@ -9,30 +9,40 @@ import { Notification } from "@/components/Notification";
 import { DeletePlant } from "../components/Forms/DeletePlant";
 import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
+import { useFilterStore } from "../stores/filterStore";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["plants"],
     queryFn: getAllPlants,
   });
+  const plants = useFilterStore((state) =>
+    state.plants.map((plant) => plant.id)
+  );
+
   const showCreateForm = useShowStore((state) => state.createForm);
   const showDeleteForm = useShowStore((state) => state.deletePlant);
   const showFilterForm = useShowStore((state) => state.filterForm);
 
   if (isLoading) return <main>Loading...</main>;
-  if (isError) return <main>Something went wrong!</main>;
+  if (isError || !data) return <main>Something went wrong!</main>;
+
+  const filteredPlants =
+    plants.length > 0
+      ? data?.filter((dataPlant) => plants.includes(dataPlant.id))
+      : data;
 
   const showForm = () => {
     if (showCreateForm) return <AddPlant />;
     if (showDeleteForm) return <DeletePlant plants={data} />;
     if (showFilterForm) return <FilterForm plants={data} />;
 
-    return <Info plants={data} />;
+    return <Info plants={filteredPlants} />;
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500 p-4">
-      <Calendar plants={data} />
+      <Calendar plants={filteredPlants} />
       <Filter />
       {showForm()}
       <Menu />
