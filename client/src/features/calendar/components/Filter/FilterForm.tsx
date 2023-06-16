@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ComboBox } from "../Forms/Common/ComboBox";
 import { Plant } from "../../types";
 import { useFilterStore } from "../../stores/filterStore";
+import { useShowStore } from "../../stores/showStore";
 
 interface Props {
   plants: Plant[];
@@ -15,6 +16,7 @@ export const FilterForm = ({ plants }: Props) => {
   const addToFilterStore = (event: React.SyntheticEvent) => {
     event.preventDefault();
     push(selected);
+    useShowStore.setState({ filterForm: false });
   };
 
   return (

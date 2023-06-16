@@ -8,7 +8,9 @@ export const Filter = () => {
     <div className="flex w-full max-w-sm rounded-xl bg-gray-900/40 p-2">
       <FilterButton />
       {filterPlants.map((plant) => {
-        return <FilterSelection name={plant.name} />;
+        return (
+          <FilterSelection key={plant.id} id={plant.id} name={plant.name} />
+        );
       })}
     </div>
   );
