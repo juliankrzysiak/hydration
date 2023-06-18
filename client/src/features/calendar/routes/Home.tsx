@@ -16,7 +16,7 @@ export const Home = () => {
     queryKey: ["plants"],
     queryFn: getAllPlants,
   });
-  const plants = useFilterStore((state) =>
+  const filterSelections = useFilterStore((state) =>
     state.plants.map((plant) => plant.id)
   );
 
@@ -27,22 +27,31 @@ export const Home = () => {
   if (isLoading) return <main>Loading...</main>;
   if (isError || !data) return <main>Something went wrong!</main>;
 
-  const filteredPlants =
-    plants.length > 0
-      ? data?.filter((dataPlant) => plants.includes(dataPlant.id))
-      : data;
-
   const showForm = () => {
     if (showCreateForm) return <AddPlant />;
     if (showDeleteForm) return <DeletePlant plants={data} />;
     if (showFilterForm) return <FilterForm plants={data} />;
 
-    return <Info plants={filteredPlants} />;
+    return (
+      <Info
+        plants={
+          filterSelections.length > 0
+            ? data?.filter((plant) => filterSelections.includes(plant.id))
+            : data
+        }
+      />
+    );
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500 p-4">
-      <Calendar plants={filteredPlants} />
+      <Calendar
+        plants={
+          filterSelections.length > 0
+            ? data?.filter((plant) => filterSelections.includes(plant.id))
+            : data
+        }
+      />
       <Filter />
       {showForm()}
       <Menu />

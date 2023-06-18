@@ -12,6 +12,9 @@ export const FilterForm = ({ plants }: Props) => {
   const [selected, setSelected] = useState({} as Plant);
   const [query, setQuery] = useState("");
   const push = useFilterStore((state) => state.push);
+  const filterSelections = useFilterStore((state) =>
+    state.plants.map((plant) => plant.id)
+  );
 
   const addToFilterStore = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -29,7 +32,9 @@ export const FilterForm = ({ plants }: Props) => {
             setSelected,
             query,
             setQuery,
-            plants,
+            plants: plants?.filter(
+              (plant) => !filterSelections.includes(plant.id)
+            ),
           }}
         />
         <button className="btn self-center" onClick={addToFilterStore}>
