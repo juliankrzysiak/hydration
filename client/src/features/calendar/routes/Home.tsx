@@ -10,6 +10,8 @@ import { DeletePlant } from "../components/Forms/DeletePlant";
 import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
+import { Loader } from "@/components/Loader";
+import { ErrorPage } from "@/routes/ErrorPage";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -24,8 +26,8 @@ export const Home = () => {
   const showDeleteForm = useShowStore((state) => state.deletePlant);
   const showFilterForm = useShowStore((state) => state.filterForm);
 
-  if (isLoading) return <main>Loading...</main>;
-  if (isError) return <main>Something went wrong!</main>;
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorPage />;
 
   const showForm = () => {
     if (showCreateForm) return <AddPlant />;
