@@ -25,7 +25,7 @@ export const Home = () => {
   const showFilterForm = useShowStore((state) => state.filterForm);
 
   if (isLoading) return <main>Loading...</main>;
-  if (isError || !data) return <main>Something went wrong!</main>;
+  if (isError) return <main>Something went wrong!</main>;
 
   const showForm = () => {
     if (showCreateForm) return <AddPlant />;

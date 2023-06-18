@@ -5,21 +5,17 @@ import { Plant } from "../types";
 
 const url = "http://localhost:3001/api/plants";
 
-export const getAllPlants = async (): Promise<Plant[] | undefined> => {
-  try {
-    const uid = await getUid();
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        uid,
-      },
-    });
+export const getAllPlants = async (): Promise<Plant[]> => {
+  const uid = await getUid();
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      uid,
+    },
+  });
 
-    return res.json();
-  } catch (error) {
-    catchApiError(error, "Could not retrieve plants!");
-  }
+  return res.json();
 };
 
 export const createPlant = async (plant: PlantCreate) => {
