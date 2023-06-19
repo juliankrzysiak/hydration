@@ -4,10 +4,10 @@ import { Plant } from "@/features/calendar/types";
 import { ConfirmButtons } from "./Common/ConfirmButtons";
 import { ComboBox } from "./Common/ComboBox";
 import { addDate } from "@/features/calendar/api";
-import { useDateStore} from "@/features/calendar/stores/dateStore";
+import { useDateStore } from "@/features/calendar/stores/dateStore";
 import { useNotificationStore } from "@/stores/notificationStore";
 import dayjs from "dayjs";
-import { useFilter } from "@/features/calendar/hooks/useFilter";
+import { useQueryFilter } from "@/features/calendar/hooks/useQueryFilter";
 
 interface Props {
   plants: Plant[];
@@ -26,7 +26,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
   const [selected, setSelected] = useState({} as Plant);
   const [query, setQuery] = useState("");
-  const filteredPlants = useFilter({ plants, query });
+  const filteredPlants = useQueryFilter({ plants, query });
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();

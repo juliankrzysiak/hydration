@@ -12,8 +12,8 @@ export const Info = ({ plants }: Props) => {
   });
 
   return (
-    <section className="m-4 flex flex-col rounded-md bg-gray-900/20 p-4 shadow-lg">
-      <div className="flex">
+    <section className=" flex w-full max-w-sm flex-col rounded-md bg-gray-900/20 p-4 shadow-lg">
+      <div className="flex justify-between">
         <h2 className="mb-2 text-2xl underline ">{todayOrDate}</h2>
       </div>
       {scheduledPlants.length > 0 && <h3>To Water</h3>}

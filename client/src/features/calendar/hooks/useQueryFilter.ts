@@ -19,7 +19,7 @@ const filterWithQuery = (plants: Plant[], query: string) => {
   );
 };
 
-export const useFilter = ({ plants, query, type }: Args) => {
+export const useQueryFilter = ({ plants, query, type }: Args) => {
   const [, addedPlants] = useCalendarDates({ plants });
 
   const notAddedPlants = plants.filter((plant) => !addedPlants.includes(plant));

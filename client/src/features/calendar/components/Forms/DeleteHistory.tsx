@@ -7,7 +7,7 @@ import { deleteDate } from "../../api";
 import { useDateStore } from "../../stores/dateStore";
 import { useNotificationStore } from "@/stores/notificationStore";
 import dayjs from "dayjs";
-import { useFilter } from "../../hooks/useFilter";
+import { useQueryFilter } from "../../hooks/useQueryFilter";
 
 interface Props {
   plants: Plant[];
@@ -27,7 +27,7 @@ export const DeleteHistory = ({ plants, handleInput }: Props) => {
   const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState({} as Plant);
-  const filteredPlants = useFilter({ plants, query, type: "DELETE" });
+  const filteredPlants = useQueryFilter({ plants, query, type: "DELETE" });
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();

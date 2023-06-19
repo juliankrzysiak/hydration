@@ -14,5 +14,6 @@ module.exports = {
   plugins: ["react-refresh"],
   rules: {
     "react-refresh/only-export-components": "warn",
+    "jsx-a11y/no-autofocus": 0,
   },
 };
