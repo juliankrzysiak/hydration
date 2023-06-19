@@ -33,6 +33,7 @@ export const AddPlant = () => {
           <input
             className="rounded-md border-2 border-gray-600 bg-gray-100 px-2"
             {...name}
+            autoFocus
             required
           />
         </div>

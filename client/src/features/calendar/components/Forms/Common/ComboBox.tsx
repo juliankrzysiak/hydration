@@ -29,6 +29,7 @@ export const ComboBox = ({
             className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
             displayValue={(plant: Plant) => plant.name}
             onChange={(event) => setQuery(event.target.value)}
+            autoFocus
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
