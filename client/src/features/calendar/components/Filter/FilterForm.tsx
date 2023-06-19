@@ -12,11 +12,10 @@ interface Props {
 export const FilterForm = ({ plants }: Props) => {
   const [selected, setSelected] = useState({} as Plant);
   const [query, setQuery] = useState("");
-
-  const push = useFilterStore((state) => state.push);
-  const filterSelections = useFilterStore((state) =>
-    state.plants.map((plant) => plant.id)
-  );
+  const [push, filterSelections] = useFilterStore((state) => [
+    state.push,
+    state.plants.map((plant) => plant.id),
+  ]);
 
   const ref = useRef<HTMLElement>(null);
   const closeForm = () => useShowStore.setState({ filterForm: false });
