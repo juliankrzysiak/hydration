@@ -4,9 +4,7 @@ import { getAllPlants } from "../api";
 import { Info } from "../components/Info";
 import { Menu } from "../components/Menu";
 import { useShowStore } from "../stores/showStore";
-import { AddPlant } from "@/features/calendar/components/Forms/AddPlant";
 import { Notification } from "@/components/Notification";
-import { DeletePlant } from "../components/Forms/DeletePlant";
 import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
@@ -22,28 +20,10 @@ export const Home = () => {
     state.plants.map((plant) => plant.id)
   );
 
-  const showCreateForm = useShowStore((state) => state.createForm);
-  const showDeleteForm = useShowStore((state) => state.deletePlant);
   const showFilterForm = useShowStore((state) => state.filterForm);
 
   if (isLoading) return <Loader />;
   if (isError) return <ErrorPage />;
-
-  const showForm = () => {
-    if (showCreateForm) return <AddPlant />;
-    if (showDeleteForm) return <DeletePlant plants={data} />;
-    if (showFilterForm) return <FilterForm plants={data} />;
-
-    return (
-      <Info
-        plants={
-          filterSelections.length > 0
-            ? data?.filter((plant) => filterSelections.includes(plant.id))
-            : data
-        }
-      />
-    );
-  };
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500 p-4">
@@ -55,7 +35,17 @@ export const Home = () => {
         }
       />
       <Filter />
-      {showForm()}
+      {showFilterForm ? (
+        <FilterForm plants={data} />
+      ) : (
+        <Info
+          plants={
+            filterSelections.length > 0
+              ? data?.filter((plant) => filterSelections.includes(plant.id))
+              : data
+          }
+        />
+      )}
       <Menu />
       <Notification />
     </main>
