@@ -4,6 +4,7 @@ import { getAllPlants } from "../api";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
 import { List } from "../components/List";
+import { sortAsc } from "@/utils/sortAsc";
 
 export const Plants = () => {
   const { data, isLoading, isError } = useQuery({
@@ -15,7 +16,7 @@ export const Plants = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500 p-4">
-      <List />
+      <List plants={sortAsc(data)} />
       <Notification />
     </main>
   );
