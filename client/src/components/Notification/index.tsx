@@ -19,9 +19,9 @@ export const Notification = () => {
 
   const renderImg = () => {
     switch (type) {
-      case "success":
-        return <img className="w-8" src={alert} alt="Alert" />;
       case "error":
+        return <img className="w-8" src={alert} alt="Alert" />;
+      case "success":
         return <img className="w-8" src={checkmarkCircle} alt="Checkmark" />;
       default:
         <img className="w-8" src={info} alt="Information" />;
