@@ -37,7 +37,6 @@ export const createPlant = async (plant: PlantCreate) => {
 };
 
 export const addDate = async (body: PlantDate) => {
-  console.log(body);
   try {
     const res = await fetch(`${url}/water`, {
       method: "POST",
@@ -69,7 +68,7 @@ export const deleteDate = async (body: PlantDate) => {
   }
 };
 
-export const deletePlant = async (id: { id: number }) => {
+export const deletePlant = async (id: { plant_id: number }) => {
   try {
     const uid = await getUid();
     const res = await fetch(`${url}`, {

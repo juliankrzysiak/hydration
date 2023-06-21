@@ -28,13 +28,13 @@ export const DeletePlant = ({ plants }: Props) => {
   const submitForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
     deletePlantMutation.mutate({
-      id: selected.id,
+      plant_id: selected.id,
     });
   };
 
   return (
-    <section className="m-4 rounded-md bg-gray-900/20 p-4 shadow-lg">
-      <h2 className="mb-4 text-xl">Delete Plant</h2>
+    <>
+      <h2 className="text-3xl text-gray-900 underline">Delete Plant</h2>
       <form className="flex flex-col gap-3" onSubmit={submitForm}>
         <ComboBox
           {...{
@@ -59,6 +59,6 @@ export const DeletePlant = ({ plants }: Props) => {
           </button>
         </div>
       </form>
-    </section>
+    </>
   );
 };

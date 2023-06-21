@@ -1,6 +1,7 @@
 import express from 'express';
 export const plantsRouter = express.Router();
 import { sql } from '../utils/db';
+import Z from '../schema/plants';
 
 plantsRouter.get('/', async (req, res) => {
 	const uid = req.get('uid');
@@ -73,6 +74,7 @@ plantsRouter.delete('/water', async (req, res) => {
 
 // Delete one plant and associated dates
 plantsRouter.delete('/', async (req, res) => {
+	Z.deletePlant.parse(req.body);
 	const { plant_id } = req.body as BodyWater;
 	const uid = req.get('uid');
 	// Replace this and other validation with zod
