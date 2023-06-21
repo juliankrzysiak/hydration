@@ -1,40 +1,51 @@
 import { useState } from "react";
-import { Plant } from "../../types";
-import { ConfirmButtons } from "./Common/ConfirmButtons";
-import { ComboBox } from "./Common/ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteDate } from "../../api";
-import { useDateStore } from "../../stores/dateStore";
+import { Plant } from "@/features/calendar/types";
+import { ConfirmButtons } from "../Common/ConfirmButtons";
+import { ComboBox } from "../Common/ComboBox";
+import { addDate } from "@/features/calendar/api";
+import { useDateStore } from "@/features/calendar/stores/dateStore";
 import { useNotificationStore } from "@/stores/notificationStore";
 import dayjs from "dayjs";
-import { useQueryFilter } from "../../hooks/useQueryFilter";
+import { useQueryFilter } from "@/features/calendar/hooks/useQueryFilter";
 
 interface Props {
   plants: Plant[];
   handleInput: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const DeleteHistory = ({ plants, handleInput }: Props) => {
+export const AddHistory = ({ plants, handleInput }: Props) => {
   const queryClient = useQueryClient();
-  const deleteDateMutation = useMutation({
-    mutationFn: deleteDate,
+  const addDateMutation = useMutation({
+    mutationFn: addDate,
     onSuccess: () => {
-      useNotificationStore.setState({ message: "Date removed!" });
+      useNotificationStore.setState({ message: "Date added!" });
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },
   });
-
   const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
-  const [query, setQuery] = useState("");
   const [selected, setSelected] = useState({} as Plant);
-  const filteredPlants = useQueryFilter({ plants, query, type: "DELETE" });
+  const [query, setQuery] = useState("");
+  const filteredPlants = useQueryFilter({ plants, query });
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    deleteDateMutation.mutate({
+    if (
+      // Stop duplicates of dates on same plant
+      plants
+        .filter((plant) => plant.id === selected.id)
+        .at(0)
+        ?.watered.some((wDate) => dayjs(date).isSame(wDate, "day"))
+    ) {
+      handleInput(false);
+      return;
+    }
+
+    addDateMutation.mutate({
       plant_id: selected.id,
       date,
     });
+
     handleInput(false);
   };
 
@@ -46,7 +57,7 @@ export const DeleteHistory = ({ plants, handleInput }: Props) => {
         query={query}
         setQuery={setQuery}
         plants={filteredPlants}
-        label="Delete Date"
+        label="Add Date"
       />
       <ConfirmButtons handleInput={handleInput} />
     </form>

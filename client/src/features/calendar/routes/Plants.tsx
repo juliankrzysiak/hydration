@@ -6,8 +6,8 @@ import { ErrorPage } from "@/routes/ErrorPage";
 import { List } from "../components/List";
 import { sortAsc } from "@/utils/sortAsc";
 import { useShowFormStore } from "../stores/showFormStore";
-import { AddPlant } from "../components/Forms/AddPlant";
-import { DeletePlant } from "../components/Forms/DeletePlant";
+import { AddPlant } from "../components/Forms/Plant/AddPlant";
+import { DeletePlant } from "../components/Forms/Plant/DeletePlant";
 
 export const Plants = () => {
   const { data, isLoading, isError } = useQuery({
