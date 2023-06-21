@@ -25,7 +25,7 @@ export const AddPlant = () => {
   return (
     <>
       <h1 className="mb-4 text-3xl text-gray-900 underline">Add Plant</h1>
-      <form className="flex flex-col gap-3" onSubmit={submitForm}>
+      <form className="flex flex-col gap-3" action="" onSubmit={submitForm}>
         <div className=" flex max-w-[10rem] flex-col">
           <label className="text-lg" htmlFor="name">
             Plant name
@@ -47,6 +47,7 @@ export const AddPlant = () => {
             list="defaultSchedule"
             min={0}
             max={365}
+            required
           />
 
           <datalist id="defaultSchedule">
@@ -59,7 +60,7 @@ export const AddPlant = () => {
         </div>
 
         <div className="flex gap-6">
-          <button className="btn" type="submit" onClick={submitForm}>
+          <button className="btn" type="submit">
             Add Plant
           </button>
           <button
