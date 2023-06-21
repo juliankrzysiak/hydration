@@ -10,8 +10,8 @@ interface Props {
 export const List = ({ plants }: Props) => {
   return (
     <section>
-      <h1 className="mb-4 text-3xl text-neutral-200 underline">Your Plants</h1>
-      <ol className="flex flex-col gap-2">
+      <h1 className="mb-4 text-3xl text-gray-900 underline">Your Plants</h1>
+      <ol className="mb-4 flex flex-col gap-2">
         {plants.map((plant) => (
           <ListPlant key={plant.id} name={plant.name} />
         ))}
