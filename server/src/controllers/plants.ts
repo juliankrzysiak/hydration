@@ -4,9 +4,7 @@ import { sql } from '../utils/db';
 import Z from '../schema/plants';
 
 plantsRouter.get('/', async (req, res) => {
-	const uid = req.get('uid');
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
-
+	const uid = Z.uid.parse(req.get('uid'));
 	const plants = await sql`
     SELECT plants.id, name, schedule, array_agg(water.date ORDER BY water.date ASC) as watered,
     MAX(water.date) + schedule as next_water
@@ -27,8 +25,7 @@ interface PostBody {
 // Create new plant
 plantsRouter.post('/', async (req, res) => {
 	const { name, schedule } = req.body as PostBody;
-	const uid = req.get('uid');
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
+	const uid = Z.uid.parse(req.get('uid'));
 
 	const plants = await sql`
     INSERT INTO plants 
@@ -74,11 +71,8 @@ plantsRouter.delete('/water', async (req, res) => {
 
 // Delete one plant and associated dates
 plantsRouter.delete('/', async (req, res) => {
-	Z.deletePlant.parse(req.body);
-	const { plant_id } = req.body as BodyWater;
-	const uid = req.get('uid');
-	// Replace this and other validation with zod
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
+	const { plant_id } = Z.deletePlant.parse(req.body) as BodyWater;
+	const uid = Z.uid.parse(req.get('uid'));
 
 	await sql`
     DELETE FROM water 
@@ -98,8 +92,7 @@ plantsRouter.delete('/', async (req, res) => {
 
 // Delete all plants
 plantsRouter.delete('/delete', async (req, res) => {
-	const uid = req.get('uid');
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
+	const uid = Z.uid.parse(req.get('uid'));
 
 	await sql`
     DELETE FROM water
