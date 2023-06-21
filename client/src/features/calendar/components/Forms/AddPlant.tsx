@@ -23,8 +23,8 @@ export const AddPlant = () => {
   };
 
   return (
-    <section className="m-4 rounded-md bg-gray-900/20 p-4 shadow-lg">
-      <h2 className="mb-4 text-xl">Add Plant</h2>
+    <>
+      <h1 className="mb-4 text-3xl text-gray-900 underline">Add Plant</h1>
       <form className="flex flex-col gap-3" onSubmit={submitForm}>
         <div className=" flex max-w-[10rem] flex-col">
           <label className="text-lg" htmlFor="name">
@@ -70,6 +70,6 @@ export const AddPlant = () => {
           </button>
         </div>
       </form>
-    </section>
+    </>
   );
 };
