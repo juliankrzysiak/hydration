@@ -6,6 +6,7 @@ import { deletePlant } from "../../../api";
 import { ComboBox } from "../Common/ComboBox";
 import { Plant } from "../../../types";
 import { sortAsc } from "@/utils/sortAsc";
+import { notify } from "@/utils/notify";
 
 interface Props {
   plants: Plant[];
@@ -16,7 +17,7 @@ export const DeletePlant = ({ plants }: Props) => {
   const deletePlantMutation = useMutation({
     mutationFn: deletePlant,
     onSuccess: () => {
-      useNotificationStore.setState({ message: "Plant deleted" });
+      notify("success", "Plant deleted");
       useShowFormStore.setState({ deletePlant: false });
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },

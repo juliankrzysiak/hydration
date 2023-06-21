@@ -2,13 +2,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useField } from "@/hooks/useField";
 import { useShowFormStore } from "../../../stores/showFormStore";
 import { createPlant } from "../../../api";
+import { notify } from "@/utils/notify";
 
 export const AddPlant = () => {
   const queryClient = useQueryClient();
   const createPlantMutation = useMutation({
     mutationFn: createPlant,
     onSuccess: () => {
+      notify("success", "Plant created");
       queryClient.invalidateQueries({ queryKey: ["plants"] });
+      useShowFormStore.setState({ addPlant: false });
     },
   });
   const [name, setName] = useField({ id: "name", type: "text" });
