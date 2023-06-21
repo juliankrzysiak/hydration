@@ -1,6 +1,6 @@
 import { Plant } from "../../types";
 import { ListPlant } from "./ListPlant";
-import { useShowStore } from "../../stores/showStore";
+import { useShowFormStore } from "../../stores/showFormStore";
 import { DualButtons } from "@/components/DualButtons";
 
 interface Props {
@@ -17,8 +17,8 @@ export const List = ({ plants }: Props) => {
         ))}
       </ol>
       <DualButtons
-        confirm={() => useShowStore.setState({ createForm: true })}
-        cancel={() => useShowStore.setState({ deletePlant: true })}
+        confirm={() => useShowFormStore.setState({ addPlant: true })}
+        cancel={() => useShowFormStore.setState({ deletePlant: true })}
       />
     </section>
   );

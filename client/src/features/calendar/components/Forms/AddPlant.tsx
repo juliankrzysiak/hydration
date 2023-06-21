@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useField } from "@/hooks/useField";
-import { useShowStore } from "../../stores/showStore";
+import {  useShowFormStore } from "../../stores/showFormStore";
 import { createPlant } from "../../api";
 
 export const AddPlant = () => {
@@ -65,7 +65,7 @@ export const AddPlant = () => {
           </button>
           <button
             className="btn"
-            onClick={() => useShowStore.setState({ createForm: false })}
+            onClick={() => useShowFormStore.setState({ addPlant: false })}
           >
             Cancel
           </button>

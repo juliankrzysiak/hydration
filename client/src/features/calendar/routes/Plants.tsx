@@ -5,7 +5,7 @@ import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
 import { List } from "../components/List";
 import { sortAsc } from "@/utils/sortAsc";
-import { useShowStore } from "../stores/showStore";
+import { useShowFormStore } from "../stores/showFormStore";
 import { AddPlant } from "../components/Forms/AddPlant";
 import { DeletePlant } from "../components/Forms/DeletePlant";
 
@@ -14,8 +14,8 @@ export const Plants = () => {
     queryKey: ["plants"],
     queryFn: getAllPlants,
   });
-  const [showCreateForm, showDeleteForm] = useShowStore((state) => [
-    state.createForm,
+  const [showCreateForm, showDeleteForm] = useShowFormStore((state) => [
+    state.addPlant,
     state.deletePlant,
   ]);
 

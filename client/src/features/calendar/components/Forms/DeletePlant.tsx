@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useShowStore } from "../../stores/showStore";
+import { useShowFormStore } from "../../stores/showFormStore";
 import { useNotificationStore } from "@/stores/notificationStore";
 import { deletePlant } from "../../api";
 import { ComboBox } from "./Common/ComboBox";
@@ -17,7 +17,7 @@ export const DeletePlant = ({ plants }: Props) => {
     mutationFn: deletePlant,
     onSuccess: () => {
       useNotificationStore.setState({ message: "Plant deleted" });
-      useShowStore.setState({ deletePlant: false });
+      useShowFormStore.setState({ deletePlant: false });
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },
   });
@@ -53,7 +53,7 @@ export const DeletePlant = ({ plants }: Props) => {
           <button
             className="btn"
             type="button"
-            onClick={() => useShowStore.setState({ deletePlant: false })}
+            onClick={() => useShowFormStore.setState({ deletePlant: false })}
           >
             Cancel
           </button>

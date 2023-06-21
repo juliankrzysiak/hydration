@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 import { useDateStore } from "../../stores/dateStore";
-import { useShowStore } from "../../stores/showStore";
+import { useShowFormStore } from "../../stores/showFormStore";
 
 import droplet from "@/assets/droplet.svg";
 
@@ -48,7 +48,7 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
 
   const onClickDay = (date: Date) => {
     useDateStore.setState({ date });
-    useShowStore.setState({ createForm: false });
+    useShowFormStore.setState({ addPlant: false });
   };
 
   return (

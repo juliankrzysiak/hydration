@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllPlants } from "../api";
 import { Info } from "../components/Info";
 import { Menu } from "../components/Menu";
-import { useShowStore } from "../stores/showStore";
+import { useShowFormStore } from "../stores/showFormStore";
 import { Notification } from "@/components/Notification";
 import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
@@ -20,7 +20,7 @@ export const Home = () => {
     state.plants.map((plant) => plant.id)
   );
 
-  const showFilterForm = useShowStore((state) => state.filterForm);
+  const showFilterForm = useShowFormStore((state) => state.filterPlant);
 
   if (isLoading) return <Loader />;
   if (isError) return <ErrorPage />;
