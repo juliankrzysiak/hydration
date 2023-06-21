@@ -7,7 +7,9 @@ export const AddPlant = () => {
   const queryClient = useQueryClient();
   const createPlantMutation = useMutation({
     mutationFn: createPlant,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["plants"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+    },
   });
   const [name, setName] = useField({ id: "name", type: "text" });
   const [schedule, setSchedule] = useField({ id: "schedule", type: "number" });

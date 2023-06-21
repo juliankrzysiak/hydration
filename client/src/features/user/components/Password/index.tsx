@@ -20,7 +20,7 @@ export const Password = () => {
     mutationFn: changePassword,
     onSuccess: async () => {
       await supabase.auth.signOut();
-      notify("action", "Password changed");
+      notify("success", "Password changed");
       navigate("/account/login");
       setPassword("");
       setConfirmPassword("");

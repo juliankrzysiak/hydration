@@ -1,5 +1,5 @@
 import { useNotificationStore } from "../stores/notificationStore";
 
-export const notify = (type: "info" | "error" | "action", message: string) => {
+export const notify = (type: "info" | "error" | "success", message: string) => {
   useNotificationStore.setState({ type, message });
 };

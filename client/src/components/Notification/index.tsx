@@ -12,10 +12,21 @@ export const Notification = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      useNotificationStore.setState({ message: "" });
+      useNotificationStore.setState({ message: null });
     }, 5000);
     return () => clearTimeout(timeout);
   }, [message]);
+
+  const renderImg = () => {
+    switch (type) {
+      case "success":
+        return <img className="w-8" src={alert} alt="Alert" />;
+      case "error":
+        return <img className="w-8" src={checkmarkCircle} alt="Checkmark" />;
+      default:
+        <img className="w-8" src={info} alt="Information" />;
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -27,20 +38,13 @@ export const Notification = () => {
           className={` fixed bottom-7 left-1/2 z-30 flex  max-w-xs -translate-x-1/2 rounded-xl border border-gray-500 py-2 pl-4 pr-2
            ${type === "info" && "bg-neutral-200"}
            ${type === "error" && "bg-red-200"}
-           ${type === "action" && "bg-green-200"}`}
+           ${type === "success" && "bg-green-200"}`}
         >
-          {type === "info" && (
-            <img className="w-8" src={info} alt="Information" />
-          )}
-          {type === "error" && <img className="w-8" src={alert} alt="Alert!" />}
-          {type === "action" && (
-            <img className="w-8" src={checkmarkCircle} alt="Checkmark" />
-          )}
-
+          {renderImg()}
           <p className="ml-3 w-52 font-['Inter']">{message}</p>
           <div className="ml-2 w-0.5 bg-neutral-500/30" />
           <button
-            onClick={() => useNotificationStore.setState({ message: "" })}
+            onClick={() => useNotificationStore.setState({ message: null })}
             aria-label="Close notification"
             className="ml-1 flex-shrink-0"
           >

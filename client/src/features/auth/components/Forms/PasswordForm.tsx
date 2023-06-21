@@ -16,7 +16,7 @@ export const PasswordForm = () => {
       });
     },
     onSuccess: () => {
-      notify("action", "Recovery email sent");
+      notify("success", "Recovery email sent");
       navigate("/account/login");
     },
   });

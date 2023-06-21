@@ -35,7 +35,7 @@ export const RegisterForm = () => {
     setPassword("");
     useNotificationStore.setState({
       message: "Email sent!",
-      type: "action",
+      type: "success",
     });
     navigate("/account/login");
   };

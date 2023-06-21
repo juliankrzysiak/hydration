@@ -16,7 +16,7 @@ export const Delete = () => {
     onSuccess: () => {
       dataModalRef.current?.close();
       queryClient.invalidateQueries({ queryKey: ["plants"] });
-      notify("action", "All data deleted");
+      notify("success", "All data deleted");
     },
     onError: (error: AuthError) => notify("error", error.message),
   });
@@ -24,7 +24,7 @@ export const Delete = () => {
     mutationFn: deleteAccount,
     onSuccess: async () => {
       accountModalRef.current?.close();
-      notify("action", "Account deleted");
+      notify("success", "Account deleted");
       navigate("/account/login");
     },
     onError: (error: AuthError) => notify("error", error.message),
