@@ -17,14 +17,9 @@ plantsRouter.get('/', async (req, res) => {
 	return res.status(200).json(plants);
 });
 
-interface PostBody {
-	name: string;
-	schedule: number;
-}
-
 // Create new plant
 plantsRouter.post('/', async (req, res) => {
-	const { name, schedule } = req.body as PostBody;
+	const { name, schedule } = Z.newPlant.parse(req.body);
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plants = await sql`
@@ -37,13 +32,9 @@ plantsRouter.post('/', async (req, res) => {
 	return res.status(201).json(plants);
 });
 
-interface BodyWater {
-	plant_id: number;
-	date: Date;
-}
 // Post single date
 plantsRouter.post('/water', async (req, res) => {
-	const { plant_id, date } = req.body as BodyWater;
+	const { plant_id, date } = Z.date.parse(req.body);
 	const plant = await sql`
     INSERT INTO water
         (plant_id, date)
@@ -56,7 +47,7 @@ plantsRouter.post('/water', async (req, res) => {
 
 // Delete one date
 plantsRouter.delete('/water', async (req, res) => {
-	const { plant_id, date } = req.body as BodyWater;
+	const { plant_id, date } = Z.date.parse(req.body);
 	const deletedPlant = await sql`
     DELETE FROM water 
     WHERE 
@@ -71,7 +62,7 @@ plantsRouter.delete('/water', async (req, res) => {
 
 // Delete one plant and associated dates
 plantsRouter.delete('/', async (req, res) => {
-	const { plant_id } = Z.deletePlant.parse(req.body) as BodyWater;
+	const { plant_id } = Z.deletePlant.parse(req.body);
 	const uid = Z.uid.parse(req.get('uid'));
 
 	await sql`
