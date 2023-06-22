@@ -35,7 +35,7 @@ export const Plants = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500 p-4">
-      <section className=" flex w-full max-w-sm flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
+      <section className="relative flex w-full max-w-sm flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
         {!id && showForm()}
         <Outlet context={{ ...plant }} />
       </section>
