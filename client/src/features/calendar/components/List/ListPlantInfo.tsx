@@ -28,21 +28,8 @@ export const ListPlantInfo = () => {
 
   return (
     <>
-      <div className="mb-4 flex justify-between">
-        <h1 className=" text-3xl text-gray-900 underline">{name}</h1>
-        <div className="right-2 flex gap-2">
-          <button aria-label="Edit current plant">
-            <img src={editSVG} alt="Edit" className=" w-8" />
-          </button>
-          <button
-            aria-label="Delete current plant"
-            onClick={() => dialogRef.current?.open()}
-          >
-            <img src={cancelSVG} alt="Cancel" className="w-9  " />
-          </button>
-        </div>
-      </div>
-      <div className="grid grid-cols-2">
+      <h1 className=" mb-6 text-3xl text-gray-900 underline">{name}</h1>
+      <div className="grid grid-cols-2 gap-y-4">
         <div className="flex flex-col items-center">
           <h2 className="text-xl">Schedule</h2>
           <p>Every {schedule} days</p>
@@ -56,12 +43,31 @@ export const ListPlantInfo = () => {
               )}`}
           </p>
         </div>
-        <div className="mt-4 flex flex-col items-center">
+        <div className=" flex flex-col items-center">
           <h2 className="text-xl">History</h2>
           <p>
             {watered.at(0) &&
               watered.map((date) => dayjs(date).format("MMM D"))}
           </p>
+        </div>
+        <div className="flex items-center justify-center gap-6">
+          <button
+            className="rounded-md border border-gray-900 bg-gray-500/30 px-2 py-1"
+            aria-label="Edit current plant"
+          >
+            {/* <img src={editSVG} alt="Edit" className=" w-8" />
+             */}
+            Edit
+          </button>
+          <button
+            className="rounded-md border border-gray-900 bg-gray-500/30 px-2 py-1"
+            aria-label="Delete current plant"
+            onClick={() => dialogRef.current?.open()}
+          >
+            {/* <img src={cancelSVG} alt="Cancel" className="w-9  " />
+             */}
+            Delete
+          </button>
         </div>
       </div>
       <Dialog
