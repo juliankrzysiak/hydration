@@ -1,14 +1,17 @@
 import { useOutletContext } from "react-router-dom";
 import { Plant } from "../../types";
+import { Dialog, DialogHandle } from "@/components/Dialog";
 import dayjs from "dayjs";
 import editSVG from "../../assets/create.svg";
 import cancelSVG from "@/assets/cancel.svg";
 
 import relativeTime from "dayjs/plugin/relativeTime.js";
+import { useRef } from "react";
 dayjs.extend(relativeTime);
 
 export const ListPlantInfo = () => {
   const { name, schedule, next_water, watered } = useOutletContext<Plant>();
+  const dialogRef = useRef<DialogHandle>(null);
   return (
     <>
       <div className="mb-4 flex justify-between">
@@ -17,7 +20,10 @@ export const ListPlantInfo = () => {
           <button aria-label="Edit current plant">
             <img src={editSVG} alt="Edit" className=" w-8" />
           </button>
-          <button aria-label="Delete current plant">
+          <button
+            aria-label="Delete current plant"
+            onClick={() => dialogRef.current?.open()}
+          >
             <img src={cancelSVG} alt="Cancel" className="w-9  " />
           </button>
         </div>
@@ -38,6 +44,7 @@ export const ListPlantInfo = () => {
           <p>{watered.map((date) => dayjs(date).format("MMM D"))}</p>
         </div>
       </div>
+      <Dialog ref={dialogRef} />
     </>
   );
 };
