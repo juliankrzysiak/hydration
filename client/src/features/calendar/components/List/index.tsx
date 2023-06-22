@@ -1,7 +1,7 @@
 import { Plant } from "../../types";
 import { ListPlant } from "./ListPlant";
 import { useShowFormStore } from "../../stores/showFormStore";
-import { DualButtons } from "@/components/DualButtons";
+import plusSVG from "@/assets/plus.svg";
 
 interface Props {
   plants: Plant[];
@@ -21,10 +21,13 @@ export const List = ({ plants }: Props) => {
           />
         ))}
       </ol>
-      <DualButtons
-        confirm={() => useShowFormStore.setState({ addPlant: true })}
-        cancel={() => useShowFormStore.setState({ deletePlant: true })}
-      />
+      <button
+        className="rounded-md bg-gray-200/40 p-1"
+        aria-label="Show Add Date Form"
+        onClick={() => useShowFormStore.setState({ addPlant: true })}
+      >
+        <img className="w-5" src={plusSVG} alt="Plus" />
+      </button>
     </section>
   );
 };
