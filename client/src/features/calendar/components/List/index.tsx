@@ -15,6 +15,7 @@ export const List = ({ plants }: Props) => {
         {plants.map((plant) => (
           <ListPlant
             key={plant.id}
+            id={plant.id}
             name={plant.name}
             watered={plant.watered.slice(-1).at(0)}
           />
