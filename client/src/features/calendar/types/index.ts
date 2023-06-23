@@ -12,3 +12,5 @@ export interface PlantDate {
   plant_id: number;
   date: string;
 }
+
+export type PlantEdit = Pick<Plant, "id" | "name" | "schedule">;

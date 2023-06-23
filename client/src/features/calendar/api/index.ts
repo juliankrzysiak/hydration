@@ -1,4 +1,4 @@
-import { PlantDate, PlantCreate } from "../types";
+import { PlantDate, PlantCreate, PlantEdit } from "../types";
 import { getUid } from "../utils/getUid";
 import { catchApiError } from "../utils/catchApiError";
 import { Plant } from "../types";
@@ -33,6 +33,31 @@ export const createPlant = async (plant: PlantCreate) => {
     return res.json();
   } catch (error) {
     catchApiError(error, "Could not create plant!");
+  }
+};
+
+export const editPlant = async ({
+  id,
+  name,
+  schedule,
+}: {
+  id: number;
+  name: string;
+  schedule: number;
+}) => {
+  try {
+    const uid = await getUid();
+    const res = await fetch(`${url}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+      body: JSON.stringify({ name, schedule }),
+    });
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not edit plant!");
   }
 };
 

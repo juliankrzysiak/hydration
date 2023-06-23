@@ -1,5 +1,8 @@
 import { useField } from "@/hooks/useField";
 import { useShowFormStore } from "@/features/calendar/stores/showFormStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { editPlant } from "@/features/calendar/api";
+import { notify } from "@/utils/notify";
 
 interface Props {
   id: number;
@@ -18,9 +21,30 @@ export const EditPlant = (props: Props) => {
     id: "schedule",
     defaultValue: props.schedule.toString(),
   });
+  const queryClient = useQueryClient();
+  const editPlantMutation = useMutation({
+    mutationFn: editPlant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+      useShowFormStore.setState({ editPlant: false });
+      notify("success", "Plant edited");
+    },
+    onError: () => {
+      notify("error", "Could not edit plant");
+    },
+  });
 
   return (
-    <form className="flex flex-col gap-3">
+    <form
+      className="flex flex-col gap-3"
+      onSubmit={() =>
+        editPlantMutation.mutate({
+          id: props.id,
+          name: name.value,
+          schedule: Number(schedule.value),
+        })
+      }
+    >
       <div className=" flex max-w-[10rem] flex-col">
         <label className="text-lg" htmlFor="name">
           Plant name
@@ -43,7 +67,6 @@ export const EditPlant = (props: Props) => {
           max={365}
           required
         />
-
         <datalist id="defaultSchedule">
           <option value="3" />
           <option value="7" />
@@ -52,7 +75,6 @@ export const EditPlant = (props: Props) => {
           <option value="30" />
         </datalist>
       </div>
-
       <div className="flex gap-6">
         <button className="btn" type="submit">
           Edit Plant
