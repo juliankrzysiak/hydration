@@ -72,7 +72,7 @@ export const ListPlantInfo = () => {
           </div>
         </div>
       ) : (
-        <EditPlant />
+        <EditPlant {...{id,name, schedule  }}/>
       )}
       <Dialog
         ref={dialogRef}
