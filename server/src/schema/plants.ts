@@ -7,6 +7,7 @@ const newPlant = z.object({
 	name: z.string().min(1),
 	schedule: z.number().int().max(365),
 });
+
 const date = z.object({
 	plant_id: z.number(),
 	date: z.date(),

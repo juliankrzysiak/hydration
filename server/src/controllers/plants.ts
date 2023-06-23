@@ -32,6 +32,21 @@ plantsRouter.post('/', async (req, res) => {
 	return res.status(201).json(plants);
 });
 
+//Edit one plant
+plantsRouter.patch('/:id', async (req, res) => {
+	const { name, schedule } = Z.newPlant.parse(req.body);
+	const { id } = req.params;
+	const uid = Z.uid.parse(req.get('uid'));
+
+	const plant = await sql`
+    UPDATE plants 
+    SET name = ${name}, schedule = ${schedule}
+    WHERE uid = ${uid} AND id = ${id}
+    RETURNING name, schedule
+    `;
+	return res.status(201).json(plant);
+});
+
 // Post single date
 plantsRouter.post('/water', async (req, res) => {
 	const { plant_id, date } = Z.date.parse(req.body);
