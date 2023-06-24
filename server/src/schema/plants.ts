@@ -10,7 +10,7 @@ const newPlant = z.object({
 
 const date = z.object({
 	plant_id: z.number(),
-	date: z.date(),
+	date: z.coerce.date(),
 });
 const uid = z.string().uuid();
 

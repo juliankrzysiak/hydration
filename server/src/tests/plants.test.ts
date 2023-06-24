@@ -131,7 +131,6 @@ describe('DELETE single date route', () => {
 			date: '2023-05-22',
 		};
 		const res = await api.delete('/api/plants/water').send(req).expect(200);
-		// BUG: Currently this test fails, I need to figure out why the query does not retun what was deleted
 		expect(res.body).toContainEqual(req);
 	});
 	it('should be deleted with GET', async () => {
