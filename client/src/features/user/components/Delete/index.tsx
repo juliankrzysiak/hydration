@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Dialog, DialogHandle } from "./Dialog.tsx";
+import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notify } from "@/utils/notify.ts";
 import { deleteAccount, deleteData } from "../../api/index.ts";
@@ -16,7 +16,7 @@ export const Delete = () => {
     onSuccess: () => {
       dataModalRef.current?.close();
       queryClient.invalidateQueries({ queryKey: ["plants"] });
-      notify("action", "All data deleted");
+      notify("success", "All data deleted");
     },
     onError: (error: AuthError) => notify("error", error.message),
   });
@@ -24,7 +24,7 @@ export const Delete = () => {
     mutationFn: deleteAccount,
     onSuccess: async () => {
       accountModalRef.current?.close();
-      notify("action", "Account deleted");
+      notify("success", "Account deleted");
       navigate("/account/login");
     },
     onError: (error: AuthError) => notify("error", error.message),

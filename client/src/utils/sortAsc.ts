@@ -1,4 +1,4 @@
-import { Plant } from "@/types";
+import { Plant } from "@/features/calendar/types";
 
 export const sortAsc = (plants: Plant[]) =>
   plants.sort((a, b) =>

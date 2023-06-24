@@ -3,10 +3,11 @@ import { useState } from "react";
 interface Args {
   type: string;
   id: string;
+  defaultValue?: string;
 }
 
-export const useField = ({ type, id }: Args) => {
-  const [value, setValue] = useState("");
+export const useField = ({ type, id, defaultValue }: Args) => {
+  const [value, setValue] = useState(defaultValue ?? "");
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setValue(event?.target.value);

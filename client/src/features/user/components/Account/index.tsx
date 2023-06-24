@@ -13,7 +13,7 @@ export const Account = () => {
     mutationFn: (name: string) => changeName(name),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["name"] });
-      notify("action", "Name changed");
+      notify("success", "Name changed");
       setName("");
     },
     onError: (error: AuthError) => notify("error", error.message),
@@ -21,7 +21,7 @@ export const Account = () => {
   const emailMutation = useMutation({
     mutationFn: (name: string) => changeEmail(name),
     onSuccess: () => {
-      notify("action", "Email sent, please confirm your email");
+      notify("success", "Email sent, please confirm your email");
       setEmail("");
     },
     onError: (error: AuthError) => notify("error", error.message),

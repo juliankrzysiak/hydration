@@ -69,6 +69,39 @@ describe('POST plant route', () => {
 	});
 });
 
+describe('PATCH single plant', () => {
+	afterAll(async () => {
+		await api
+			.patch('/api/plants/3')
+			.set('uid', `${uid}`)
+			.send({ name: 'white sage', schedule: 3 });
+	});
+	it('returns plant', async () => {
+		const req = {
+			name: 'not white sage',
+			schedule: 7,
+		};
+		const res = await api
+			.patch('/api/plants/3')
+			.set('uid', `${uid}`)
+			.send(req)
+			.expect(201);
+
+		expect(res.body).toContainEqual(req);
+	});
+
+	it('shows up correctly with GET', async () => {
+		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
+		expect(res.body).toContainEqual({
+			id: 3,
+			name: 'not white sage',
+			schedule: 7,
+			watered: [null],
+			next_water: null,
+		});
+	});
+});
+
 describe('POST single date route', () => {
 	it('returns posted date', async () => {
 		const req = {
@@ -98,7 +131,6 @@ describe('DELETE single date route', () => {
 			date: '2023-05-22',
 		};
 		const res = await api.delete('/api/plants/water').send(req).expect(200);
-		// BUG: Currently this test fails, I need to figure out why the query doesn not retun what was deleted
 		expect(res.body).toContainEqual(req);
 	});
 	it('should be deleted with GET', async () => {

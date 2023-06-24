@@ -1,11 +1,10 @@
 import express from 'express';
 export const plantsRouter = express.Router();
 import { sql } from '../utils/db';
+import Z from '../schema/plants';
 
 plantsRouter.get('/', async (req, res) => {
-	const uid = req.get('uid');
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
-
+	const uid = Z.uid.parse(req.get('uid'));
 	const plants = await sql`
     SELECT plants.id, name, schedule, array_agg(water.date ORDER BY water.date ASC) as watered,
     MAX(water.date) + schedule as next_water
@@ -18,16 +17,10 @@ plantsRouter.get('/', async (req, res) => {
 	return res.status(200).json(plants);
 });
 
-interface PostBody {
-	name: string;
-	schedule: number;
-}
-
 // Create new plant
 plantsRouter.post('/', async (req, res) => {
-	const { name, schedule } = req.body as PostBody;
-	const uid = req.get('uid');
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
+	const { name, schedule } = Z.newPlant.parse(req.body);
+	const uid = Z.uid.parse(req.get('uid'));
 
 	const plants = await sql`
     INSERT INTO plants 
@@ -39,13 +32,24 @@ plantsRouter.post('/', async (req, res) => {
 	return res.status(201).json(plants);
 });
 
-interface BodyWater {
-	plant_id: number;
-	date: Date;
-}
+//Edit one plant
+plantsRouter.patch('/:id', async (req, res) => {
+	const { name, schedule } = Z.newPlant.parse(req.body);
+	const { id } = req.params;
+	const uid = Z.uid.parse(req.get('uid'));
+
+	const plant = await sql`
+    UPDATE plants 
+    SET name = ${name}, schedule = ${schedule}
+    WHERE uid = ${uid} AND id = ${id}
+    RETURNING name, schedule
+    `;
+	return res.status(201).json(plant);
+});
+
 // Post single date
 plantsRouter.post('/water', async (req, res) => {
-	const { plant_id, date } = req.body as BodyWater;
+	const { plant_id, date } = Z.date.parse(req.body);
 	const plant = await sql`
     INSERT INTO water
         (plant_id, date)
@@ -58,7 +62,7 @@ plantsRouter.post('/water', async (req, res) => {
 
 // Delete one date
 plantsRouter.delete('/water', async (req, res) => {
-	const { plant_id, date } = req.body as BodyWater;
+	const { plant_id, date } = Z.date.parse(req.body);
 	const deletedPlant = await sql`
     DELETE FROM water 
     WHERE 
@@ -73,10 +77,8 @@ plantsRouter.delete('/water', async (req, res) => {
 
 // Delete one plant and associated dates
 plantsRouter.delete('/', async (req, res) => {
-	const { plant_id } = req.body as BodyWater;
-	const uid = req.get('uid');
-	// Replace this and other validation with zod
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
+	const { plant_id } = Z.deletePlant.parse(req.body);
+	const uid = Z.uid.parse(req.get('uid'));
 
 	await sql`
     DELETE FROM water 
@@ -96,8 +98,7 @@ plantsRouter.delete('/', async (req, res) => {
 
 // Delete all plants
 plantsRouter.delete('/delete', async (req, res) => {
-	const uid = req.get('uid');
-	if (typeof uid !== 'string') throw new Error('Uid is not a string!');
+	const uid = Z.uid.parse(req.get('uid'));
 
 	await sql`
     DELETE FROM water

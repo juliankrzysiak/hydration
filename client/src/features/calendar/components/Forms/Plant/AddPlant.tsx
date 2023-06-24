@@ -1,13 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useField } from "@/hooks/useField";
-import { useShowStore } from "../../stores/showStore";
-import { createPlant } from "../../api";
+import { useShowFormStore } from "../../../stores/showFormStore";
+import { createPlant } from "../../../api";
+import { notify } from "@/utils/notify";
 
 export const AddPlant = () => {
   const queryClient = useQueryClient();
   const createPlantMutation = useMutation({
     mutationFn: createPlant,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["plants"] }),
+    onSuccess: () => {
+      notify("success", "Plant created");
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+      useShowFormStore.setState({ addPlant: false });
+    },
   });
   const [name, setName] = useField({ id: "name", type: "text" });
   const [schedule, setSchedule] = useField({ id: "schedule", type: "number" });
@@ -23,9 +28,9 @@ export const AddPlant = () => {
   };
 
   return (
-    <section className="m-4 rounded-md bg-gray-900/20 p-4 shadow-lg">
-      <h2 className="mb-4 text-xl">Add Plant</h2>
-      <form className="flex flex-col gap-3" onSubmit={submitForm}>
+    <>
+      <h1 className="mb-4 text-3xl text-gray-900 underline">Add Plant</h1>
+      <form className="flex flex-col gap-3" action="" onSubmit={submitForm}>
         <div className=" flex max-w-[10rem] flex-col">
           <label className="text-lg" htmlFor="name">
             Plant name
@@ -47,6 +52,7 @@ export const AddPlant = () => {
             list="defaultSchedule"
             min={0}
             max={365}
+            required
           />
 
           <datalist id="defaultSchedule">
@@ -59,17 +65,17 @@ export const AddPlant = () => {
         </div>
 
         <div className="flex gap-6">
-          <button className="btn" type="submit" onClick={submitForm}>
+          <button className="btn" type="submit">
             Add Plant
           </button>
           <button
             className="btn"
-            onClick={() => useShowStore.setState({ createForm: false })}
+            onClick={() => useShowFormStore.setState({ addPlant: false })}
           >
             Cancel
           </button>
         </div>
       </form>
-    </section>
+    </>
   );
 };

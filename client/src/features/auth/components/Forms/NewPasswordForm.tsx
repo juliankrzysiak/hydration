@@ -21,7 +21,7 @@ export const NewPasswordForm = () => {
     mutationFn: createNewPassword,
     onSuccess: () => {
       navigate("/account/login");
-      notify("action", "Password changed, log in please");
+      notify("success", "Password changed, log in please");
     },
     onError: (error: AuthError) => notify("error", error.message),
   });

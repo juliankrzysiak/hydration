@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 interface State {
-  message: string;
-  type: "info" | "error" | "action";
+  message: string | null;
+  type: "info" | "error" | "success";
 }
 
 export const useNotificationStore = create<State>(() => ({
-  message: "",
+  message: null,
   type: "info",
 }));

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { ComboBox } from "../Forms/Common/ComboBox";
 import { Plant } from "../../types";
 import { useFilterStore } from "../../stores/filterStore";
-import { useShowStore } from "../../stores/showStore";
+import { useShowFormStore } from "../../stores/showFormStore";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
 interface Props {
@@ -18,7 +18,7 @@ export const FilterForm = ({ plants }: Props) => {
   ]);
 
   const ref = useRef<HTMLElement>(null);
-  const closeForm = () => useShowStore.setState({ filterForm: false });
+  const closeForm = () => useShowFormStore.setState({ filterPlant: false });
   useClickOutside(closeForm, ref);
 
   const addToFilterStore = (event: React.SyntheticEvent) => {

@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { MenuButton } from "./MenuButton";
-import { useShowStore } from "../../stores/showStore";
 import menu from "../../assets/menu.svg";
-import plus from "../../assets/plus.svg";
-import filter from "../../assets/filter.svg";
-import cancel from "@/assets/cancel.svg";
 import person from "@/assets/person.svg";
+import leafSVG from "../../assets/leaf.svg";
 
 import { useNavigate } from "react-router-dom";
 
@@ -20,16 +17,6 @@ export const Menu = () => {
     W: `-translate-x-[4.5rem]`,
   };
 
-  const addPlant = () => {
-    useShowStore.setState({ createForm: true });
-    setPressed(false);
-  };
-
-  const deletePlant = () => {
-    useShowStore.setState({ deletePlant: true });
-    setPressed(false);
-  };
-
   return (
     <nav className="fixed bottom-6 right-6 grid place-content-center">
       <button
@@ -42,23 +29,17 @@ export const Menu = () => {
       {pressed && (
         <>
           <MenuButton
-            handleClick={addPlant}
+            handleClick={() => navigate("/plants")}
             direction={translate.N}
-            label="Open form to add new plant"
+            label="Open list of all plants"
           >
-            <img src={plus} alt="Plus" />
+            <img src={leafSVG} alt="Leaf" />
           </MenuButton>
-          <MenuButton
-            handleClick={deletePlant}
-            direction={translate.W}
-            label="Open form to delete existing plant"
-          >
-            <img src={cancel} alt="Cancel" />
-          </MenuButton>
+
           <MenuButton
             handleClick={() => navigate("/user")}
-            direction={translate.NW}
-            label="Navigate to User Account Page"
+            direction={translate.W}
+            label="Navigate to user account page"
           >
             <img src={person} alt="Person" />
           </MenuButton>

@@ -15,8 +15,9 @@ import { RegisterForm } from "@/features/auth/components/Forms/RegisterForm";
 import { User } from "./features/user/routes/User";
 import { checkSession } from "./utils/checkSession";
 import { PasswordForm } from "@/features/auth/components/Forms/PasswordForm";
-import { NewPasswordForm } from "./features/auth/components/Forms/NewPasswordForm";
-
+import { NewPasswordForm } from "@/features/auth/components/Forms/NewPasswordForm";
+import { Plants } from "@/features/calendar/routes/Plants";
+import { ListPlantInfo } from "./features/calendar/components/List/ListPlantInfo";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -30,6 +31,19 @@ const router = createBrowserRouter([
     loader: checkSession,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/plants",
+    element: <Plants />,
+    loader: checkSession,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/plants/:id",
+        element: <ListPlantInfo />,
+      },
+    ],
+  },
+
   {
     path: "/account",
     element: <Login />,
