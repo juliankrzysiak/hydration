@@ -1,7 +1,8 @@
 import dropletSVG from "@/assets/droplet-dark.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
+  const location = useLocation();
   return (
     <header className="flex  min-w-full items-center justify-between bg-gray-700/40 p-2">
       <Link
@@ -13,10 +14,20 @@ export const Header = () => {
         Hydration
       </Link>
       <nav className="flex gap-4 px-2">
-        <Link to="/plants" className="text-lg">
+        <Link
+          to="/plants"
+          className={`text-lg underline-offset-4 ${
+            location.pathname === "/plants" && "underline"
+          }`}
+        >
           Plants
         </Link>
-        <Link to="/user" className="text-lg">
+        <Link
+          to="/user"
+          className={`text-lg underline-offset-4 ${
+            location.pathname === "/user" && "underline"
+          }`}
+        >
           User
         </Link>
       </nav>
