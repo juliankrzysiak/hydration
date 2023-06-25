@@ -18,6 +18,7 @@ import { PasswordForm } from "@/features/auth/components/Forms/PasswordForm";
 import { NewPasswordForm } from "@/features/auth/components/Forms/NewPasswordForm";
 import { Plants } from "@/features/calendar/routes/Plants";
 import { ListPlantInfo } from "./features/calendar/components/List/ListPlantInfo";
+import { Layout } from "./routes/Layout";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -27,13 +28,21 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />,
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
     loader: checkSession,
     errorElement: <ErrorPage />,
   },
   {
     path: "/plants",
-    element: <Plants />,
+    element: (
+      <Layout>
+        <Plants />
+      </Layout>
+    ),
     loader: checkSession,
     errorElement: <ErrorPage />,
     children: [
@@ -69,7 +78,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <User />,
+    element: (
+      <Layout>
+        <User />
+      </Layout>
+    ),
     loader: checkSession,
     errorElement: <ErrorPage />,
   },

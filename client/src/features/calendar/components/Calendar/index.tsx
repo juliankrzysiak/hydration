@@ -7,7 +7,7 @@ dayjs.extend(customParseFormat);
 import { useDateStore } from "../../stores/dateStore";
 import { useShowFormStore } from "../../stores/showFormStore";
 
-import droplet from "@/assets/droplet.svg";
+import droplet from "@/assets/droplet-dark.svg";
 
 type ValuePiece = Date | null;
 

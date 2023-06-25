@@ -10,6 +10,7 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
+import { Header } from "@/components/Header";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -26,7 +27,7 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-4 bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500 p-4">
+    <main className="flex min-h-screen flex-col items-center gap-4  p-4">
       <Calendar
         plants={
           filterSelections.length > 0
