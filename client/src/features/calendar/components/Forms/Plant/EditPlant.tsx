@@ -3,6 +3,7 @@ import { useShowFormStore } from "@/features/calendar/stores/showFormStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editPlant } from "@/features/calendar/api";
 import { notify } from "@/utils/notify";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   id: number;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const EditPlant = (props: Props) => {
+  const navigate = useNavigate();
   const [name] = useField({
     type: "text",
     id: "name",
@@ -26,7 +28,8 @@ export const EditPlant = (props: Props) => {
     mutationFn: editPlant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
-      useShowFormStore.setState({ editPlant: false });
+      // useShowFormStore.setState({ editPlant: false });
+      navigate("/plants");
       notify("success", "Plant edited");
     },
     onError: () => {
@@ -37,13 +40,14 @@ export const EditPlant = (props: Props) => {
   return (
     <form
       className="flex flex-col gap-3"
-      onSubmit={() =>
+      onSubmit={(event) => {
+        event.preventDefault();
         editPlantMutation.mutate({
           id: props.id,
           name: name.value,
           schedule: Number(schedule.value),
-        })
-      }
+        });
+      }}
     >
       <div className=" flex max-w-[10rem] flex-col">
         <label className="text-lg" htmlFor="name">
