@@ -1,14 +1,22 @@
 import { notify } from "@/utils/notify";
 import { supabase } from "../../lib/auth";
+import { useNavigate } from "react-router-dom";
 
 export const Demo = () => {
   const randomValues = crypto.getRandomValues(new Int8Array(8)).join("");
+  const navigate = useNavigate();
+
   const createGuest = async () => {
-    const { data, error } = await supabase.auth.signUp({
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.signUp({
       email: `${randomValues}@invalid.com`,
       password: "testing123",
     });
     if (error) notify("error", error.message);
+    if (user) sessionStorage.setItem("uid", user.id);
+    navigate("/home");
   };
   return (
     <button
