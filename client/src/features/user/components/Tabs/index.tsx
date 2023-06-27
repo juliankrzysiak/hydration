@@ -5,7 +5,7 @@ import { Delete } from "../Delete";
 
 export const Tabs = () => {
   return (
-    <Tab.Root defaultValue="tab1" className="w-full max-w-xs">
+    <Tab.Root defaultValue="tab1" className="mb-8 w-full max-w-xs">
       <Tab.List
         aria-label="Manage your account"
         className="flex justify-around"

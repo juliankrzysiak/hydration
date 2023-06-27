@@ -7,6 +7,7 @@ import { AuthError } from "@supabase/supabase-js";
 import { notify } from "@/utils/notify";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
+import { Upgrade } from "../components/Upgrade";
 
 export const User = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export const User = () => {
         Sign Out
       </button>
       <Tabs />
+      <Upgrade />
       <Notification />
     </main>
   );
