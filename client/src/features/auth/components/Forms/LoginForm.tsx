@@ -4,6 +4,7 @@ import React from "react";
 import { supabase } from "../../lib/auth";
 import { useField } from "@/hooks/useField";
 import { useNotificationStore } from "@/stores/notificationStore";
+import { Demo } from "../Demo";
 
 export const LoginForm = () => {
   const [{ ...email }, setEmail] = useField({ type: "text", id: "email" });
@@ -31,7 +32,7 @@ export const LoginForm = () => {
 
   return (
     <form
-      className="flex flex-col px-6 py-8 font-['Inter'] text-gray-200"
+      className="relative flex flex-col px-6 py-8 font-['Inter'] text-gray-200"
       onSubmit={login}
     >
       <Title title="Hydration" />
@@ -60,6 +61,7 @@ export const LoginForm = () => {
         <Link to="/account/password">Forgot your password?</Link>
         <Link to="/account/register">Don't have an account? Sign up</Link>
       </div>
+      <Demo />
     </form>
   );
 };
