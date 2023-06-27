@@ -4,8 +4,7 @@ import { getUid } from "@/features/calendar/utils/getUid";
 export const getName = async () => {
   const { data, error } = await supabase.auth.getSession();
 
-  const anonName = sessionStorage.getItem("uid");
-  if (anonName) return "Guest";
+  if (sessionStorage.getItem("uid")) return "Lorem ";
 
   if (error) throw error;
   const name = await data.session?.user.user_metadata.first_name;
