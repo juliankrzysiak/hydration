@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 export const User = () => {
   const navigate = useNavigate();
   const { data: name } = useQuery({
-    queryKey: ["name"],
     queryFn: getName,
+    queryKey: ["name"],
     onError: (error: AuthError) => notify("error", error.message),
   });
 
