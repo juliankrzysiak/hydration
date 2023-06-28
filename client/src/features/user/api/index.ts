@@ -23,7 +23,14 @@ export const deleteData = async () => {
 
 export const deleteAccount = async () => {
   try {
-    const uid = await getUid();
+    let uid: string;
+    const guestUid = sessionStorage.getItem("uid");
+    if (guestUid) {
+      uid = guestUid;
+    } else {
+      uid = await getUid();
+    }
+
     const res = await fetch(`${url}/delete`, {
       method: "DELETE",
       headers: {
