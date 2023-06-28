@@ -7,7 +7,6 @@ import { AuthError } from "@supabase/supabase-js";
 import { notify } from "@/utils/notify";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
-import { Upgrade } from "../components/Upgrade";
 
 export const User = () => {
   const navigate = useNavigate();
@@ -33,7 +32,13 @@ export const User = () => {
         Sign Out
       </button>
       <Tabs />
-      <Upgrade />
+      {sessionStorage.getItem("uid") && (
+        <p className="max-w-xs">
+          To access these features, please sign out and create an account.
+          <br />
+          All data will be deleted.
+        </p>
+      )}
       <Notification />
     </main>
   );

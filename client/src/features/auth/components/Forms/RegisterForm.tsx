@@ -1,5 +1,5 @@
 import { Title } from "./Common/Title";
-import { supabase, supabaseAdmin } from "../../lib/auth";
+import { supabase } from "../../lib/auth";
 import { useField } from "@/hooks/useField";
 import { useNotificationStore } from "@/stores/notificationStore";
 import { useNavigate } from "react-router-dom";
@@ -15,40 +15,21 @@ export const RegisterForm = () => {
 
   const signUp = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    if (sessionStorage.getItem("uid")) {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: "-1123612112753-22-98-4@invalid.com",
-        password: "testing123",
-      });
-      await supabase.auth.updateUser({
-        email: email.value,
-        password: password.value,
+
+    const { error } = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value,
+      options: {
         data: {
           first_name: name.value,
         },
+      },
+    });
+    if (error) {
+      return useNotificationStore.setState({
+        message: error.message,
+        type: "error",
       });
-      if (error) {
-        return useNotificationStore.setState({
-          message: error.message,
-          type: "error",
-        });
-      }
-    } else {
-      const { error } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value,
-        options: {
-          data: {
-            first_name: name.value,
-          },
-        },
-      });
-      if (error) {
-        return useNotificationStore.setState({
-          message: error.message,
-          type: "error",
-        });
-      }
     }
 
     setName("");
