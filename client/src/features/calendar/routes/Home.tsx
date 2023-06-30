@@ -2,7 +2,6 @@ import Calendar from "../components/Calendar";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPlants } from "../api";
 import { Info } from "../components/Info";
-import { Menu } from "../components/Menu";
 import { useShowFormStore } from "../stores/showFormStore";
 import { Notification } from "@/components/Notification";
 import { Filter } from "../components/Filter";
@@ -46,7 +45,6 @@ export const Home = () => {
           }
         />
       )}
-      <Menu />
       <Notification />
     </main>
   );
