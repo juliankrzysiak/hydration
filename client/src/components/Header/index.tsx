@@ -16,16 +16,16 @@ export const Header = () => {
       <nav className="flex gap-4 px-2">
         <Link
           to="/plants"
-          className={`text-lg underline-offset-4 ${
-            location.pathname === "/plants" && "underline"
+          className={`text-lg  ${
+            location.pathname !== "/plants" && "font-light"
           }`}
         >
           Plants
         </Link>
         <Link
           to="/user"
-          className={`text-lg underline-offset-4 ${
-            location.pathname === "/user" && "underline"
+          className={`text-lg  ${
+            location.pathname !== "/user" && "font-light"
           }`}
         >
           User
