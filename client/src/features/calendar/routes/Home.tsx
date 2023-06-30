@@ -10,7 +10,6 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
-import { Header } from "@/components/Header";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
