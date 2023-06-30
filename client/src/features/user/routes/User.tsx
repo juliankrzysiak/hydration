@@ -8,7 +8,6 @@ import { notify } from "@/utils/notify";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../api";
-import { getUid } from "@/features/calendar/utils/getUid";
 
 export const User = () => {
   const navigate = useNavigate();
@@ -20,14 +19,15 @@ export const User = () => {
 
   const signOut = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const guestUid = sessionStorage.getItem("uid");
 
-    if (sessionStorage.getItem("uid") && !(await getUid())) {
-      deleteAccount();
-      navigate("/account/login");
+    if (guestUid) {
+      await deleteAccount();
+      sessionStorage.clear();
+    } else {
+      const { error } = await supabase.auth.signOut();
+      if (error) return notify("error", error.message);
     }
-    const { error } = await supabase.auth.signOut();
-    if (error) return notify("error", error.message);
-
     navigate("/account/login");
   };
 

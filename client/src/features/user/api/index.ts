@@ -39,7 +39,7 @@ export const deleteAccount = async () => {
       },
     });
 
-    await deleteUser();
+    await deleteUser(uid);
     return res.json();
   } catch (error) {
     catchApiError(error, "Could not delete plants!");

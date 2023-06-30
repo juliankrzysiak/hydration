@@ -1,5 +1,4 @@
 import { supabase, supabaseAdmin } from "@/features/auth/lib/auth";
-import { getUid } from "@/features/calendar/utils/getUid";
 
 export const getName = async () => {
   const { data, error } = await supabase.auth.getSession();
@@ -28,8 +27,7 @@ export const changePassword = async (password: string) => {
   if (error) throw error;
 };
 
-export const deleteUser = async () => {
-  const uid = await getUid();
+export const deleteUser = async (uid: string) => {
   const { error } = await supabaseAdmin.auth.admin.deleteUser(uid);
   if (error) throw error;
 };
