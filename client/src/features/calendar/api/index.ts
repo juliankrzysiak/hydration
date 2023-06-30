@@ -1,4 +1,4 @@
-import { PlantDate, PlantCreate, PlantEdit } from "../types";
+import { PlantDate, PlantCreate } from "../types";
 import { getUid } from "../utils/getUid";
 import { catchApiError } from "../utils/catchApiError";
 import { Plant } from "../types";

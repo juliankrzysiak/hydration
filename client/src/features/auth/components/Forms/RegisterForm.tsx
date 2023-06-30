@@ -15,6 +15,7 @@ export const RegisterForm = () => {
 
   const signUp = async (event: React.SyntheticEvent) => {
     event.preventDefault();
+
     const { error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
@@ -30,6 +31,7 @@ export const RegisterForm = () => {
         type: "error",
       });
     }
+
     setName("");
     setEmail("");
     setPassword("");

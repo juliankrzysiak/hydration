@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import { supabase } from "../../lib/auth";
 import { useField } from "@/hooks/useField";
-import { useNotificationStore } from "@/stores/notificationStore";
+import { Demo } from "../Demo";
+import { notify } from "@/utils/notify";
 
 export const LoginForm = () => {
   const [{ ...email }, setEmail] = useField({ type: "text", id: "email" });
@@ -20,7 +21,7 @@ export const LoginForm = () => {
       password: password.value,
     });
     if (error) {
-      useNotificationStore.setState({ message: error.message, type: "error" });
+      notify("error", error.message);
     }
     if (data.session) {
       setEmail("");
@@ -31,7 +32,7 @@ export const LoginForm = () => {
 
   return (
     <form
-      className="flex flex-col px-6 py-8 font-['Inter'] text-gray-200"
+      className="relative flex flex-col px-6 py-8 font-['Inter'] text-gray-200"
       onSubmit={login}
     >
       <Title title="Hydration" />
@@ -53,13 +54,17 @@ export const LoginForm = () => {
           {...password}
         />
       </div>
-      <button className="mb-8 w-full rounded-md bg-blue-600 py-1 font-bold text-gray-50">
+      <button
+        className="mb-8 w-full rounded-md bg-blue-600 py-1 font-bold text-gray-50"
+        type="submit"
+      >
         Sign in
       </button>
       <div className="flex flex-col items-center gap-1 font-light underline">
         <Link to="/account/password">Forgot your password?</Link>
         <Link to="/account/register">Don't have an account? Sign up</Link>
       </div>
+      <Demo />
     </form>
   );
 };

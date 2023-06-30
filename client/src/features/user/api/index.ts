@@ -23,7 +23,14 @@ export const deleteData = async () => {
 
 export const deleteAccount = async () => {
   try {
-    const uid = await getUid();
+    let uid: string;
+    const guestUid = sessionStorage.getItem("uid");
+    if (guestUid) {
+      uid = guestUid;
+    } else {
+      uid = await getUid();
+    }
+
     const res = await fetch(`${url}/delete`, {
       method: "DELETE",
       headers: {
@@ -32,7 +39,7 @@ export const deleteAccount = async () => {
       },
     });
 
-    await deleteUser();
+    await deleteUser(uid);
     return res.json();
   } catch (error) {
     catchApiError(error, "Could not delete plants!");

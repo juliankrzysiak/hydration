@@ -5,6 +5,7 @@ export const checkSession = async () => {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  if (!session) return redirect("/account/login");
+  const uid = sessionStorage.getItem("uid");
+  if (!session && !uid) return redirect("/account/login");
   return null;
 };
