@@ -57,12 +57,10 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
       onClickDay={onClickDay}
       value={value}
       calendarType="US"
-      view="month"
       tileContent={tileContent}
       tileClassName={tileClassName}
       prev2Label={null}
       next2Label={null}
-      onClickYear={() => console.error("stuff")}
     />
   );
 }
