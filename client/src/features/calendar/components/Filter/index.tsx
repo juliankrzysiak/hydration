@@ -5,7 +5,7 @@ import { FilterSelection } from "./FilterSelection";
 export const Filter = () => {
   const filterPlants = useFilterStore((state) => state.plants);
   return (
-    <div className="flex w-full max-w-sm rounded-xl bg-gray-900/40 p-2">
+    <div className="flex w-full max-w-sm rounded-md bg-gray-900/30 p-3 text-gray-800">
       <FilterButton />
       {filterPlants.map((plant) => {
         return (

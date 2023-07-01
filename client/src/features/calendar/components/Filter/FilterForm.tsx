@@ -4,6 +4,8 @@ import { Plant } from "../../types";
 import { useFilterStore } from "../../stores/filterStore";
 import { useShowFormStore } from "../../stores/showFormStore";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import plusSVG from "@/assets/plus.svg";
+import cancelSVG from "@/assets/cancel.svg";
 
 interface Props {
   plants: Plant[];
@@ -30,10 +32,10 @@ export const FilterForm = ({ plants }: Props) => {
   return (
     <section
       ref={ref}
-      className="m-4  w-full  rounded-md bg-gray-900/80 p-4  shadow-lg"
+      className="flex w-full flex-col rounded-md bg-gray-900/30 p-4 text-gray-800 shadow-sm"
     >
-      <h2 className="text-xl font-bold text-neutral-300">Filter Plants</h2>
-      <form className="flex flex-col">
+      <h2 className="mb-2 text-2xl font-medium">Filter Plants</h2>
+      <form className=" flex w-fit flex-col" onSubmit={addToFilterStore}>
         <ComboBox
           {...{
             selected,
@@ -45,9 +47,24 @@ export const FilterForm = ({ plants }: Props) => {
             ),
           }}
         />
-        <button className="btn self-center" onClick={addToFilterStore}>
-          Accept
-        </button>
+
+        <div className="mt-4 flex gap-4">
+          <button
+            className="rounded-md border-2 border-gray-800"
+            aria-label="Show Add Date Form"
+            type="submit"
+          >
+            <img className="w-6" src={plusSVG} alt="showAddForm" />
+          </button>
+          <button
+            className="rounded-md border-2 border-gray-800"
+            aria-label="Show Delete Date Form"
+            type="button"
+            onClick={closeForm}
+          >
+            <img className="w-6" src={cancelSVG} alt="Cancel" />
+          </button>
+        </div>
       </form>
     </section>
   );

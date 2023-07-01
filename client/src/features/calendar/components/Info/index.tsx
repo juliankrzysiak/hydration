@@ -13,7 +13,7 @@ export const Info = ({ plants }: Props) => {
   });
 
   return (
-    <section className=" relative flex w-full max-w-sm flex-col items-start rounded-md bg-gray-900/20 p-4 font-['Nunito'] text-gray-900 ">
+    <section className=" relative flex w-full max-w-sm flex-col items-start rounded-md bg-gray-900/30 p-4 text-gray-800 ">
       <h2 className="absolute right-4 text-xl leading-7">{todayOrDate}</h2>
       <PlantsInfo plants={scheduledPlants} title="To Water" />
       <PlantsInfo plants={wateredPlants} title="Watered" />

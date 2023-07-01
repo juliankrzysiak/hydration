@@ -25,7 +25,7 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <main className="flex flex-col items-center gap-4  p-4">
+    <main className="flex flex-col items-center gap-4  p-4 font-['Nunito']">
       <Calendar
         plants={
           filterSelections.length > 0

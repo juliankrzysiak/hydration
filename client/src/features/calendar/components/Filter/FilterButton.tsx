@@ -4,7 +4,7 @@ import { useShowFormStore } from "../../stores/showFormStore";
 export const FilterButton = () => {
   return (
     <button
-      className="mr-3 rounded-md"
+      className="mr-3 "
       aria-label="Show Filter Form"
       onClick={() => useShowFormStore.setState({ filterPlant: true })}
     >

@@ -23,10 +23,10 @@ export const ComboBox = ({
   return (
     <Combobox value={selected} onChange={setSelected}>
       <Combobox.Label>{label}</Combobox.Label>
-      <div className="relative mb-6 mt-1">
-        <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+      <div className="relative w-fit">
+        <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
-            className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+            className="text-md w-full border-none bg-gray-100 py-2 pl-3  leading-5 text-gray-800 focus:ring-0"
             displayValue={(plant: Plant) => plant.name}
             onChange={(event) => setQuery(event.target.value)}
             autoFocus
@@ -56,7 +56,7 @@ export const ComboBox = ({
                   key={plant.id}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? "bg-teal-600 text-white" : "text-gray-900"
+                      active ? "bg-blue-500 text-white" : "text-gray-900"
                     }`
                   }
                   value={plant}
