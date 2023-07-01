@@ -41,7 +41,7 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
       const allPastDate = plants.flatMap((plant) => plant.watered);
       console.log();
       if (allPastDate.find((dDate) => dayjs(dDate).isSame(date, "day"))) {
-        return "bg-gray-900/30 border border-gray-900/30";
+        return "bg-gray-900/30 border border-gray-900 ";
       }
     }
   }
@@ -60,6 +60,9 @@ export default function Calendar({ plants }: { plants: Plant[] }) {
       view="month"
       tileContent={tileContent}
       tileClassName={tileClassName}
+      prev2Label={null}
+      next2Label={null}
+      onClickYear={() => console.error("stuff")}
     />
   );
 }
