@@ -1,6 +1,7 @@
 import { Plant } from "../../types";
 import { ShowForm } from "./ShowForm";
 import { useCalendarDates } from "../../hooks/useCalendarDates";
+import { PlantsInfo } from "./PlantsInfo";
 
 interface Props {
   plants: Plant[];
@@ -12,26 +13,10 @@ export const Info = ({ plants }: Props) => {
   });
 
   return (
-    <section className=" flex w-full max-w-sm flex-col rounded-md bg-gray-900/20 p-4 shadow-lg">
-      <div className="flex justify-between">
-        <h2 className="mb-2 text-2xl underline ">{todayOrDate}</h2>
-      </div>
-      {scheduledPlants.length > 0 && <h3>To Water</h3>}
-      {scheduledPlants.map((plant) => {
-        return (
-          <div className="mb-2 flex text-lg" key={plant.id}>
-            <h3 className="text-lg">{plant.name}</h3>
-          </div>
-        );
-      })}
-      {wateredPlants.length > 0 && <h3>Watered</h3>}
-      {wateredPlants.map((plant) => {
-        return (
-          <div className="mb-2 flex text-lg" key={plant.id}>
-            <h3 className="text-lg">{plant.name}</h3>
-          </div>
-        );
-      })}
+    <section className=" relative flex w-full max-w-sm flex-col items-start rounded-md bg-gray-900/20 p-4 font-['Nunito'] text-gray-900 ">
+      <h2 className="absolute right-4 text-xl leading-7">{todayOrDate}</h2>
+      <PlantsInfo plants={scheduledPlants} title="To Water" />
+      <PlantsInfo plants={wateredPlants} title="Watered" />
       <ShowForm plants={plants} />
     </section>
   );
