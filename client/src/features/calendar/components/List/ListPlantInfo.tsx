@@ -6,10 +6,11 @@ import { deletePlant } from "../../api";
 import { notify } from "@/utils/notify";
 import { useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime.js";
 import { useShowFormStore } from "../../stores/showFormStore";
 import { EditPlant } from "../Forms/Plant/EditPlant";
+import cancelSVG from "@/assets/cancel.svg";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime.js";
 dayjs.extend(relativeTime);
 
 export const ListPlantInfo = () => {
@@ -30,6 +31,12 @@ export const ListPlantInfo = () => {
   return (
     <>
       <h1 className=" mb-3 text-3xl text-gray-950 ">{name}</h1>
+      <button
+        className="absolute right-3 top-3  w-fit"
+        onClick={() => navigate(-1)}
+      >
+        <img className="w-7" src={cancelSVG} alt="Cancel" />
+      </button>
       {!showEditForm ? (
         <div className="grid grid-cols-2 gap-y-4">
           <div className="flex flex-col items-center">
