@@ -48,11 +48,11 @@ export const Password = () => {
       </div>
       <fieldset className=" flex flex-col">
         <label htmlFor="pwd">Password</label>
-        <input className="rounded-md" {...password} />
+        <input className="rounded-md bg-gray-100 px-2" {...password} />
       </fieldset>
       <fieldset className="mb-2 flex flex-col">
         <label htmlFor="cpwd">Confirm Password</label>
-        <input {...confirmPassword} />
+        <input className="rounded-md bg-gray-100 px-2" {...confirmPassword} />
       </fieldset>
       <button className="self-end rounded border-2 border-gray-800 px-2 py-2">
         Change Password

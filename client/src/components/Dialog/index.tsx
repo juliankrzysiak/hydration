@@ -31,17 +31,20 @@ export const Dialog = forwardRef<DialogHandle, Props>(
     return (
       <dialog
         ref={dialogRef}
-        className="rounded-lg bg-gray-600 backdrop:bg-gray-900/30 "
+        className="rounded-md bg-gray-700 backdrop:bg-gray-900/30 "
       >
         <div className="flex flex-col items-center gap-6">
-          <p className="text-lg font-bold text-neutral-100">
+          <p className="text-center text-lg font-semibold text-neutral-100">
             This cannot be undone, tread carefully.
           </p>
           <div className="flex w-full justify-around">
             <button className="btn-warning" onClick={handleClick}>
               Yes, Delete
             </button>
-            <button className="btn" onClick={() => dialogRef.current?.close()}>
+            <button
+              className="rounded-md border-2 border-gray-100 px-2 py-1 font-bold text-gray-100"
+              onClick={() => dialogRef.current?.close()}
+            >
               No, Cancel
             </button>
           </div>

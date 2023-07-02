@@ -32,12 +32,15 @@ export const User = () => {
   };
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center bg-neutral-100">
-      <div className="my-6 flex flex-col items-center ">
+    <main className="relative flex min-h-screen flex-col items-center p-6 text-gray-900 ">
+      <div className=" mb-2 flex flex-col items-center ">
         <img className="w-12" src={person} alt="Person" />
-        <p>Hello, {name ?? "Jane"}</p>
+        <p className="text-lg">{name ?? "Jane"}</p>
       </div>
-      <button className="btn-warning mb-10" onClick={signOut}>
+      <button
+        className="mb-10 rounded-md border-2 border-gray-900 bg-red-200 px-2 py-1 font-semibold"
+        onClick={signOut}
+      >
         Sign Out
       </button>
       <Tabs />
