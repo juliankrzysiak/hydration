@@ -1,4 +1,3 @@
-import dropletSVG from "@/assets/droplet-dark.svg";
 import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
