@@ -29,17 +29,15 @@ export const ListPlantInfo = () => {
 
   return (
     <>
-      <h1 className=" mb-6 text-3xl text-gray-900 underline">
-        {showEditForm ? `Edit: ${name} ` : name}
-      </h1>
+      <h1 className=" mb-3 text-3xl text-gray-950 ">{name}</h1>
       {!showEditForm ? (
         <div className="grid grid-cols-2 gap-y-4">
           <div className="flex flex-col items-center">
-            <h2 className="text-xl">Schedule</h2>
+            <h2 className="text-xl font-semibold">Schedule</h2>
             <p>Every {schedule} days</p>
           </div>
           <div className="flex flex-col items-center">
-            <h2 className="text-xl">Next Water</h2>
+            <h2 className="text-xl font-semibold">Next Water</h2>
             <p>
               {next_water &&
                 `${dayjs(next_water).format("MMM D")}, ${dayjs().to(
@@ -48,22 +46,24 @@ export const ListPlantInfo = () => {
             </p>
           </div>
           <div className=" flex flex-col items-center">
-            <h2 className="text-xl">History</h2>
-            <p>
+            <h2 className="text-xl font-semibold">History</h2>
+            <ul className="grid grid-cols-2 gap-2">
               {watered.at(0) &&
-                watered.map((date) => dayjs(date).format("MMM D"))}
-            </p>
+                watered
+                  .sort((a, b) => (dayjs(a).isAfter(dayjs(b)) ? -1 : 1))
+                  .map((date) => <li>{dayjs(date).format("MMM DD")}</li>)}
+            </ul>
           </div>
           <div className="flex items-center justify-center gap-6">
             <button
-              className="rounded-md border border-gray-900 bg-gray-500/30 px-2 py-1"
+              className="rounded-md border-2 border-gray-800 px-2 py-1 font-semibold"
               aria-label="Edit current plant"
               onClick={() => useShowFormStore.setState({ editPlant: true })}
             >
               Edit
             </button>
             <button
-              className="rounded-md border border-gray-900 bg-gray-500/30 px-2 py-1"
+              className="rounded-md border-2 border-gray-800 px-2 py-1 font-semibold"
               aria-label="Delete current plant"
               onClick={() => dialogRef.current?.open()}
             >
@@ -72,7 +72,7 @@ export const ListPlantInfo = () => {
           </div>
         </div>
       ) : (
-        <EditPlant {...{id,name, schedule  }}/>
+        <EditPlant {...{ id, name, schedule }} />
       )}
       <Dialog
         ref={dialogRef}

@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editPlant } from "@/features/calendar/api";
 import { notify } from "@/utils/notify";
 import { useNavigate } from "react-router-dom";
+import { Buttons } from "@/components/Buttons";
 
 interface Props {
   id: number;
@@ -28,7 +29,6 @@ export const EditPlant = (props: Props) => {
     mutationFn: editPlant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
-      // useShowFormStore.setState({ editPlant: false });
       navigate("/plants");
       notify("success", "Plant edited");
     },
@@ -50,21 +50,13 @@ export const EditPlant = (props: Props) => {
       }}
     >
       <div className=" flex max-w-[10rem] flex-col">
-        <label className="text-lg" htmlFor="name">
-          Plant name
-        </label>
-        <input
-          className="rounded-md border-2 border-gray-600 bg-gray-100 px-2"
-          {...name}
-          required
-        />
+        <label htmlFor="name">Plant name</label>
+        <input className="rounded-md  bg-gray-100 px-2" {...name} required />
       </div>
-      <div className="mb-6 flex max-w-[10rem] flex-col gap-1">
-        <label className="text-lg" htmlFor="schedule">
-          Schedule
-        </label>
+      <div className="mb-2 flex max-w-[10rem] flex-col">
+        <label htmlFor="schedule">Schedule</label>
         <input
-          className="w-20 rounded-md border-2 border-gray-600 bg-gray-100 px-2"
+          className="w-20 rounded-md  bg-gray-100 px-2"
           {...schedule}
           list="defaultSchedule"
           min={0}
@@ -79,17 +71,9 @@ export const EditPlant = (props: Props) => {
           <option value="30" />
         </datalist>
       </div>
-      <div className="flex gap-6">
-        <button className="btn" type="submit">
-          Edit Plant
-        </button>
-        <button
-          className="btn"
-          onClick={() => useShowFormStore.setState({ editPlant: false })}
-        >
-          Cancel
-        </button>
-      </div>
+      <Buttons
+        handleClick={() => useShowFormStore.setState({ editPlant: false })}
+      />
     </form>
   );
 };

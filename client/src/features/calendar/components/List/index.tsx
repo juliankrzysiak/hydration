@@ -10,8 +10,8 @@ interface Props {
 export const List = ({ plants }: Props) => {
   return (
     <section>
-      <h1 className="mb-4 text-3xl text-gray-900 underline">Your Plants</h1>
-      <ol className="mb-4 flex flex-col gap-2">
+      <h1 className="mb-4 text-3xl text-gray-950 ">Your Plants</h1>
+      <ol className="mb-6 flex flex-col gap-2">
         {plants.map((plant) => (
           <ListPlant
             key={plant.id}
@@ -22,11 +22,11 @@ export const List = ({ plants }: Props) => {
         ))}
       </ol>
       <button
-        className="rounded-md bg-gray-200/40 p-1"
+        className="rounded-md border-2 border-gray-800"
         aria-label="Show Add Date Form"
         onClick={() => useShowFormStore.setState({ addPlant: true })}
       >
-        <img className="w-5" src={plusSVG} alt="Plus" />
+        <img className="w-7" src={plusSVG} alt="Plus" />
       </button>
     </section>
   );

@@ -12,12 +12,12 @@ export const ListPlant = ({ name, id, watered }: Props) => {
   return (
     <li className="flex gap-4 align-baseline">
       <button
-        className="rounded-lg px-1 text-xl text-gray-900 hover:bg-gray-500/40"
+        className="rounded-lg text-xl font-medium text-gray-950 hover:bg-gray-500/40"
         onClick={() => navigate(`/plants/${id}`)}
       >
         {name}
       </button>
-      <p className="text-xl font-light">
+      <p className="text-xl text-gray-900">
         {watered && dayjs(watered).format("MMM D")}
       </p>
     </li>
