@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Plant } from "../../types";
 import { AddHistory } from "@/features/calendar/components/Forms/History/AddHistory";
 import { DeleteHistory } from "@/features/calendar/components/Forms/History/DeleteHistory";
-import plus from "@/assets/plus.svg";
-import cancel from "@/assets/cancel.svg";
+import { Buttons } from "@/components/Buttons";
 
 interface Props {
   plants: Plant[];
@@ -20,22 +19,10 @@ export const ShowForm = ({ plants }: Props) => {
       return <DeleteHistory plants={plants} handleInput={setShowDeleteForm} />;
     else
       return (
-        <div className=" flex gap-4">
-          <button
-            className="rounded-md border-2 border-gray-800"
-            aria-label="Show Add Date Form"
-            onClick={() => setShowAddForm(true)}
-          >
-            <img className="w-6" src={plus} alt="Plus" />
-          </button>
-          <button
-            className="rounded-md border-2 border-gray-800"
-            aria-label="Show Delete Date Form"
-            onClick={() => setShowDeleteForm(true)}
-          >
-            <img className="w-6" src={cancel} alt="Cancel" />
-          </button>
-        </div>
+        <Buttons
+          accept={() => setShowAddForm(true)}
+          cancel={() => setShowDeleteForm(true)}
+        />
       );
   };
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plant } from "@/features/calendar/types";
-import { ConfirmButtons } from "../Common/ConfirmButtons";
 import { ComboBox } from "../Common/ComboBox";
+import { Buttons } from "@/components/Buttons";
 import { addDate } from "@/features/calendar/api";
 import { useDateStore } from "@/features/calendar/stores/dateStore";
 import { useNotificationStore } from "@/stores/notificationStore";
@@ -59,7 +59,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
         plants={filteredPlants}
         label="Add Date"
       />
-      <ConfirmButtons handleInput={handleInput} />
+      <Buttons cancel={() => handleInput(false)} />
     </form>
   );
 };

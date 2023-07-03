@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plant } from "../../../types";
-import { ConfirmButtons } from "../Common/ConfirmButtons";
+import { Buttons } from "@/components/Buttons";
 import { ComboBox } from "../Common/ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDate } from "../../../api";
@@ -48,7 +48,7 @@ export const DeleteHistory = ({ plants, handleInput }: Props) => {
         plants={filteredPlants}
         label="Delete Date"
       />
-      <ConfirmButtons handleInput={handleInput} />
+      <Buttons cancel={() => handleInput(false)} />
     </form>
   );
 };
