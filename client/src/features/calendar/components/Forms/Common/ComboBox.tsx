@@ -22,8 +22,8 @@ export const ComboBox = ({
 }: Props) => {
   return (
     <Combobox value={selected} onChange={setSelected}>
-      <Combobox.Label>{label}</Combobox.Label>
-      <div className="relative w-fit">
+      <Combobox.Label className="mb-2 text-2xl">{label}</Combobox.Label>
+      <div className="relative mb-4 w-fit">
         <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
             className="text-md w-full border-none bg-gray-100 py-2 pl-3  leading-5 text-gray-800 focus:ring-0"
