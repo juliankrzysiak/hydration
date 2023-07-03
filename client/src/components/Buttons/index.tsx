@@ -2,16 +2,18 @@ import plusSVG from "@/assets/plus.svg";
 import cancelSVG from "@/assets/cancel.svg";
 
 interface Props {
-  handleClick: () => void;
+  accept?: () => void;
+  cancel: () => void;
 }
 
-export const Buttons = ({ handleClick }: Props) => {
+export const Buttons = ({ accept, cancel }: Props) => {
   return (
     <div className=" flex gap-6">
       <button
         className="rounded-md border-2 border-gray-800"
         aria-label="Show Add Date Form"
         type="submit"
+        onClick={accept}
       >
         <img className="w-7" src={plusSVG} alt="Plus" />
       </button>
@@ -19,7 +21,7 @@ export const Buttons = ({ handleClick }: Props) => {
         className="rounded-md border-2 border-gray-800"
         aria-label="Show Delete Date Form"
         type="button"
-        onClick={handleClick}
+        onClick={cancel}
       >
         <img className="w-7" src={cancelSVG} alt="Cancel" />
       </button>

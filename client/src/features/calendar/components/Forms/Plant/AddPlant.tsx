@@ -66,7 +66,7 @@ export const AddPlant = () => {
         </div>
 
         <Buttons
-          handleClick={() => useShowFormStore.setState({ addPlant: false })}
+          cancel={() => useShowFormStore.setState({ addPlant: false })}
         />
       </form>
     </>

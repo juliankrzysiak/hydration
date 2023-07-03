@@ -71,9 +71,7 @@ export const EditPlant = (props: Props) => {
           <option value="30" />
         </datalist>
       </div>
-      <Buttons
-        handleClick={() => useShowFormStore.setState({ editPlant: false })}
-      />
+      <Buttons cancel={() => useShowFormStore.setState({ editPlant: false })} />
     </form>
   );
 };
