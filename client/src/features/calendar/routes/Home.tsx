@@ -28,30 +28,27 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <>
-      <main className="flex flex-col items-center gap-4 p-4 font-['Nunito'] text-gray-950">
-        <Calendar
+    <section className="flex flex-col items-center gap-4 ">
+      <Calendar
+        plants={
+          filterSelections.length > 0
+            ? data?.filter((plant) => filterSelections.includes(plant.id))
+            : data
+        }
+      />
+      <Filter />
+      {showFilterForm ? (
+        <FilterForm plants={data} />
+      ) : (
+        <Info
           plants={
             filterSelections.length > 0
               ? data?.filter((plant) => filterSelections.includes(plant.id))
               : data
           }
         />
-        <Filter />
-        {showFilterForm ? (
-          <FilterForm plants={data} />
-        ) : (
-          <Info
-            plants={
-              filterSelections.length > 0
-                ? data?.filter((plant) => filterSelections.includes(plant.id))
-                : data
-            }
-          />
-        )}
-        <Notification />
-      </main>
-      {desktopWidth && <Plants />}
-    </>
+      )}
+      <Notification />
+    </section>
   );
 };

@@ -32,7 +32,7 @@ export const User = () => {
   };
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center p-6 text-gray-900 ">
+    <section className="relative flex flex-col items-center">
       <div className=" mb-2 flex flex-col items-center ">
         <img className="w-12" src={person} alt="Person" />
         <p className="text-lg">{name ?? "Jane"}</p>
@@ -53,6 +53,6 @@ export const User = () => {
         </p>
       )}
       <Notification />
-    </main>
+    </section>
   );
 };

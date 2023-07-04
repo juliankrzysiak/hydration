@@ -24,13 +24,13 @@ export const Plants = () => {
   const plant = data.filter((plant) => plant.id === Number(id)).at(0);
 
   return (
-    <main className="flex flex-col items-center gap-4 p-4 text-gray-950">
+    <section className="flex flex-col items-center gap-4">
       <section className="relative flex w-full max-w-sm flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
         {!id &&
           (showCreateForm ? <AddPlant /> : <List plants={sortAsc(data)} />)}
         <Outlet context={{ ...plant }} />
       </section>
       <Notification />
-    </main>
+    </section>
   );
 };
