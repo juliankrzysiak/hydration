@@ -7,8 +7,9 @@ export const useDesktopWidth = (width = 700) => {
     window.innerWidth > width ? setLimitMet(true) : setLimitMet(false);
 
   useEffect(() => {
+    checkWidth();
     window.addEventListener("resize", checkWidth);
     return () => window.removeEventListener("resize", checkWidth);
-  });
+  }, []);
   return [limitMet];
 };
