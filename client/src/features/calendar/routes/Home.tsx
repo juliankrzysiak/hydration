@@ -9,6 +9,8 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
+import { Plants } from "./Plants";
+import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -18,6 +20,7 @@ export const Home = () => {
   const filterSelections = useFilterStore((state) =>
     state.plants.map((plant) => plant.id)
   );
+  const [desktopWidth] = useDesktopWidth();
 
   const showFilterForm = useShowFormStore((state) => state.filterPlant);
 
@@ -25,27 +28,30 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <main className="flex flex-col items-center gap-4  p-4 font-['Nunito'] text-gray-950">
-      <Calendar
-        plants={
-          filterSelections.length > 0
-            ? data?.filter((plant) => filterSelections.includes(plant.id))
-            : data
-        }
-      />
-      <Filter />
-      {showFilterForm ? (
-        <FilterForm plants={data} />
-      ) : (
-        <Info
+    <>
+      <main className="flex flex-col items-center gap-4 p-4 font-['Nunito'] text-gray-950">
+        <Calendar
           plants={
             filterSelections.length > 0
               ? data?.filter((plant) => filterSelections.includes(plant.id))
               : data
           }
         />
-      )}
-      <Notification />
-    </main>
+        <Filter />
+        {showFilterForm ? (
+          <FilterForm plants={data} />
+        ) : (
+          <Info
+            plants={
+              filterSelections.length > 0
+                ? data?.filter((plant) => filterSelections.includes(plant.id))
+                : data
+            }
+          />
+        )}
+        <Notification />
+      </main>
+      {desktopWidth && <Plants />}
+    </>
   );
 };
