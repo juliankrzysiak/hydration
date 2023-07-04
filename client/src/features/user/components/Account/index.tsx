@@ -38,15 +38,15 @@ export const Account = () => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={saveChanges}>
+    <form className="relative flex flex-col gap-4" onSubmit={saveChanges}>
       <p>Make changes to your account here.</p>
-      <fieldset className=" flex flex-col">
+      <fieldset className="flex flex-col">
         <label htmlFor="name">First Name</label>
-        <input className="rounded-md bg-gray-100 px-2" {...name} />
+        <input className="w-full rounded-md bg-gray-100 px-2" {...name} />
       </fieldset>
       <fieldset className="mb-2 flex flex-col">
         <label htmlFor="email">Email</label>
-        <input className="rounded-md bg-gray-100 px-2" {...email} />
+        <input className="w-full rounded-md bg-gray-100 px-2" {...email} />
       </fieldset>
       <button className="self-end rounded-md border-2 border-gray-800 px-2 py-2 font-semibold">
         Save Changes
