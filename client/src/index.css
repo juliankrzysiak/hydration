@@ -22,7 +22,7 @@
     border: 1px solid #a0a096;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em; */
-    @apply max-w-screen-md border-none bg-transparent text-lg;
+    @apply max-w-2xl border-none bg-transparent text-lg;
   }
 
   .react-calendar--doubleView {
@@ -53,6 +53,7 @@
     border: 0;
     outline: none; */
     @apply relative rounded-lg;
+    line-height: clamp(1.5rem, 3vw, 2.25rem);
   }
 
   .react-calendar button:enabled:hover {
@@ -62,6 +63,7 @@
   .react-calendar__navigation {
     display: flex;
     height: 44px;
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
   }
 
   .react-calendar__navigation button {
@@ -117,6 +119,7 @@
     background: none;
     text-align: center;
     line-height: 16px;
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
   }
 
   .react-calendar__tile:disabled {
