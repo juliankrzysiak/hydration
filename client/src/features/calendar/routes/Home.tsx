@@ -9,7 +9,6 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
-import { Plants } from "./Plants";
 import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 
 export const Home = () => {
@@ -20,7 +19,7 @@ export const Home = () => {
   const filterSelections = useFilterStore((state) =>
     state.plants.map((plant) => plant.id)
   );
-  const [desktopWidth] = useDesktopWidth();
+  const [width] = useDesktopWidth(1200);
 
   const showFilterForm = useShowFormStore((state) => state.filterPlant);
 
@@ -28,7 +27,11 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <section className="flex flex-col items-center gap-4 ">
+    <section
+      className={`flex items-center justify-around gap-4 ${
+        !width && "flex-col"
+      }`}
+    >
       <Calendar
         plants={
           filterSelections.length > 0
@@ -36,18 +39,20 @@ export const Home = () => {
             : data
         }
       />
-      <Filter />
-      {showFilterForm ? (
-        <FilterForm plants={data} />
-      ) : (
-        <Info
-          plants={
-            filterSelections.length > 0
-              ? data?.filter((plant) => filterSelections.includes(plant.id))
-              : data
-          }
-        />
-      )}
+      <div className="flex w-full max-w-md flex-col gap-4">
+        <Filter />
+        {showFilterForm ? (
+          <FilterForm plants={data} />
+        ) : (
+          <Info
+            plants={
+              filterSelections.length > 0
+                ? data?.filter((plant) => filterSelections.includes(plant.id))
+                : data
+            }
+          />
+        )}
+      </div>
       <Notification />
     </section>
   );
