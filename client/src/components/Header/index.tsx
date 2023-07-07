@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 export const Header = () => {
   const location = useLocation();
   return (
-    <header className="flex min-w-full items-center justify-between border-b border-gray-700 bg-gray-900/20 p-2 text-gray-950 shadow-sm">
+    <header className="flex min-w-full items-center justify-between border-b border-gray-700 bg-gray-900/20 p-2 text-gray-900 shadow-sm">
       <Link
         className=" pl-2 text-2xl font-medium"
         to="/home"
