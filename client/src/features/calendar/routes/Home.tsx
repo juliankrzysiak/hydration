@@ -9,7 +9,6 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
-import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -19,7 +18,6 @@ export const Home = () => {
   const filterSelections = useFilterStore((state) =>
     state.plants.map((plant) => plant.id)
   );
-  const [width] = useDesktopWidth(1200);
 
   const showFilterForm = useShowFormStore((state) => state.filterPlant);
 
@@ -27,11 +25,7 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <section
-      className={`flex items-center justify-around gap-4 ${
-        !width && "flex-col"
-      }`}
-    >
+    <section className="flex flex-col items-center justify-around gap-4 xl:flex-row">
       <Calendar
         plants={
           filterSelections.length > 0
