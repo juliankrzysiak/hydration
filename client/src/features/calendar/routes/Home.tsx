@@ -9,6 +9,7 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
+import { Plants } from "./Plants";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -25,7 +26,9 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <section className="flex flex-col items-center justify-around gap-4 xl:flex-row">
+    <section className="flex w-full flex-col items-center justify-around gap-4 xl:flex-row">
+      <Plants />
+
       <Calendar
         plants={
           filterSelections.length > 0
@@ -33,7 +36,7 @@ export const Home = () => {
             : data
         }
       />
-      <div className="flex w-full max-w-md flex-col gap-4">
+      <section className="flex w-full max-w-md flex-col gap-4">
         <Filter />
         {showFilterForm ? (
           <FilterForm plants={data} />
@@ -46,7 +49,7 @@ export const Home = () => {
             }
           />
         )}
-      </div>
+      </section>
       <Notification />
     </section>
   );
