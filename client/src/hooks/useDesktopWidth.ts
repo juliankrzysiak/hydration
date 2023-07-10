@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useDesktopWidth = (width = 700) => {
+export const useDesktopWidth = (width = 1280) => {
   const [limitMet, setLimitMet] = useState(false);
 
   const checkWidth = () =>
@@ -11,5 +11,6 @@ export const useDesktopWidth = (width = 700) => {
     window.addEventListener("resize", checkWidth);
     return () => window.removeEventListener("resize", checkWidth);
   }, []);
+
   return [limitMet];
 };
