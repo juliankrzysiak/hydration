@@ -22,7 +22,7 @@ export const List = ({ plants }: Props) => {
         ))}
       </ol>
       <button
-        className="rounded-md border-2 border-gray-800"
+        className="rounded-md border-2 border-gray-800 hover:bg-gray-300/50"
         aria-label="Show Add Date Form"
         onClick={() => useShowFormStore.setState({ addPlant: true })}
       >

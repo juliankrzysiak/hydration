@@ -12,7 +12,7 @@ export const ListPlant = ({ name, id, watered }: Props) => {
   return (
     <li key={id} className="flex gap-4 align-baseline">
       <button
-        className="rounded-lg text-xl font-medium text-gray-950 hover:bg-gray-500/40"
+        className="rounded-lg px-2 text-xl font-medium text-gray-950 hover:bg-gray-700 hover:text-gray-200"
         onClick={() => navigate(`/plants/${id}`)}
       >
         {name}
