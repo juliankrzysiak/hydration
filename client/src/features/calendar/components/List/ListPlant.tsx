@@ -10,14 +10,14 @@ interface Props {
 export const ListPlant = ({ name, id, watered }: Props) => {
   const navigate = useNavigate();
   return (
-    <li key={id} className="flex gap-4 align-baseline">
+    <li key={id} className="flex h-fit justify-between gap-4 align-baseline">
       <button
-        className="rounded-lg px-2 text-xl font-medium text-gray-950 hover:bg-gray-700 hover:text-gray-200"
+        className="h-fit rounded-lg px-2 text-start text-xl font-medium text-gray-950 hover:bg-gray-700 hover:text-gray-200"
         onClick={() => navigate(`/plants/${id}`)}
       >
         {name}
       </button>
-      <p className="text-xl text-gray-900">
+      <p className="flex-shrink-0 text-xl text-gray-900">
         {watered && dayjs(watered).format("MMM D")}
       </p>
     </li>
