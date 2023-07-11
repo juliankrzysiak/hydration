@@ -7,5 +7,5 @@ interface State {
 
 export const useNotificationStore = create<State>(() => ({
   message: null,
-  type: "info",
+  type: "error",
 }));
