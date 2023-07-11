@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllPlants } from "../api";
 import { Info } from "../components/Info";
 import { useShowFormStore } from "../stores/showFormStore";
-import { Notification } from "@/components/Notification";
 import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
@@ -47,7 +46,6 @@ export const Home = () => {
           />
         )}
       </div>
-      <Notification />
     </section>
   );
 };

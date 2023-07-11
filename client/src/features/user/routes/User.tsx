@@ -1,6 +1,5 @@
 import person from "@/assets/person.svg";
 import { Tabs } from "../components/Tabs";
-import { Notification } from "@/components/Notification";
 import { useQuery } from "@tanstack/react-query";
 import { getName } from "../api/supabase";
 import { AuthError } from "@supabase/supabase-js";
@@ -52,7 +51,6 @@ export const User = () => {
           All data will be deleted.
         </p>
       )}
-      <Notification />
     </section>
   );
 };

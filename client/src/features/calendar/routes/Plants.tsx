@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { Notification } from "@/components/Notification";
 import { getAllPlants } from "../api";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
@@ -30,7 +29,6 @@ export const Plants = () => {
           (showCreateForm ? <AddPlant /> : <List plants={sortAsc(data)} />)}
         <Outlet context={{ ...plant }} />
       </div>
-      <Notification />
     </section>
   );
 };
