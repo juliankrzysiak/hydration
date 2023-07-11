@@ -25,7 +25,7 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <section className="flex flex-col items-center gap-4">
+    <section className="flex flex-col items-center gap-6">
       <Calendar
         plants={
           filterSelections.length > 0
@@ -33,7 +33,7 @@ export const Home = () => {
             : data
         }
       />
-      <section className="flex w-full max-w-md flex-col gap-4">
+      <div className="relative flex w-full max-w-md flex-col gap-4">
         <Filter />
         {showFilterForm ? (
           <FilterForm plants={data} />
@@ -46,7 +46,7 @@ export const Home = () => {
             }
           />
         )}
-      </section>
+      </div>
       <Notification />
     </section>
   );
