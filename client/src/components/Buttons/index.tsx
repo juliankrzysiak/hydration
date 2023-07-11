@@ -8,7 +8,7 @@ interface Props {
 
 export const Buttons = ({ accept, cancel }: Props) => {
   return (
-    <div className=" flex gap-6">
+    <div className="flex gap-6">
       <button
         className="rounded-md border-2 border-gray-800"
         aria-label="Show Add Date Form"

@@ -6,6 +6,7 @@ import { useShowFormStore } from "../../stores/showFormStore";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import plusSVG from "@/assets/plus.svg";
 import cancelSVG from "@/assets/cancel.svg";
+import { Buttons } from "@/components/Buttons";
 
 interface Props {
   plants: Plant[];
@@ -48,23 +49,7 @@ export const FilterForm = ({ plants }: Props) => {
           }}
         />
 
-        <div className="mt-4 flex gap-4">
-          <button
-            className="rounded-md border-2 border-gray-800"
-            aria-label="Show Add Date Form"
-            type="submit"
-          >
-            <img className="w-6" src={plusSVG} alt="showAddForm" />
-          </button>
-          <button
-            className="rounded-md border-2 border-gray-800"
-            aria-label="Show Delete Date Form"
-            type="button"
-            onClick={closeForm}
-          >
-            <img className="w-6" src={cancelSVG} alt="Cancel" />
-          </button>
-        </div>
+        <Buttons cancel={closeForm} />
       </form>
     </section>
   );
