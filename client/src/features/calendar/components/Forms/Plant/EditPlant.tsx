@@ -29,6 +29,7 @@ export const EditPlant = (props: Props) => {
     mutationFn: editPlant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
+      useShowFormStore.setState({ editPlant: false });
       navigate("/plants");
       notify("success", "Plant edited");
     },
@@ -49,14 +50,14 @@ export const EditPlant = (props: Props) => {
         });
       }}
     >
-      <div className=" flex max-w-[10rem] flex-col">
+      <div className=" flex w-3/4 flex-col">
         <label htmlFor="name">Plant name</label>
         <input className="rounded-md  bg-gray-100 px-2" {...name} required />
       </div>
-      <div className="mb-2 flex max-w-[10rem] flex-col">
+      <div className="mb-2 flex w-1/5  flex-col">
         <label htmlFor="schedule">Schedule</label>
         <input
-          className="w-20 rounded-md  bg-gray-100 px-2"
+          className=" rounded-md  bg-gray-100 px-2"
           {...schedule}
           list="defaultSchedule"
           min={0}

@@ -32,8 +32,8 @@ export const AddPlant = () => {
     <>
       <h1 className="mb-3 text-3xl ">Add Plant</h1>
       <form className="flex flex-col gap-3" action="" onSubmit={submitForm}>
-        <div className=" flex max-w-[10rem] flex-col">
-          <label className="" htmlFor="name">
+        <div className=" flex w-3/4 flex-col">
+          <label className="text-lg" htmlFor="name">
             Plant name
           </label>
           <input
@@ -43,12 +43,12 @@ export const AddPlant = () => {
             required
           />
         </div>
-        <div className="mb-2 flex max-w-[10rem] flex-col ">
-          <label className="text-l" htmlFor="schedule">
+        <div className="mb-2 flex w-1/5 flex-col ">
+          <label className="text-xl" htmlFor="schedule">
             Schedule
           </label>
           <input
-            className="w-20 rounded-md  bg-gray-100 px-2"
+            className=" rounded-md  bg-gray-100 px-2"
             {...schedule}
             list="defaultSchedule"
             min={0}
