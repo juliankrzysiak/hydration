@@ -4,8 +4,6 @@ import { Plant } from "../../types";
 import { useFilterStore } from "../../stores/filterStore";
 import { useShowFormStore } from "../../stores/showFormStore";
 import { useClickOutside } from "../../hooks/useClickOutside";
-import plusSVG from "@/assets/plus.svg";
-import cancelSVG from "@/assets/cancel.svg";
 import { Buttons } from "@/components/Buttons";
 
 interface Props {

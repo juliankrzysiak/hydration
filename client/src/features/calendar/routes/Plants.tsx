@@ -9,7 +9,6 @@ import { useShowFormStore } from "../stores/showFormStore";
 import { AddPlant } from "../components/Forms/Plant/AddPlant";
 import { Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { ListPlantInfo } from "../components/List/ListPlantInfo";
 
 export const Plants = () => {
   const { data, isLoading, isError } = useQuery({
@@ -30,7 +29,6 @@ export const Plants = () => {
         {!id &&
           (showCreateForm ? <AddPlant /> : <List plants={sortAsc(data)} />)}
         <Outlet context={{ ...plant }} />
-        
       </div>
       <Notification />
     </section>
