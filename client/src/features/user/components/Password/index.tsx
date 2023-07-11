@@ -30,7 +30,7 @@ export const Password = () => {
 
   return (
     <form
-      className="flex flex-col gap-4"
+      className="flex w-full flex-col gap-4"
       onSubmit={(event: React.SyntheticEvent) => {
         event.preventDefault();
         if (password.value !== confirmPassword.value) {
@@ -57,7 +57,7 @@ export const Password = () => {
           {...confirmPassword}
         />
       </fieldset>
-      <button className="self-end rounded border-2 border-gray-800 px-2 py-2">
+      <button className="self-end rounded border-2 border-gray-800 px-2 py-2 font-semibold">
         Change Password
       </button>
     </form>

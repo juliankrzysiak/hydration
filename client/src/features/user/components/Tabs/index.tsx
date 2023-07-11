@@ -5,10 +5,10 @@ import { Delete } from "../Delete";
 
 export const Tabs = () => {
   return (
-    <Tab.Root defaultValue="tab1" className="mb-8 w-full max-w-xs">
+    <Tab.Root defaultValue="tab1" className="mb-8 ">
       <Tab.List
         aria-label="Manage your account"
-        className="flex justify-around rounded-t-md border-b border-gray-900 bg-gray-900/20 p-2 text-gray-700"
+        className="flex justify-evenly gap-6 rounded-t-md border-b border-gray-900 bg-gray-900/20 px-4 py-2 text-gray-700"
       >
         <Tab.Trigger
           value="tab1"

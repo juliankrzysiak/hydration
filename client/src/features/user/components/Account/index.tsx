@@ -39,7 +39,7 @@ export const Account = () => {
 
   return (
     <form className="relative flex flex-col gap-4" onSubmit={saveChanges}>
-      <p>Make changes to your account here.</p>
+      <p>Make changes to your account.</p>
       <fieldset className="flex flex-col">
         <label htmlFor="name">First Name</label>
         <input className="w-full rounded-md bg-gray-100 px-2" {...name} />
