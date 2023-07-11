@@ -23,7 +23,7 @@ export const Plants = () => {
   const plant = data.filter((plant) => plant.id === Number(id)).at(0);
 
   return (
-    <section className=" flex w-full max-w-md ">
+    <section className=" flex h-full w-full max-w-md">
       <div className="relative flex w-full flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
         {!id &&
           (showCreateForm ? <AddPlant /> : <List plants={sortAsc(data)} />)}

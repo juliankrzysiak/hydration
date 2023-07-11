@@ -31,7 +31,7 @@ export const FilterForm = ({ plants }: Props) => {
   return (
     <section
       ref={ref}
-      className="absolute top-20 flex w-full flex-col rounded-md bg-gray-900/20 p-4  shadow-sm"
+      className=" flex h-full w-full flex-col rounded-md bg-gray-900/20 p-4  shadow-sm"
     >
       <h2 className="mb-2 text-2xl font-medium">Filter Plants</h2>
       <form className=" flex  flex-col" onSubmit={addToFilterStore}>

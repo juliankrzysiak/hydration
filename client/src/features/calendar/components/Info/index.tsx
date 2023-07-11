@@ -13,8 +13,10 @@ export const Info = ({ plants }: Props) => {
   });
 
   return (
-    <div className="absolute top-20 flex w-full  flex-col items-start rounded-md bg-gray-900/20 p-4 text-gray-950 ">
-      <h2 className="absolute right-4 text-xl leading-8">{todayOrDate}</h2>
+    <div className="flex h-full w-full flex-col items-start rounded-md bg-gray-900/20 p-4 text-gray-950 shadow-md ">
+      <h2 className="absolute right-4 text-3xl  text-gray-800">
+        {todayOrDate}
+      </h2>
       <PlantsInfo plants={scheduledPlants} title="To Water" />
       <PlantsInfo plants={wateredPlants} title="Watered" />
       <ShowForm plants={plants} />

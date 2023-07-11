@@ -9,16 +9,12 @@ interface Props {
 }
 
 export const Layout = ({ children }: Props) => {
-  const [width] = useDesktopWidth();
-  const location = useLocation();
-
   return (
     <>
       <Header />
-      <main className="flex items-center justify-evenly p-6 font-['Nunito'] text-gray-950">
+      <main className="h-full  p-6 font-['Nunito'] text-gray-950">
         {children}
-        {width && location.pathname === "/home" && <Plants />}
-        <Notification/>
+        <Notification />
       </main>
     </>
   );

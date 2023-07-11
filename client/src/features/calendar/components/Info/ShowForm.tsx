@@ -26,5 +26,5 @@ export const ShowForm = ({ plants }: Props) => {
       );
   };
 
-  return <div className="mt-6 flex gap-6">{showCorrectForm()}</div>;
+  return <div className="flex gap-6">{showCorrectForm()}</div>;
 };

@@ -8,6 +8,8 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { useFilterStore } from "../stores/filterStore";
 import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
+import { Plants } from "./Plants";
+import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -17,14 +19,15 @@ export const Home = () => {
   const filterSelections = useFilterStore((state) =>
     state.plants.map((plant) => plant.id)
   );
-
   const showFilterForm = useShowFormStore((state) => state.filterPlant);
+
+  const [width] = useDesktopWidth();
 
   if (isLoading) return <Loader />;
   if (isError) return <ErrorPage />;
 
   return (
-    <section className="flex flex-col items-center gap-6">
+    <section className="flex h-full flex-col  items-center gap-4 xl:flex-row xl:items-start xl:justify-evenly">
       <Calendar
         plants={
           filterSelections.length > 0
@@ -32,7 +35,8 @@ export const Home = () => {
             : data
         }
       />
-      <div className="relative flex w-full max-w-md flex-col gap-4">
+
+      <div className="relative flex h-full w-full max-w-md flex-col gap-4 ">
         <Filter />
         {showFilterForm ? (
           <FilterForm plants={data} />
@@ -46,6 +50,7 @@ export const Home = () => {
           />
         )}
       </div>
+      {width && <Plants />}
     </section>
   );
 };
