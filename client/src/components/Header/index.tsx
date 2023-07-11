@@ -5,9 +5,9 @@ export const Header = () => {
   const location = useLocation();
   const [width] = useDesktopWidth();
   return (
-    <header className="flex min-w-full items-center justify-between border-b border-gray-700 bg-gray-900/20 p-2 text-gray-900 shadow-sm">
+    <header className="flex min-w-full items-center justify-between border-b border-gray-700 bg-gray-900/20 p-3 text-gray-900 shadow-sm">
       <Link
-        className=" pl-2 text-2xl font-medium"
+        className="pl-2 text-2xl font-medium xl:text-3xl"
         to="/home"
         aria-label="Navigate to home"
       >
@@ -17,7 +17,7 @@ export const Header = () => {
         {!width && (
           <Link
             to="/plants"
-            className={`text-lg font-medium ${
+            className={`text-xl font-medium xl:text-2xl ${
               location.pathname !== "/plants" && "text-gray-900/70"
             }`}
           >
@@ -26,7 +26,7 @@ export const Header = () => {
         )}
         <Link
           to="/user"
-          className={`text-lg font-medium  ${
+          className={`text-xl font-medium xl:text-2xl  ${
             location.pathname !== "/user" && "text-gray-900/70"
           }`}
         >
