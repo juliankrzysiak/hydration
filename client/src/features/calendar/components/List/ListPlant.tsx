@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useNavigate } from "react-router-dom";
+import { useIdStore } from "../../stores/idStore";
 
 interface Props {
   name: string;
@@ -8,12 +8,11 @@ interface Props {
 }
 
 export const ListPlant = ({ name, id, watered }: Props) => {
-  const navigate = useNavigate();
   return (
     <li key={id} className="flex h-fit justify-between gap-4 align-baseline">
       <button
         className="h-fit rounded-lg px-2 text-start text-xl font-medium text-gray-950 hover:bg-gray-700 hover:text-gray-200"
-        onClick={() => navigate(`/plants/${id}`)}
+        onClick={() => useIdStore.setState({id})}
       >
         {name}
       </button>

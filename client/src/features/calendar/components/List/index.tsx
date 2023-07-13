@@ -2,12 +2,16 @@ import { Plant } from "../../types";
 import { ListPlant } from "./ListPlant";
 import { useShowFormStore } from "../../stores/showFormStore";
 import plusSVG from "@/assets/plus.svg";
+import { AddPlant } from "../Forms/Plant/AddPlant";
 
 interface Props {
   plants: Plant[];
 }
 
 export const List = ({ plants }: Props) => {
+  const showCreateForm = useShowFormStore((state) => state.addPlant);
+  if (showCreateForm) return <AddPlant />;
+
   return (
     <section>
       <h1 className="mb-4 text-3xl text-gray-950 ">Your Plants</h1>

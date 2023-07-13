@@ -1,4 +1,3 @@
-import { useNavigate, useOutletContext } from "react-router-dom";
 import { Plant } from "../../types";
 import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useQueryClient } from "@tanstack/react-query";
@@ -11,29 +10,39 @@ import { EditPlant } from "../Forms/Plant/EditPlant";
 import cancelSVG from "@/assets/cancel.svg";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";
+import { useIdStore } from "../../stores/idStore";
+import { ErrorPage } from "@/routes/ErrorPage";
 dayjs.extend(relativeTime);
 
-export const ListPlantInfo = () => {
-  const { name, schedule, next_water, watered, id } = useOutletContext<Plant>();
+interface Props {
+  plant: Plant | undefined;
+}
+
+export const ListPlantInfo = ({ plant }: Props) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const deletePlantMutation = useMutation({
     mutationFn: deletePlant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
       notify("success", "Plant deleted");
-      navigate("/plants");
+      useIdStore.setState({ id: null });
     },
   });
   const dialogRef = useRef<DialogHandle>(null);
   const showEditForm = useShowFormStore((state) => state.editPlant);
+
+  if (!plant) return <ErrorPage />;
+  const { name, schedule, next_water, watered, id } = plant;
 
   return (
     <>
       <h1 className=" mb-3 text-3xl text-gray-950 ">{name}</h1>
       <button
         className="absolute right-3 top-3  w-fit"
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          useShowFormStore.setState({ editPlant: false });
+          useIdStore.setState({ id: null });
+        }}
       >
         <img className="w-7" src={cancelSVG} alt="Cancel" />
       </button>

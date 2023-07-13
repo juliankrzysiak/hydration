@@ -1,7 +1,4 @@
 import { Header } from "@/components/Header";
-import { Plants } from "@/features/calendar/routes/Plants";
-import { useDesktopWidth } from "@/hooks/useDesktopWidth";
-import { useLocation } from "react-router-dom";
 import { Notification } from "@/components/Notification";
 
 interface Props {
