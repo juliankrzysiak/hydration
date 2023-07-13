@@ -13,21 +13,22 @@ export const Plants = () => {
     queryFn: getAllPlants,
   });
 
-  const id = useIdStore(state => state.id)
+  const id = useIdStore((state) => state.id);
 
   if (isLoading) return <Loader />;
   if (isError) return <ErrorPage />;
 
-
   return (
-      <section className=" flex h-full w-full max-w-md ">
-        <div className="relative flex w-full flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
-          {id ? (
-            <ListPlantInfo plant={data.filter((plant) => plant.id === Number(id)).at(0)}/>
-          ) : (
-            <List plants={sortAsc(data)} />
-          )}
-        </div>
-      </section>
+    <section className=" flex h-full w-full max-w-md ">
+      <div className="relative flex w-full flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
+        {id ? (
+          <ListPlantInfo
+            plant={data.filter((plant) => plant.id === Number(id)).at(0)}
+          />
+        ) : (
+          <List plants={sortAsc(data)} />
+        )}
+      </div>
+    </section>
   );
 };

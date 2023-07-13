@@ -9,7 +9,7 @@ export const Layout = ({ children }: Props) => {
   return (
     <>
       <Header />
-      <main className="h-full  p-6 font-['Nunito'] text-gray-950">
+      <main className="flex h-full justify-center  p-6 font-['Nunito'] text-gray-950">
         {children}
         <Notification />
       </main>

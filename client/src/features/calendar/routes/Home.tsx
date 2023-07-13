@@ -27,7 +27,7 @@ export const Home = () => {
   if (isError) return <ErrorPage />;
 
   return (
-    <section className="flex h-full flex-col  items-center gap-4 xl:flex-row xl:items-start xl:justify-evenly">
+    <section className="flex h-full grow flex-col  items-center gap-4 xl:flex-row xl:items-start xl:justify-evenly">
       <Calendar
         plants={
           filterSelections.length > 0
