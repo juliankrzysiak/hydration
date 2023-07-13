@@ -30,7 +30,7 @@ export const EditPlant = (props: Props) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
       useShowFormStore.setState({ editPlant: false });
-      navigate("/plants");
+      navigate(-1);
       notify("success", "Plant edited");
     },
     onError: () => {
