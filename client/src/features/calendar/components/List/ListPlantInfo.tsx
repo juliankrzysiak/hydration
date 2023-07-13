@@ -36,7 +36,7 @@ export const ListPlantInfo = ({ plant }: Props) => {
 
   return (
     <>
-      <h1 className=" mb-3 text-3xl text-gray-950 ">{name}</h1>
+      <h1 className=" mb-4 text-3xl text-gray-950 ">{name}</h1>
       <button
         className="absolute right-3 top-3  w-fit"
         onClick={() => {
@@ -47,13 +47,13 @@ export const ListPlantInfo = ({ plant }: Props) => {
         <img className="w-7" src={cancelSVG} alt="Cancel" />
       </button>
       {!showEditForm ? (
-        <div className="grid grid-cols-2 gap-y-4">
+        <div className="grid grid-cols-2 gap-y-10">
           <div className="flex flex-col items-center">
-            <h2 className="text-xl font-semibold">Schedule</h2>
+            <h2 className="text-2xl font-semibold">Schedule</h2>
             <p>Every {schedule} days</p>
           </div>
           <div className="flex flex-col items-center">
-            <h2 className="text-xl font-semibold">Next Water</h2>
+            <h2 className="text-2xl font-semibold">Next Water</h2>
             <p>
               {next_water &&
                 `${dayjs(next_water).format("MMM D")}, ${dayjs().to(
@@ -62,8 +62,8 @@ export const ListPlantInfo = ({ plant }: Props) => {
             </p>
           </div>
           <div className=" flex flex-col items-center">
-            <h2 className="text-xl font-semibold">History</h2>
-            <ul className="grid grid-cols-2 gap-2">
+            <h2 className="text-2xl font-semibold">History</h2>
+            <ul className="grid gap-2">
               {watered.at(0) &&
                 watered
                   .sort((a, b) => (dayjs(a).isAfter(dayjs(b)) ? -1 : 1))
