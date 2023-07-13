@@ -58,7 +58,11 @@ export const ListPlantInfo = () => {
               {watered.at(0) &&
                 watered
                   .sort((a, b) => (dayjs(a).isAfter(dayjs(b)) ? -1 : 1))
-                  .map((date) => <li>{dayjs(date).format("MMM DD")}</li>)}
+                  .map((date) => (
+                    <li key={date.toString()}>
+                      {dayjs(date).format("MMM DD")}
+                    </li>
+                  ))}
             </ul>
           </div>
           <div className="flex items-center justify-center gap-6">
