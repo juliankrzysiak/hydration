@@ -47,7 +47,7 @@ export const ListPlantInfo = ({ plant }: Props) => {
         <img className="w-7" src={cancelSVG} alt="Cancel" />
       </button>
       {!showEditForm ? (
-        <div className="grid grid-cols-2 gap-y-10">
+        <div className="grid grid-cols-2 gap-y-8">
           <div className="flex flex-col items-center">
             <h2 className="text-2xl font-semibold">Schedule</h2>
             <p>Every {schedule} days</p>
