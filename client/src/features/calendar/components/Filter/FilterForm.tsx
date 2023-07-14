@@ -4,6 +4,7 @@ import { Plant } from "../../types";
 import { useFilterStore } from "../../stores/filterStore";
 import { useShowFormStore } from "../../stores/showFormStore";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { Buttons } from "@/components/Buttons";
 
 interface Props {
   plants: Plant[];
@@ -30,10 +31,10 @@ export const FilterForm = ({ plants }: Props) => {
   return (
     <section
       ref={ref}
-      className="m-4  w-full  rounded-md bg-gray-900/80 p-4  shadow-lg"
+      className=" flex h-full w-full flex-col rounded-md bg-gray-900/20 p-4  shadow-sm"
     >
-      <h2 className="text-xl font-bold text-neutral-300">Filter Plants</h2>
-      <form className="flex flex-col">
+      <h2 className="mb-2 text-2xl font-medium">Filter Plants</h2>
+      <form className=" flex  flex-col" onSubmit={addToFilterStore}>
         <ComboBox
           {...{
             selected,
@@ -45,9 +46,8 @@ export const FilterForm = ({ plants }: Props) => {
             ),
           }}
         />
-        <button className="btn self-center" onClick={addToFilterStore}>
-          Accept
-        </button>
+
+        <Buttons cancel={closeForm} />
       </form>
     </section>
   );

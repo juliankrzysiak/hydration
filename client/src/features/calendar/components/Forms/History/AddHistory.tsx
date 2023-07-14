@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plant } from "@/features/calendar/types";
-import { ConfirmButtons } from "../Common/ConfirmButtons";
 import { ComboBox } from "../Common/ComboBox";
+import { Buttons } from "@/components/Buttons";
 import { addDate } from "@/features/calendar/api";
 import { useDateStore } from "@/features/calendar/stores/dateStore";
-import { useNotificationStore } from "@/stores/notificationStore";
 import dayjs from "dayjs";
 import { useQueryFilter } from "@/features/calendar/hooks/useQueryFilter";
+import { notify } from "@/utils/notify";
 
 interface Props {
   plants: Plant[];
@@ -19,7 +19,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   const addDateMutation = useMutation({
     mutationFn: addDate,
     onSuccess: () => {
-      useNotificationStore.setState({ message: "Date added!" });
+      notify("success", "Date added!");
       queryClient.invalidateQueries({ queryKey: ["plants"] });
     },
   });
@@ -50,7 +50,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   };
 
   return (
-    <form className="flex w-3/4 flex-col" onSubmit={handleSubmit}>
+    <form className="flex flex-col" onSubmit={handleSubmit}>
       <ComboBox
         selected={selected}
         setSelected={setSelected}
@@ -59,7 +59,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
         plants={filteredPlants}
         label="Add Date"
       />
-      <ConfirmButtons handleInput={handleInput} />
+      <Buttons cancel={() => handleInput(false)} />
     </form>
   );
 };

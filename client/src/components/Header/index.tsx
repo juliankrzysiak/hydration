@@ -1,31 +1,33 @@
-import dropletSVG from "@/assets/droplet-dark.svg";
+import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
   const location = useLocation();
+  const [width] = useDesktopWidth();
   return (
-    <header className="flex  min-w-full items-center justify-between bg-gray-700/40 p-2">
+    <header className="flex min-w-full items-center justify-between border-b border-gray-700 bg-gray-900/20 p-3 text-gray-900 shadow-sm">
       <Link
-        className="flex items-center gap-1 text-2xl"
+        className="pl-2 text-2xl font-medium xl:text-3xl"
         to="/home"
         aria-label="Navigate to home"
       >
-        <img src={dropletSVG} alt="Leaf" className="w-6" />
         Hydration
       </Link>
       <nav className="flex gap-4 px-2">
-        <Link
-          to="/plants"
-          className={`text-lg underline-offset-4 ${
-            location.pathname === "/plants" && "underline"
-          }`}
-        >
-          Plants
-        </Link>
+        {!width && (
+          <Link
+            to="/plants"
+            className={`text-xl font-medium xl:text-2xl ${
+              location.pathname !== "/plants" && "text-gray-900/70"
+            }`}
+          >
+            Plants
+          </Link>
+        )}
         <Link
           to="/user"
-          className={`text-lg underline-offset-4 ${
-            location.pathname === "/user" && "underline"
+          className={`text-xl font-medium xl:text-2xl  ${
+            location.pathname !== "/user" && "text-gray-900/70"
           }`}
         >
           User

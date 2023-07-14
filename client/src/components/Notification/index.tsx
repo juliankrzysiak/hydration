@@ -35,21 +35,20 @@ export const Notification = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className={` fixed bottom-7 left-1/2 z-30 flex  max-w-xs -translate-x-1/2 rounded-xl border border-gray-500 py-2 pl-4 pr-2
+          className={` fixed bottom-7 left-1/2 z-30 flex  -translate-x-1/2 items-center rounded-xl border border-gray-500 py-2 pl-4 pr-2
            ${type === "info" && "bg-neutral-200"}
            ${type === "error" && "bg-red-200"}
            ${type === "success" && "bg-green-200"}`}
         >
           {renderImg()}
-          <p className="ml-3 w-52 font-['Inter']">{message}</p>
-          <div className="ml-2 w-0.5 bg-neutral-500/30" />
+          <p className="ml-3 text-xl">{message}</p>
           <button
             onClick={() => useNotificationStore.setState({ message: null })}
             aria-label="Close notification"
-            className="ml-1 flex-shrink-0"
+            className="ml-4 flex-shrink-0 border-l-2 border-gray-600/40"
           >
             <img
-              aria-label="button"
+              aria-label="Close notification"
               className="w-8"
               src={cancel}
               alt="Cancel"
