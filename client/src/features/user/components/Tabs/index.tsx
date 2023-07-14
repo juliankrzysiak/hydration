@@ -1,7 +1,7 @@
 import * as Tab from "@radix-ui/react-tabs";
-import { Account } from "../Account";
-import { Password } from "../Password";
-import { Delete } from "../Delete";
+import { Account } from "./Account";
+import { Password } from "./Password";
+import { Delete } from "./Delete";
 
 export const Tabs = () => {
   return (
