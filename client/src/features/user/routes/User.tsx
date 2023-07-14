@@ -31,7 +31,7 @@ export const User = () => {
   };
 
   return (
-    <section className="relative flex flex-col items-center">
+    <section className="relative flex w-full flex-col items-center">
       <div className=" mb-2 flex flex-col items-center ">
         <img className="w-12" src={person} alt="Person" />
         <p className="text-lg">{name ?? "Jane"}</p>
