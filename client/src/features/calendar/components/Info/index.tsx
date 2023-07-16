@@ -3,7 +3,7 @@ import { ShowForm } from "./ShowForm";
 import { useCalendarDates } from "../../hooks/useCalendarDates";
 import { PlantsInfo } from "./PlantsInfo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addDate } from "../../api";
+import { addDate, deleteDate } from "../../api";
 import { notify } from "@/utils/notify";
 import { useDateStore } from "../../stores/dateStore";
 import dayjs from "dayjs";
@@ -27,8 +27,25 @@ export const Info = ({ plants }: Props) => {
     },
   });
 
+  const deleteDateMutation = useMutation({
+    mutationFn: deleteDate,
+    onSuccess: () => {
+      notify("success", "Date removed!");
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+    },
+  });
+
+ 
+
   const handleAddDate = (plant_id: number) => {
     addDateMutation.mutate({
+      plant_id,
+      date,
+    });
+  };
+
+  const handleDeleteDate = (plant_id: number) => {
+    deleteDateMutation.mutate({
       plant_id,
       date,
     });
@@ -44,7 +61,7 @@ export const Info = ({ plants }: Props) => {
         title="To Water"
         handleDate={handleAddDate}
       />
-      <PlantsInfo plants={wateredPlants} title="Watered" />
+      <PlantsInfo plants={wateredPlants} title="Watered" handleDate={handleDeleteDate} />
       <ShowForm plants={plants} />
     </div>
   );
