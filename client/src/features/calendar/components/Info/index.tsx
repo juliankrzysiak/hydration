@@ -35,8 +35,6 @@ export const Info = ({ plants }: Props) => {
     },
   });
 
- 
-
   const handleAddDate = (plant_id: number) => {
     addDateMutation.mutate({
       plant_id,
@@ -51,17 +49,26 @@ export const Info = ({ plants }: Props) => {
     });
   };
 
+  const pickTitle = () => {
+    if (scheduledPlants.length) return "To Water";
+    if (wateredPlants.length) return "All Watered";
+    else return "Nothing here";
+  };
+
   return (
     <div className="flex h-full w-full flex-col items-start rounded-md bg-gray-900/20 p-4 text-gray-950 shadow-md ">
-      <h2 className="absolute right-4 text-3xl  text-gray-800">
-        {todayOrDate}
-      </h2>
-      <PlantsInfo
-        plants={scheduledPlants}
-        title="To Water"
-        handleDate={handleAddDate}
-      />
-      <PlantsInfo plants={wateredPlants} title="Watered" handleDate={handleDeleteDate} />
+      <div className="mb-2  flex w-full items-center justify-between">
+        <h3 className=" text-3xl ">{pickTitle()}</h3>
+        <h2 className=" text-3xl  text-gray-800">{todayOrDate}</h2>
+      </div>
+      <div className="flex flex-col gap-2">
+        <PlantsInfo plants={scheduledPlants} handleDate={handleAddDate} />
+        <PlantsInfo
+          plants={wateredPlants}
+          handleDate={handleDeleteDate}
+          watered
+        />
+      </div>
       <ShowForm plants={plants} />
     </div>
   );
