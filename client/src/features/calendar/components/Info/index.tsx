@@ -7,9 +7,16 @@ import { addDate, deleteDate } from "../../api";
 import { notify } from "@/utils/notify";
 import { useDateStore } from "../../stores/dateStore";
 import dayjs from "dayjs";
+import { AllPlantButton } from "./AllPlantsButton";
 
 interface Props {
   plants: Plant[];
+}
+
+export enum Title {
+  water = "To Water",
+  watered = "All Watered",
+  empty = "Nothing Here",
 }
 
 export const Info = ({ plants }: Props) => {
@@ -49,16 +56,35 @@ export const Info = ({ plants }: Props) => {
     });
   };
 
-  const pickTitle = () => {
-    if (scheduledPlants.length) return "To Water";
-    if (wateredPlants.length) return "All Watered";
-    else return "Nothing here";
+  const waterAllPlants = () => {
+    scheduledPlants.forEach((plant) =>
+      addDateMutation.mutate({
+        plant_id: plant.id,
+        date,
+      })
+    );
   };
+
+  const unwaterAllPlants = () => {
+    wateredPlants.forEach((plant) =>
+      deleteDateMutation.mutate({
+        plant_id: plant.id,
+        date,
+      })
+    );
+  };
+
+  const title = (() => {
+    if (scheduledPlants.length) return Title.water;
+    if (wateredPlants.length) return Title.watered;
+    else return Title.empty;
+  })();
 
   return (
     <div className="flex h-full w-full flex-col items-start rounded-md bg-gray-900/20 p-4 text-gray-950 shadow-md ">
-      <div className="mb-2  flex w-full items-center justify-between">
-        <h3 className=" text-3xl ">{pickTitle()}</h3>
+      <div className="mb-4  flex w-full items-center justify-between">
+        <h3 className=" text-3xl ">{title}</h3>
+        <AllPlantButton title={title} waterAll={waterAllPlants} unwaterAll={unwaterAllPlants} />
         <h2 className=" text-3xl  text-gray-800">{todayOrDate}</h2>
       </div>
       <div className="flex flex-col gap-2">
