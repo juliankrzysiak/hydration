@@ -31,8 +31,10 @@ export const DeleteHistory = ({ plants, handleInput }: Props) => {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    const plant_id = [selected.id];
+
     deleteDateMutation.mutate({
-      plant_id: selected.id,
+      plant_id,
       date,
     });
     handleInput(false);

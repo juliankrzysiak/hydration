@@ -40,15 +40,14 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
       handleInput(false);
       return;
     }
-
+    const plant_id = [selected.id];
     addDateMutation.mutate({
-      plant_id: selected.id,
+      plant_id,
       date,
     });
 
     handleInput(false);
   };
-
 
   return (
     <form className="flex w-full flex-col" onSubmit={handleSubmit}>

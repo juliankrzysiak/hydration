@@ -42,36 +42,20 @@ export const Info = ({ plants }: Props) => {
     },
   });
 
-  const handleAddDate = (plant_id: number) => {
+  const handleAddDate = (plants: Plant[]) => {
+    const plant_id = plants.map((plant) => plant.id);
     addDateMutation.mutate({
       plant_id,
       date,
     });
   };
 
-  const handleDeleteDate = (plant_id: number) => {
+  const handleDeleteDate = (plants: Plant[]) => {
+    const plant_id = plants.map((plant) => plant.id);
     deleteDateMutation.mutate({
       plant_id,
       date,
     });
-  };
-
-  const waterAllPlants = () => {
-    scheduledPlants.forEach((plant) =>
-      addDateMutation.mutate({
-        plant_id: plant.id,
-        date,
-      })
-    );
-  };
-
-  const unwaterAllPlants = () => {
-    wateredPlants.forEach((plant) =>
-      deleteDateMutation.mutate({
-        plant_id: plant.id,
-        date,
-      })
-    );
   };
 
   const title = (() => {
@@ -87,8 +71,8 @@ export const Info = ({ plants }: Props) => {
         <h3 className=" text-3xl ">{title}</h3>
         <AllPlantButton
           title={title}
-          waterAll={waterAllPlants}
-          unwaterAll={unwaterAllPlants}
+          waterAll={() => handleAddDate(scheduledPlants)}
+          unwaterAll={() => handleDeleteDate(wateredPlants)}
         />
         <h2 className=" text-3xl  text-gray-800">{todayOrDate}</h2>
       </div>

@@ -3,7 +3,7 @@ import { Plant } from "../../types";
 interface Props {
   plants: Plant[];
   watered?: boolean;
-  handleDate: (plant_id: number) => void;
+  handleDate: (plants: Plant[]) => void;
 }
 
 export const PlantsInfo = ({ plants, watered, handleDate }: Props) => {
@@ -17,7 +17,7 @@ export const PlantsInfo = ({ plants, watered, handleDate }: Props) => {
             <li key={plant.id} className="">
               <button
                 className={`text-xl font-medium ${watered && "line-through"}`}
-                onClick={() => handleDate(plant.id)}
+                onClick={() => handleDate([plant])}
               >
                 {plant.name}
               </button>

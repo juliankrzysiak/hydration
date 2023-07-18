@@ -21,13 +21,14 @@ export const getAllPlants = async (): Promise<Plant[]> => {
 export const createPlant = async (plant: PlantCreate) => {
   try {
     const uid = await getUid();
+    const body = JSON.stringify(plant);
     const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         uid,
       },
-      body: JSON.stringify(plant),
+      body,
     });
 
     return res.json();
@@ -47,13 +48,14 @@ export const editPlant = async ({
 }) => {
   try {
     const uid = await getUid();
+    const body = JSON.stringify({ name, schedule });
     const res = await fetch(`${url}/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         uid,
       },
-      body: JSON.stringify({ name, schedule }),
+      body,
     });
     return res.json();
   } catch (error) {
@@ -61,33 +63,35 @@ export const editPlant = async ({
   }
 };
 
-export const addDate = async (body: PlantDate) => {
+export const addDate = async (payload: PlantDate) => {
   try {
+    const body = JSON.stringify(payload);
     const res = await fetch(`${url}/water`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body,
     });
 
-    return res.json();
+    return res;
   } catch (error) {
     catchApiError(error, "Could not add date!");
   }
 };
 
-export const deleteDate = async (body: PlantDate) => {
+export const deleteDate = async (payload: PlantDate) => {
   try {
+    const body = JSON.stringify(payload);
     const res = await fetch(`${url}/water`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body,
     });
 
-    return res.json();
+    return res;
   } catch (error) {
     catchApiError(error, "Could not delete date!");
   }
@@ -95,14 +99,16 @@ export const deleteDate = async (body: PlantDate) => {
 
 export const deletePlant = async (id: { plant_id: number }) => {
   try {
+    const body = JSON.stringify(id);
     const uid = await getUid();
+
     const res = await fetch(`${url}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         uid,
       },
-      body: JSON.stringify(id),
+      body,
     });
 
     return res.json();
