@@ -20,10 +20,20 @@ export const ComboBox = ({
   plants,
   label,
 }: Props) => {
+  const filteredPlants =
+    query === ""
+      ? plants
+      : plants.filter((plant) =>
+          plant.name
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
+
   return (
     <Combobox value={selected} onChange={setSelected}>
       <Combobox.Label className="mb-2 text-2xl">{label}</Combobox.Label>
-      <div className="relative mb-4 w-fit">
+      <div className="relative mb-4">
         <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
             className="text-md w-full border-none bg-gray-100 py-2 pl-3  leading-5 text-gray-800 focus:ring-0"
@@ -46,12 +56,12 @@ export const ComboBox = ({
           afterLeave={() => setQuery("")}
         >
           <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {plants.length === 0 && query !== "" ? (
+            {filteredPlants.length === 0 && query !== "" ? (
               <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                 Nothing found.
               </div>
             ) : (
-              plants.map((plant: Plant) => (
+              filteredPlants.map((plant: Plant) => (
                 <Combobox.Option
                   key={plant.id}
                   className={({ active }) =>
