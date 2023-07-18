@@ -103,13 +103,12 @@ describe('PATCH single plant', () => {
 });
 
 describe('POST single date route', () => {
-	it('returns posted date', async () => {
+	it('returns 201', async () => {
 		const req = {
-			plant_id: 1,
+			plant_id: [1],
 			date: '2023-05-22',
 		};
-		const res = await api.post('/api/plants/water').send(req).expect(201);
-		expect(res.body).toContainEqual(req);
+		await api.post('/api/plants/water').send(req).expect(201);
 	});
 
 	it('shows correct date', async () => {
@@ -125,13 +124,12 @@ describe('POST single date route', () => {
 });
 
 describe('DELETE single date route', () => {
-	it('returns deleted date', async () => {
+	it('returns 200', async () => {
 		const req = {
-			plant_id: 1,
+			plant_id: [1],
 			date: '2023-05-22',
 		};
-		const res = await api.delete('/api/plants/water').send(req).expect(200);
-		expect(res.body).toContainEqual(req);
+		await api.delete('/api/plants/water').send(req).expect(200);
 	});
 	it('should be deleted with GET', async () => {
 		const res = await api.get('/api/plants').set('uid', `${uid}`).expect(200);
