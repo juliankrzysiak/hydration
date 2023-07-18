@@ -11,10 +11,10 @@ export const PlantsInfo = ({ plants, watered, handleDate }: Props) => {
 
   return (
     <div>
-      <ul className="flex flex-col items-center gap-2 pl-2">
+      <ul className="flex flex-col gap-2 pl-2">
         {plants.map((plant) => {
           return (
-            <li key={plant.id}>
+            <li key={plant.id} className="">
               <button
                 className={`text-xl font-medium ${watered && "line-through"}`}
                 onClick={() => handleDate(plant.id)}

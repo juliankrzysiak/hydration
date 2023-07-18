@@ -49,8 +49,9 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
     handleInput(false);
   };
 
+
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit}>
+    <form className="flex w-full flex-col" onSubmit={handleSubmit}>
       <ComboBox
         selected={selected}
         setSelected={setSelected}
