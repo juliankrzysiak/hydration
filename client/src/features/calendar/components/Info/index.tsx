@@ -16,7 +16,7 @@ interface Props {
 export enum Title {
   water = "To Water",
   watered = "All Watered",
-  empty = "Nothing Here",
+  empty = "nothing at all",
 }
 
 export const Info = ({ plants }: Props) => {
@@ -80,11 +80,16 @@ export const Info = ({ plants }: Props) => {
     else return Title.empty;
   })();
 
+  // TODO: Change backend to accept array of plants on one date
   return (
     <div className="flex h-full w-full flex-col items-start rounded-md bg-gray-900/20 p-4 text-gray-950 shadow-md ">
       <div className="mb-4  flex w-full items-center justify-between">
         <h3 className=" text-3xl ">{title}</h3>
-        <AllPlantButton title={title} waterAll={waterAllPlants} unwaterAll={unwaterAllPlants} />
+        <AllPlantButton
+          title={title}
+          waterAll={waterAllPlants}
+          unwaterAll={unwaterAllPlants}
+        />
         <h2 className=" text-3xl  text-gray-800">{todayOrDate}</h2>
       </div>
       <div className="flex flex-col gap-2">
