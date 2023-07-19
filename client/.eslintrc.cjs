@@ -15,5 +15,6 @@ module.exports = {
   rules: {
     "react-refresh/only-export-components": "warn",
     "jsx-a11y/no-autofocus": 0,
+    "react-hooks/exhaustive-deps": 0,
   },
 };
