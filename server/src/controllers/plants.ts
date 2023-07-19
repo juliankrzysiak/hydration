@@ -50,29 +50,40 @@ plantsRouter.patch('/:id', async (req, res) => {
 // Post single date
 plantsRouter.post('/water', async (req, res) => {
 	const { plant_id, date } = Z.date.parse(req.body);
-	const plant = await sql`
+	await Promise.all(
+		plant_id.map(
+			async (id) =>
+				await sql`
     INSERT INTO water
         (plant_id, date)
     VALUES 
-        (${plant_id}, ${date})
+        (${id}, ${date})
     RETURNING plant_id, date
-    `;
-	return res.status(201).json(plant);
+    `
+		)
+	);
+
+	return res.status(201).send();
 });
 
 // Delete one date
 plantsRouter.delete('/water', async (req, res) => {
 	const { plant_id, date } = Z.date.parse(req.body);
-	const deletedPlant = await sql`
+	await Promise.all(
+		plant_id.map(
+			async (id) =>
+				await sql`
     DELETE FROM water 
     WHERE 
-        plant_id = ${plant_id}
+        plant_id = ${id}
     AND 
         date = ${date}
     RETURNING plant_id, date
 
-    `;
-	return res.status(200).json(deletedPlant);
+    `
+		)
+	);
+	return res.status(200).send();
 });
 
 // Delete one plant and associated dates

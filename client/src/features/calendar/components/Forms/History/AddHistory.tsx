@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plant } from "@/features/calendar/types";
-import { ComboBox } from "../Common/ComboBox";
+import { ComboBox } from "../ComboBox";
 import { Buttons } from "@/components/Buttons";
 import { addDate } from "@/features/calendar/api";
 import { useDateStore } from "@/features/calendar/stores/dateStore";
@@ -40,9 +40,9 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
       handleInput(false);
       return;
     }
-
+    const plant_id = [selected.id];
     addDateMutation.mutate({
-      plant_id: selected.id,
+      plant_id,
       date,
     });
 
@@ -50,7 +50,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   };
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit}>
+    <form className="flex w-full flex-col" onSubmit={handleSubmit}>
       <ComboBox
         selected={selected}
         setSelected={setSelected}

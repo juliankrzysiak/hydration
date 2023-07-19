@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plant } from "../../../types";
 import { Buttons } from "@/components/Buttons";
-import { ComboBox } from "../Common/ComboBox";
+import { ComboBox } from "../ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDate } from "../../../api";
 import { useDateStore } from "../../../stores/dateStore";
@@ -31,8 +31,10 @@ export const DeleteHistory = ({ plants, handleInput }: Props) => {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    const plant_id = [selected.id];
+
     deleteDateMutation.mutate({
-      plant_id: selected.id,
+      plant_id,
       date,
     });
     handleInput(false);

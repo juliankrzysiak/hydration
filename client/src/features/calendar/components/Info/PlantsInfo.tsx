@@ -2,19 +2,25 @@ import { Plant } from "../../types";
 
 interface Props {
   plants: Plant[];
-  title: string;
+  watered?: boolean;
+  handleDate: (plants: Plant[]) => void;
 }
 
-export const PlantsInfo = ({ plants, title }: Props) => {
+export const PlantsInfo = ({ plants, watered, handleDate }: Props) => {
   if (plants.length < 1) return null;
+
   return (
-    <div className="mb-4">
-      <h3 className="mb-2 text-3xl ">{title}</h3>
+    <div>
       <ul className="flex flex-col gap-2 pl-2">
         {plants.map((plant) => {
           return (
-            <li className=" text-xl font-medium" key={plant.id}>
-              {plant.name}
+            <li key={plant.id} className="">
+              <button
+                className={`text-xl font-medium ${watered && "line-through"}`}
+                onClick={() => handleDate([plant])}
+              >
+                {plant.name}
+              </button>
             </li>
           );
         })}

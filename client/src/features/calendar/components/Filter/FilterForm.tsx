@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { ComboBox } from "../Forms/Common/ComboBox";
+import { ComboBox } from "../Forms/ComboBox";
 import { Plant } from "../../types";
 import { useFilterStore } from "../../stores/filterStore";
 import { useShowFormStore } from "../../stores/showFormStore";
