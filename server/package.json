@@ -4,11 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "NODE_ENV=test vitest run",
-		"tsc": "tsc",
 		"dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
-		"start": "cross-env NODE_ENV=production node build/index.js",
-		"lint": "eslint --ext .ts ."
+		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"test": "NODE_ENV=test vitest run",
+		"build": "tsc",
+		"start": "cross-env NODE_ENV=production node build/index.js"
 	},
 	"keywords": [],
 	"author": "",
