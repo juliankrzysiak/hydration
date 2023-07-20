@@ -1,0 +1,42 @@
+name: Deploy client
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  deployment_pipeline:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@
+        with:
+          node-version: '18'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+      - name: Install dependencies
+        run: pnpm -F client -F server install
+      - name: Build
+        run: pnpm -F client -F server build
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: './client'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
