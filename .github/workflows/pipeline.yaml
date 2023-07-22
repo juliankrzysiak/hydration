@@ -17,10 +17,6 @@ on:
 jobs:
   deployment_pipeline:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
 
@@ -37,13 +33,17 @@ jobs:
 
       - name: Build
         run: pnpm -F client build
-        env:
-          VITE_AUTH_URI: ${{ secrets.VITE_AUTH_URI }}
-          VITE_AUTH_KEY: ${{ secrets.VITE_AUTH_KEY }}
-          VITE_ADMIN_AUTH_KEY: ${{ secrets.VITE_ADMIN_AUTH_KEY }}
 
-      - name: GitHub Pages action
-        uses: peaceiris/actions-gh-pages@v3.9.3
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./client/dist
+          publish-dir: './client/dist'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Deploy from GitHub Actions'
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
