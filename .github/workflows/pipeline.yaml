@@ -33,6 +33,10 @@ jobs:
 
       - name: Build
         run: pnpm -F client build
+        env:
+          VITE_AUTH_URI: ${{ secrets.VITE_AUTH_URI }}
+          VITE_AUTH_KEY: ${{ secrets.VITE_AUTH_KEY }}
+          VITE_ADMIN_AUTH_KEY: ${{ secrets.VITE_ADMIN_AUTH_KEY }}
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.4.3
