@@ -16,7 +16,7 @@ const requestLogger: RequestHandler = (_req, res, next) => {
 };
 
 const unknownEndpoint: RequestHandler = (_req, res) => {
-	res.status(400).send({ error: 'unknown endpoint' });
+	res.status(404).send({ error: 'unknown endpoint' });
 };
 
 const errorHandler: ErrorRequestHandler = (error, _req, res, next) => {

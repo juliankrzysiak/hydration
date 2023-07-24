@@ -9,8 +9,14 @@ app.use(cors());
 app.use(express.json());
 app.use(middleware.requestLogger);
 
+// TODO: Remove this as it is affecting error outputs
 app.set('json replacer', middleware.replacer);
 app.use('/api/plants', plantsRouter);
+
+// For development use while setting up server
+app.get('/version', (_req, res) => {
+	res.send('1');
+});
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
