@@ -28,15 +28,18 @@ jobs:
         with:
           version: 8
 
-      - name: Install dependencies
-        run: pnpm -F client install
+      # - name: Install dependencies
+      #   run: pnpm -F client install
 
-      - name: Build
-        run: pnpm -F client build
-        env:
-          VITE_AUTH_URI: ${{ secrets.VITE_AUTH_URI }}
-          VITE_AUTH_KEY: ${{ secrets.VITE_AUTH_KEY }}
-          VITE_ADMIN_AUTH_KEY: ${{ secrets.VITE_ADMIN_AUTH_KEY }}
+      # - name: Build
+      #   run: pnpm -F client build
+      #   env:
+      #     VITE_AUTH_URI: ${{ secrets.VITE_AUTH_URI }}
+      #     VITE_AUTH_KEY: ${{ secrets.VITE_AUTH_KEY }}
+      #     VITE_ADMIN_AUTH_KEY: ${{ secrets.VITE_ADMIN_AUTH_KEY }}
 
-      - name: Deploy to Netlify
-        run: netlify deploy --dir client/dist --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN}} --site ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Deploy to CloudFlare Pages
+        run: curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK}}
+
+      # - name: Deploy to Netlify
+      #   run: netlify deploy --dir client/dist --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN}} --site ${{ secrets.NETLIFY_SITE_ID }}
