@@ -40,6 +40,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            client
 
       - uses: actions/setup-node@v3
         with:
@@ -50,7 +53,7 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: pnpm -F client install
+        run: pnpm install
 
       # Testing and Linting here
 
@@ -63,6 +66,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            server
 
       - uses: actions/setup-node@v3
         with:
@@ -73,7 +79,7 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: pnpm -F server install
+        run: pnpm install
 
       # Testing and Linting here
 
