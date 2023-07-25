@@ -3,7 +3,7 @@ import { getUid } from "../utils/getUid";
 import { catchApiError } from "../utils/catchApiError";
 import { Plant } from "../types";
 
-const url = "http://localhost:3000/api/plants";
+const url = "https://water-schedule.fly.dev/api/plants";
 
 export const getAllPlants = async (): Promise<Plant[]> => {
   const uid = await getUid();
