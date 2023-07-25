@@ -1,4 +1,4 @@
-name: Deploy client
+name: Deployment Pipeline
 
 on:
   push:
@@ -15,7 +15,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  deployment_pipeline:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      client: ${{ steps.filter.outputs.client }}
+      server: ${{ steps.filter.outputs.server }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            client:
+              - 'client/**'
+            server:
+              - 'server/**'
+
+  client:
+    needs: changes
+    if: needs.changes.outputs.client == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,18 +49,37 @@ jobs:
         with:
           version: 8
 
-      # - name: Install dependencies
-      #   run: pnpm -F client install
+      - name: Install dependencies
+        run: pnpm -F client install
 
-      # - name: Build
-      #   run: pnpm -F client build
-      #   env:
-      #     VITE_AUTH_URI: ${{ secrets.VITE_AUTH_URI }}
-      #     VITE_AUTH_KEY: ${{ secrets.VITE_AUTH_KEY }}
-      #     VITE_ADMIN_AUTH_KEY: ${{ secrets.VITE_ADMIN_AUTH_KEY }}
+      # Testing and Linting here
 
-      - name: Deploy to CloudFlare Pages
+      - name: Trigger Deployment to CloudFlare Pages
         run: curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK}}
 
-      # - name: Deploy to Netlify
-      #   run: netlify deploy --dir client/dist --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN}} --site ${{ secrets.NETLIFY_SITE_ID }}
+  server:
+    needs: changes
+    if: needs.changes.outputs.server == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm -F server install
+
+      # Testing and Linting here
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Trigger Deployment to Fly.io
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
