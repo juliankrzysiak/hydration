@@ -52,7 +52,7 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: cd client && pnpm install
+        run: pnpm -F client install
 
       # Testing and Linting here
 
@@ -77,13 +77,13 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: cd server && pnpm install
+        run: pnpm -F server install
 
       # Testing and Linting here
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Trigger Deployment to Fly.io
-        run: flyctl deploy --remote-only
+        run: cd server && flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

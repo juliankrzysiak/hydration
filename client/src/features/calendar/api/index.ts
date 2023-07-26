@@ -1,6 +1,6 @@
-import { PlantDate, PlantCreate } from "../types";
 import { getUid } from "../utils/getUid";
 import { catchApiError } from "../utils/catchApiError";
+import { PlantDate, PlantCreate } from "../types";
 import { Plant } from "../types";
 
 const url = "https://water-schedule.fly.dev/api/plants";
