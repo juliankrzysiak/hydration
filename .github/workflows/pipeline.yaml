@@ -69,7 +69,6 @@ jobs:
         with:
           sparse-checkout: |
             server
-          sparse-checkout-cone-mode: false
 
       - uses: actions/setup-node@v3
         with:
@@ -80,7 +79,7 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm -F server install
 
       # Testing and Linting here
 
