@@ -41,8 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          sparse-checkout: |
-            client
+          sparse-checkout: client
 
       - uses: actions/setup-node@v3
         with:
@@ -53,7 +52,7 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: pnpm install
+        run: cd client && pnpm install
 
       # Testing and Linting here
 
