@@ -67,8 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          sparse-checkout: |
-            server
+          sparse-checkout: server
 
       - uses: actions/setup-node@v3
         with:
