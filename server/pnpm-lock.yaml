@@ -29,6 +29,9 @@ dependencies:
   express-async-errors:
     specifier: ^3.1.1
     version: 3.1.1(express@4.18.2)
+  pnpm:
+    specifier: ^8.6.10
+    version: 8.6.10
   postgres:
     specifier: ^3.3.4
     version: 3.3.4
@@ -3231,6 +3234,12 @@ packages:
       jsonc-parser: 3.2.0
       mlly: 1.4.0
       pathe: 1.1.1
+    dev: false
+
+  /pnpm@8.6.10:
+    resolution: {integrity: sha512-EBlPdgrAqmIDK6lflNm8M4lueWGM4PKJIDngt6vJ1+fmzh3e0482tg52nUjiuGvkzZ2sngA181GLqknXhAHgIg==}
+    engines: {node: '>=16.14'}
+    hasBin: true
     dev: false
 
   /posix-character-classes@0.1.1:
