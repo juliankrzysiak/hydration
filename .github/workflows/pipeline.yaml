@@ -73,6 +73,10 @@ jobs:
         with:
           node-version: '18'
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install dependencies
         run: cd server && pnpm install
 
