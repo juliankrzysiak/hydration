@@ -15,7 +15,7 @@ app.use('/api/plants', plantsRouter);
 
 // For development use while setting up server
 app.get('/version', (_req, res) => {
-	res.send('11');
+	res.send('12');
 });
 
 app.use(middleware.unknownEndpoint);
