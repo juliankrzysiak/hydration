@@ -93,8 +93,7 @@ jobs:
   tag_release:
     if: |
       always() &&
-      false &&
-      contains(needs.*.result, 'success') &&
+      contains(join(toJson(needs.*.result)), 'success') &&
       github.event_name == 'push' && 
       contains(join(toJson(github.event.commits.*.message)), '#skip') != true
     needs: [client, server]
