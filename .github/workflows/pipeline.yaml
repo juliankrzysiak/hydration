@@ -92,14 +92,14 @@ jobs:
 
   tag_release:
     if: |
-      !cancelled() &&
-      contains(toJson(needs.*.result), 'success') &&
+      always() &&
+      $JOB_NEEDS &&
       github.event_name == 'push' && 
       contains(join(toJson(github.event.commits.*.message)), '#skip') != true
     needs: [client, server]
     runs-on: ubuntu-latest
     env:
-      JOB_NEEDS: ${{ toJson(needs.*.result) }}
+      JOB_NEEDS: ${{ contains(toJson(needs.*.result), 'success') }}
     steps:
       - name: Test step needs context
         env:
