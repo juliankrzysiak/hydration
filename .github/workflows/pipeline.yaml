@@ -102,7 +102,7 @@ jobs:
     steps:
       - name: Testing
         env:
-          Testing: ${{ toJson(needs.*.result) }}
+          Testing: ${{ contains(toJson(needs.*.result), 'success') }}
         run: echo "$Testing"
 
       - uses: actions/checkout@v3
