@@ -93,7 +93,7 @@ jobs:
   tag_release:
     needs: [client, server]
     if: |
-      always() &&
+      !cancelled() &&
       contains(toJson(needs.*.result), 'success') &&
       github.event_name == 'push' && 
       contains(join(toJson(github.event.commits.*.message)), '#skip') != true
@@ -103,7 +103,7 @@ jobs:
         with:
           fetch-depth: '0'
 
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Bump version and push tag
+      #   uses: anothrNick/github-tag-action@1.64.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
