@@ -100,7 +100,7 @@ jobs:
     steps:
       - name: Exit if neither project has changed and passed tests
         if: contains((needs.*.result), 'success') == false
-        run: echo exit 1
+        run: exit 1
 
       - uses: actions/checkout@v3
         with:
