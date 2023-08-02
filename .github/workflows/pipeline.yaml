@@ -98,6 +98,7 @@ jobs:
     needs: [client, server]
     runs-on: ubuntu-latest
     steps:
+      # Putting this in the job-level context adds indirect dependencies, and since one of my jobs always succeeds, it can never be false.
       - name: Exit if neither project has changed and passed tests
         if: contains((needs.*.result), 'success') == false
         run: exit 1
@@ -106,7 +107,7 @@ jobs:
         with:
           fetch-depth: '0'
 
-      # - name: Bump version and push tag
-      #   uses: anothrNick/github-tag-action@1.64.0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
