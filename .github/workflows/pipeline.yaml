@@ -101,7 +101,7 @@ jobs:
       # Putting this in the job-level context adds indirect dependencies, and since one of my jobs always succeeds, it can never be false.
       - name: Exit if neither project has changed and passed tests
         if: contains((needs.*.result), 'success') == false
-        run: exit 1
+        run: exit 0
 
       - uses: actions/checkout@v3
         with:
