@@ -50,12 +50,17 @@ In the future, I will move the static assets to a CDN for smaller bundle sizes.
 
 ## Learning Outcomes
 
+The Good
+
 * More organized file structure for easier navigation and scalability
 * The importance of routing for easier UX and DX
 * Learning to deploy the frontend and backend separately and to different providers
 * Creating a CI/CD pipeline for easier deployment and lowering the possibility of bugs being pushed into prod
 * Trying out new technologies that lead to a better DX, making future projects more efficient and more enjoyable to work with
 * SQL is great, I will probably stick with relational databses from now on
-* I should have designed the website from the beginning, designing while developing wastes time and leads to less coherent designs
 * It is very satisfying creating a project that I will use in my daily life
+
+The Bad 
+
+* I should have designed the website from the beginning, designing while developing wastes time and leads to less coherent designs
 
