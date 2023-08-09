@@ -5,7 +5,10 @@ Keeps track of when you need to water your plants based on provided schedules.
 
 Uses a monthly calendar to easily keep tabs on when your babies need some hydration.
 
-**Link to running project:** https://water-schedule.pages.dev/
+**Link to running project:** https://water-schedule.pages.dev
+
+![Project Photo - Mobile](https://i.imgur.com/gfErxUa.png)
+![Project Photo - Desktop](https://i.imgur.com/mdYoW3r.png)
 
 
 ## How it's Made:
