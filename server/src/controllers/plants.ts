@@ -86,6 +86,21 @@ plantsRouter.delete('/water', async (req, res) => {
 	return res.status(200).send();
 });
 
+// Add list to plant
+plantsRouter.patch('/list', async (req, res) => {
+	const { plant_id, list } = Z.list.parse(req.body);
+	const uid = Z.uid.parse(req.get('uid'));
+
+	const plant = await sql`
+    UPDATE plants
+    SET list = ${list}
+    WHERE id = ${plant_id} AND uid = ${uid}
+    RETURNING name, list
+    `;
+
+	return res.status(201).json(plant);
+});
+
 // Delete one plant and associated dates
 plantsRouter.delete('/', async (req, res) => {
 	const { plant_id } = Z.deletePlant.parse(req.body);
