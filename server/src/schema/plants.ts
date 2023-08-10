@@ -15,8 +15,7 @@ const date = z.object({
 });
 
 const list = z.object({
-	plant_id: z.number().array(),
-	list: z.string()
+	list: z.string().nullable(),
 });
 
 const uid = z.string().uuid();

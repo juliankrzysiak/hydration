@@ -87,14 +87,15 @@ plantsRouter.delete('/water', async (req, res) => {
 });
 
 // Add list to plant
-plantsRouter.patch('/list', async (req, res) => {
-	const { plant_id, list } = Z.list.parse(req.body);
+plantsRouter.patch('/list/:id', async (req, res) => {
+	const { list } = Z.list.parse(req.body);
+	const { id } = req.params;
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plant = await sql`
     UPDATE plants
     SET list = ${list}
-    WHERE id = ${plant_id} AND uid = ${uid}
+    WHERE id = ${id} AND uid = ${uid}
     RETURNING name, list
     `;
 
