@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "NODE_ENV=test vitest run",
+		"test": "NODE_ENV=test vitest run --dir ./src",
 		"dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
 		"build": "tsc",
 		"start": "cross-env NODE_ENV=production node build/index.js",

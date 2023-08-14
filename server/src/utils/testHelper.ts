@@ -17,7 +17,8 @@ const createTables = async () => {
 		id SERIAL PRIMARY KEY,
 		name text NOT NULL,
 		schedule integer,
-		uid uuid NOT NULL
+		uid uuid NOT NULL,
+		list text
 		);
     `;
 

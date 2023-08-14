@@ -102,6 +102,25 @@ describe('PATCH single plant', () => {
 	});
 });
 
+describe('PATCH a list onto a plant', () => {
+	it('shows correct list', async () => {
+		const req = {
+			list: 'test',
+		};
+
+		const res = await api
+			.patch('/api/plants/list/3')
+			.set('uid', `${uid}`)
+			.send(req)
+			.expect(201);
+
+		expect(res.body).toContainEqual({
+			name: 'white sage',
+			list: 'test',
+		});
+	});
+});
+
 describe('POST single date route', () => {
 	it('returns 201', async () => {
 		const req = {
