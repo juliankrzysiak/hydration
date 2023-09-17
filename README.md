@@ -67,15 +67,16 @@ Desktop              |  Mobile
 
 I needed a simple way to track when to water my native plants since I kept forgetting, so I made this. 
 
-For the backend, I sticked with the trustworthy Express.  
+For the backend, I stuck with the trustworthy Express.  
 For my database, I went with PostGreSQL instead of MongoDB, since I thought a relational database would fit my needs better, and I wanted to learn SQL.
 Because of that, I just went with using raw SQL queries instead of abstracting it away via Object Relational Mapping 
-I also implemented testing for the backend with a test databse to ensure my queries and REST calls were doing the right thing.  
+I also implemented testing for the backend with a test database to ensure my queries and REST calls were doing the right thing.  
 
-For the frontend, I went with React to hone the skills ever more. 
+For the frontend, I went with React againt to hone my skills.  
 As the need for global state management eventually came, I opted for Zustand instead of Redux w/ RTK. Much simpler to use. 
 For data fetching and caching, I opted for Tanstack Query instead of RTK Query. They both seem to be similar in performance. While RTK seems a bit more flexible, Tanstack Query was much simpler to use and got the job done the same, so I will most likely use this for future projects. 
 I also wanted to use navigable pages, so I added React Router for routing purposes.
+I used Firebase just for authorization purposes. I had already worked with auth in the past, and I would rather trust a competent library than waste time introducing security risks. 
 
 Due to the larger scope of the project, I drew inspiration from [Bulletproof React](https://github.com/alan2207/bulletproof-react) for restructuring my frontend file structure. 
 In essence, I broke down specific portions of the project into different features, where one could find all the relevant components, libs, utils, etc.
@@ -83,16 +84,16 @@ In essence, I broke down specific portions of the project into different feature
 I also wanted to focus on creating a more streamlined deployment process, so I created a CI/CD pipeline using Github Actions. 
 My pipeline tests, lints, and deploys either the client or the server based on detected changes. Tags are automatically created for easier bug tracking. 
 
-In essence the client and server are two projects that can be run independently, and are lumped together for ease of development.
+In essence, the client and server are two projects that can be run independently and are lumped together for ease of development.
 
 ### Optimizations
 
-Initially I had formulated the API so that one POST request would amrk one plant as watered. 
+Initially, I had formulated the API so that one POST request would mark one plant as watered. 
 But when I added a feature to water all the plants on one day at the same time, I initially just made a loop working on each plant. So I was making many singular POST requests in succession... 
 So I refactored the backend to accept an array of dates to add to the database, only now needing one request. 
 
 I refactored the code to remove extraneous usage of global state management. The usage of routing allowed me to move away from this reliance I had done in an earlier project.
-I narrowed it down to just communicating the calendar date to all other components, and a toast notification whenever a query is completed. 
+I narrowed it down to just communicating the calendar date to all other components and a toast notification whenever a query is completed. 
 
 The use of Tanstack Query, which includes caching, helps with saving data when the same data has been seen before.
 
@@ -103,11 +104,11 @@ In the future, I will move the static assets to a CDN for smaller bundle sizes.
 | The Good                               | The Bad                                              | The Ugly |
 |----------------------------------------|------------------------------------------------------|----------|
 | Used a more organized file structure for easier navigation and scalability    | I should have designed the website from the beginning, designing while developing wastes time and leads to less coherent designs ||
-| Utilzed routing for easier UX and DX | Took a while to figure out user authorization and protected routes||
+| Utilized routing for easier UX and DX | Took a while to figure out user authorization and protected routes||
 | Learnt to deploy the frontend and backend separately and to different providers| ||
 | Created a CI/CD pipeline for easier deployment and lowering the possibility of bugs being pushed into prod|||
 | Tried out new technologies that lead to a better DX, making future projects more efficient and more enjoyable to work with | |
-| SQL is great, I will probably stick with relational databses from now on |||
+| SQL is great, I will probably stick with relational databases from now on |||
 | It is very satisfying creating a project that I will use in my daily life |||
 
 <!-- GETTING STARTED -->
