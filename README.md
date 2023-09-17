@@ -118,6 +118,7 @@ In the future, I will move the static assets to a CDN for smaller bundle sizes.
 ### Prerequisites
 
 * pnpm
+
   ```
   npm install -g pnpm
   ```
@@ -126,21 +127,21 @@ In the future, I will move the static assets to a CDN for smaller bundle sizes.
 
 1. Clone the repo
    ```
-   git clone https://github.com/CastillejaCode/portfolio.git
+   git clone https://github.com/CastillejaCode/water-schedule.git
    ```
 2. Install NPM packages
    ```
-   pnpm install 
+   pnpm --filter client --filter server install 
    ```
 3. Run local development server
    ```
-   pnpm dev
+   pnpm --filter client --filter server dev
    ```
- 4. Switch out my info for yours
+   It's probably better to just open a terminal for each folder and ```pnpm dev``` to better compartmentalize the frontend and backend.
+    
+ 5. Switch out my info for yours
 
-    For projects, you can just replace the array with your project objects, and they will be automatically created
-
-
+    You'll want to add your own secrets for info such as the port, database urls, authorization urls connecting to Firebase.
 
 <!-- LICENSE -->
 ## License
@@ -155,9 +156,10 @@ Julian Krzysiak - jkrzysiak13@gmail.com
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* Favicon generator - [favicon.io](https://favicon.io/)
-* Icons - [Hero Icons](https://heroicons.com/)
+* Favicon generator - [RealFaviconGenerator](https://realfavicongenerator.net/)
+* Icons - [Ionicons](https://ionic.io/ionicons)
 * Readme Template - [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+* File Structure - [Bulletproof React](https://github.com/alan2207/bulletproof-react)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
