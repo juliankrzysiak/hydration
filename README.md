@@ -41,13 +41,27 @@ Desktop              |  Mobile
 
 ### Built With
 
-<a href="https://astro.build/">  
-<img alt="Astro Static Badge" src="https://img.shields.io/badge/Astro-2A233E?style=for-the-badge&logo=astro&logoColor=ff7e33" height="50">
-</a> 
+<a href="https://www.typescriptlang.org/">  
+<img alt="Typescript Static Badge" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=ffffff" height="50">
+</a>
+<br/>
+<a href="https://react.dev/">  
+<img alt="React Static Badge" src="https://img.shields.io/badge/React-23272f?style=for-the-badge&logo=react" height="50">
+</a>
 <br/>
 <a href="https://tailwindcss.com/">  
 <img alt="Tailwind Css Static Badge" src="https://img.shields.io/badge/Tailwind%20CSS-2A233E?style=for-the-badge&logo=tailwindcss&logoColor=0EA5E9&color=%230f172a" height="50">
 </a>
+<br/>
+<a href="https://expressjs.com/">  
+<img alt="Express Static Badge" src="https://img.shields.io/badge/Express-ffffff?style=for-the-badge&logo=express&logoColor=000000" height="50">
+</a>
+<br/>
+<a href="https://www.postgresql.org/">  
+<img alt="PostGreSQL Static Badge" src="https://img.shields.io/badge/PostGreSQL-212121?style=for-the-badge&logo=postgresql" height="50">
+</a>
+<br/>
+
 
 ### How It's Made
 
