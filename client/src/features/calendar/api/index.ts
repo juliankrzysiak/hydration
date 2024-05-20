@@ -3,7 +3,9 @@ import { catchApiError } from "../utils/catchApiError";
 import { PlantDate, PlantCreate } from "../types";
 import { Plant } from "../types";
 
-const url = "https://water-schedule.fly.dev/api/plants";
+// TODO: Throw this in env
+const url =
+  import.meta.env.VITE_LOCALHOST || "https://water-schedule.fly.dev/api/plants";
 
 export const getAllPlants = async (): Promise<Plant[]> => {
   const uid = await getUid();
