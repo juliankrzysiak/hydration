@@ -6,7 +6,7 @@ import Z from '../schema/plants';
 plantsRouter.get('/', async (req, res) => {
 	const uid = Z.uid.parse(req.get('uid'));
 	const plants = await sql`
-    SELECT plants.id, name, schedule, array_agg(water.date ORDER BY water.date ASC) as watered,
+    SELECT plants.id, name, schedule, "group", array_agg(water.date ORDER BY water.date ASC) as watered,
     MAX(water.date) + schedule as next_water
         FROM plants
         LEFT JOIN water
