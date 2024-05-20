@@ -11,7 +11,7 @@ export const PlantsInfo = ({ plants, watered, handleDate }: Props) => {
 
   return (
     <div>
-      <ul className="flex flex-col gap-2 pl-2">
+      <ul className="flex flex-col gap-1 pl-2">
         {plants.map((plant) => {
           return (
             <li key={plant.id} className="">

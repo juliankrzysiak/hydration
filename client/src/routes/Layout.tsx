@@ -9,7 +9,7 @@ export const Layout = ({ children }: Props) => {
   return (
     <>
       <Header />
-      <main className="flex h-full justify-center p-6 text-gray-950">
+      <main className="flex h-full justify-center p-4 text-gray-950">
         {children}
         <Notification />
       </main>
