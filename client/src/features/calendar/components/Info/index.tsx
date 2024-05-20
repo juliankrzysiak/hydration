@@ -1,13 +1,13 @@
-import { Plant } from "../../types";
-import { ShowForm } from "./ShowForm";
-import { useCalendarDates } from "../../hooks/useCalendarDates";
-import { PlantsInfo } from "./PlantsInfo";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addDate, deleteDate } from "../../api";
 import { notify } from "@/utils/notify";
-import { useDateStore } from "../../stores/dateStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import { addDate, deleteDate } from "../../api";
+import { useCalendarDates } from "../../hooks/useCalendarDates";
+import { useDateStore } from "../../stores/dateStore";
+import { Plant } from "../../types";
 import { AllPlantButton } from "./AllPlantsButton";
+import { PlantsInfo } from "./PlantsInfo";
+import { ShowForm } from "./ShowForm";
 
 interface Props {
   plants: Plant[];
@@ -16,7 +16,7 @@ interface Props {
 export enum Title {
   water = "To Water",
   watered = "All Watered",
-  empty = "nothing at all",
+  empty = "nothing",
 }
 
 export const Info = ({ plants }: Props) => {
@@ -58,6 +58,14 @@ export const Info = ({ plants }: Props) => {
     });
   };
 
+  function waterAll() {
+    handleAddDate(scheduledPlants);
+  }
+
+  function unwaterAll() {
+    handleDeleteDate(wateredPlants);
+  }
+
   const title = (() => {
     if (scheduledPlants.length) return Title.water;
     if (wateredPlants.length) return Title.watered;
@@ -66,24 +74,25 @@ export const Info = ({ plants }: Props) => {
 
   // TODO: Change backend to accept array of plants on one date
   return (
-    <div className="flex h-full w-full flex-col items-start rounded-md bg-gray-900/20 p-4 text-gray-950 shadow-md ">
-      <div className="mb-4  flex w-full items-center justify-between">
-        <h3 className=" text-3xl ">{title}</h3>
+    <div className="flex h-full w-full flex-col items-center rounded-md bg-slate-300 p-4 text-gray-950 shadow-md">
+      <div className=" flex w-full items-center justify-between">
+        {/* <h3 className=" text-3xl">Status: {title}</h3> */}
+        <h2 className="text-2xl text-gray-900">{todayOrDate}</h2>
         <AllPlantButton
           title={title}
-          waterAll={() => handleAddDate(scheduledPlants)}
-          unwaterAll={() => handleDeleteDate(wateredPlants)}
+          waterAll={waterAll}
+          unwaterAll={unwaterAll}
         />
-        <h2 className=" text-3xl  text-gray-800">{todayOrDate}</h2>
       </div>
-      <div className="flex flex-col gap-2">
-        <PlantsInfo plants={scheduledPlants} handleDate={handleAddDate} />
+      <div className="flex w-full flex-col gap-1 py-2">
         <PlantsInfo
           plants={wateredPlants}
           handleDate={handleDeleteDate}
           watered
         />
+        <PlantsInfo plants={scheduledPlants} handleDate={handleAddDate} />
       </div>
+
       <ShowForm plants={plants} />
     </div>
   );

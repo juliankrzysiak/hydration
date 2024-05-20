@@ -10,18 +10,15 @@ interface Props {
 
 export const ShowForm = ({ plants }: Props) => {
   const [showAddForm, setShowAddForm] = useState(false);
-  const [showDeleteForm, setShowDeleteForm] = useState(false);
+  // const [showDeleteForm, setShowDeleteForm] = useState(false);
 
   const showCorrectForm = () => {
     if (showAddForm)
       return <AddHistory plants={plants} handleInput={setShowAddForm} />;
-    if (showDeleteForm)
-      return <DeleteHistory plants={plants} handleInput={setShowDeleteForm} />;
     else
       return (
         <Buttons
           accept={() => setShowAddForm(true)}
-          cancel={() => setShowDeleteForm(true)}
         />
       );
   };

@@ -28,8 +28,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   const [query, setQuery] = useState("");
   const filteredPlants = useQueryFilter({ plants, query });
 
-  const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     if (
       // Stop duplicates of dates on same plant
       plants
@@ -50,7 +49,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
   };
 
   return (
-    <form className="flex w-full flex-col" onSubmit={handleSubmit}>
+    <form className="flex w-full flex-col">
       <ComboBox
         selected={selected}
         setSelected={setSelected}
@@ -59,7 +58,7 @@ export const AddHistory = ({ plants, handleInput }: Props) => {
         plants={filteredPlants}
         label="Add Date"
       />
-      <Buttons cancel={() => handleInput(false)} />
+      <Buttons accept={handleSubmit} cancel={() => handleInput(false)} />
     </form>
   );
 };
