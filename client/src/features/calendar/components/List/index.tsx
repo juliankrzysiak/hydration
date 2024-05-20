@@ -3,20 +3,37 @@ import { ListPlant } from "./ListPlant";
 import { useShowFormStore } from "../../stores/showFormStore";
 import plusSVG from "@/assets/plus.svg";
 import { AddPlant } from "../Forms/Plant/AddPlant";
+import Group from "./Group";
 
 interface Props {
   plants: Plant[];
 }
 
 export const List = ({ plants }: Props) => {
+  const groups = [
+    ...new Set(plants.flatMap((plant) => (plant.group ? plant.group : []))),
+  ];
+  const singlePlants = plants.filter((plant) => Boolean(!plant.group));
+
   const showCreateForm = useShowFormStore((state) => state.addPlant);
   if (showCreateForm) return <AddPlant />;
 
   return (
     <section>
       <h1 className="mb-4 text-3xl text-gray-950 ">Your Plants</h1>
+      <ul>
+        {groups.map((group) => {
+          return (
+            <Group
+              key={group}
+              name={group}
+              plants={plants.filter((plant) => plant.group === group)}
+            />
+          );
+        })}
+      </ul>
       <ol className="mb-6 flex flex-col gap-2">
-        {plants.map((plant) => (
+        {singlePlants.map((plant) => (
           <ListPlant
             key={plant.id}
             id={plant.id}
