@@ -30,14 +30,14 @@ plantsRouter.get('/groups', async (req, res) => {
 
 // Create new plant
 plantsRouter.post('/', async (req, res) => {
-	const { name, schedule } = Z.newPlant.parse(req.body);
+	const { name, schedule, group_id } = Z.newPlant.parse(req.body);
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plants = await sql`
     INSERT INTO plants 
-        (name, schedule, uid) 
+        (name, schedule, group_id, uid) 
     VALUES 
-        (${name}, ${schedule}, ${uid})
+        (${name}, ${schedule}, ${group_id}, ${uid})
     RETURNING name, schedule
     `;
 	return res.status(201).json(plants);

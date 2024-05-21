@@ -12,7 +12,7 @@ interface Props {
 
 export const List = ({ singlePlants, groups }: Props) => {
   const showCreateForm = useShowFormStore((state) => state.addPlant);
-  if (showCreateForm) return <AddPlant />;
+  if (showCreateForm) return <AddPlant groups={groups} />;
 
   return (
     <section>
