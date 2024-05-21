@@ -4,7 +4,7 @@ export interface Plant {
   schedule: number;
   watered: Date[];
   next_water: Date;
-  group: string;
+  group_id: number;
 }
 
 export type PlantCreate = Pick<Plant, "name" | "schedule">;
@@ -16,9 +16,9 @@ export interface PlantDate {
 
 export type PlantEdit = Pick<Plant, "id" | "name" | "schedule">;
 
-
 export type Group = {
   id: number;
-  name: string,
+  name: string;
   schedule: number;
-}
+  plants: Plant[]
+};

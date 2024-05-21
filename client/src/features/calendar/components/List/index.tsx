@@ -1,20 +1,16 @@
-import { Plant } from "../../types";
-import { ListPlant } from "./ListPlant";
-import { useShowFormStore } from "../../stores/showFormStore";
 import plusSVG from "@/assets/plus.svg";
+import { useShowFormStore } from "../../stores/showFormStore";
+import { Group, Plant } from "../../types";
 import { AddPlant } from "../Forms/Plant/AddPlant";
-import Group from "./Group";
+import GroupPlant from "./GroupPlant";
+import { ListPlant } from "./ListPlant";
 
 interface Props {
-  plants: Plant[];
+  singlePlants: Plant[];
+  groups: Group[];
 }
 
-export const List = ({ plants }: Props) => {
-  const groups = [
-    ...new Set(plants.flatMap((plant) => (plant.group ? plant.group : []))),
-  ];
-  const singlePlants = plants.filter((plant) => Boolean(!plant.group));
-
+export const List = ({ singlePlants, groups }: Props) => {
   const showCreateForm = useShowFormStore((state) => state.addPlant);
   if (showCreateForm) return <AddPlant />;
 
@@ -24,10 +20,10 @@ export const List = ({ plants }: Props) => {
       <ul>
         {groups.map((group) => {
           return (
-            <Group
-              key={group}
-              name={group}
-              plants={plants.filter((plant) => plant.group === group)}
+            <GroupPlant
+              key={group.id}
+              name={group.name}
+              plants={group.plants}
             />
           );
         })}
