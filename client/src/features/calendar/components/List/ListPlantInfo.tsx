@@ -1,4 +1,4 @@
-import { Plant } from "../../types";
+import { Group, Plant } from "../../types";
 import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { deletePlant } from "../../api";
@@ -16,9 +16,10 @@ dayjs.extend(relativeTime);
 
 interface Props {
   plant: Plant | undefined;
+  groups: Group[];
 }
 
-export const ListPlantInfo = ({ plant }: Props) => {
+export const ListPlantInfo = ({ plant, groups }: Props) => {
   const queryClient = useQueryClient();
   const deletePlantMutation = useMutation({
     mutationFn: deletePlant,
@@ -32,7 +33,7 @@ export const ListPlantInfo = ({ plant }: Props) => {
   const showEditForm = useShowFormStore((state) => state.editPlant);
 
   if (!plant) return <ErrorPage />;
-  const { name, schedule, next_water, watered, id } = plant;
+  const { id, name, schedule, next_water, watered, group_id } = plant;
 
   return (
     <>
@@ -92,7 +93,13 @@ export const ListPlantInfo = ({ plant }: Props) => {
           </div>
         </div>
       ) : (
-        <EditPlant {...{ id, name, schedule }} />
+        <EditPlant
+          id={id}
+          name={name}
+          schedule={schedule}
+          group_id={group_id}
+          groups={groups}
+        />
       )}
       <Dialog
         ref={dialogRef}

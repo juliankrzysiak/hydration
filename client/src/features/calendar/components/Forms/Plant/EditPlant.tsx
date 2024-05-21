@@ -5,26 +5,31 @@ import { editPlant } from "@/features/calendar/api";
 import { notify } from "@/utils/notify";
 import { useNavigate } from "react-router-dom";
 import { Buttons } from "@/components/Buttons";
+import { Group } from "@/features/calendar/types";
+import { FormEvent } from "react";
 
-interface Props {
+type Props = {
   id: number;
   name: string;
   schedule: number;
-}
+  group_id: number;
+  groups: Group[];
+};
 
-export const EditPlant = (props: Props) => {
+export const EditPlant = ({ id, name, schedule, group_id, groups }: Props) => {
   const navigate = useNavigate();
-  const [name] = useField({
-    type: "text",
-    id: "name",
-    defaultValue: props.name,
-  });
-  const [schedule] = useField({
-    type: "number",
-    id: "schedule",
-    defaultValue: props.schedule.toString(),
-  });
+  // const [name] = useField({
+  //   type: "text",
+  //   id: "name",
+  //   defaultValue: props.name,
+  // });
+  // const [schedule] = useField({
+  //   type: "number",
+  //   id: "schedule",
+  //   defaultValue: props.schedule.toString(),
+  // });
   const queryClient = useQueryClient();
+
   const editPlantMutation = useMutation({
     mutationFn: editPlant,
     onSuccess: () => {
@@ -38,27 +43,36 @@ export const EditPlant = (props: Props) => {
     },
   });
 
+  function submitForm(e: FormEvent) {
+    e.preventDefault();
+    e.target;
+
+    // editPlantMutation.mutate({
+    //   id: props.id,
+    //   name: name.value,
+    //   schedule: Number(schedule.value),
+    // });
+  }
+
   return (
-    <form
-      className="flex flex-col gap-3"
-      onSubmit={(event) => {
-        event.preventDefault();
-        editPlantMutation.mutate({
-          id: props.id,
-          name: name.value,
-          schedule: Number(schedule.value),
-        });
-      }}
-    >
+    <form className="flex flex-col gap-3" onSubmit={submitForm}>
       <div className=" flex w-3/4 flex-col">
-        <label htmlFor="name">Plant name</label>
-        <input className="rounded-md  bg-gray-100 px-2" {...name} required />
+        <label htmlFor="name">Name *</label>
+        <input
+          className="rounded-md  bg-gray-100 px-2"
+          type="text"
+          name="name"
+          defaultValue={name}
+          required
+        />
       </div>
       <div className="mb-2 flex w-1/5  flex-col">
         <label htmlFor="schedule">Schedule</label>
         <input
           className=" rounded-md  bg-gray-100 px-2"
-          {...schedule}
+          type="number"
+          name="schedule"
+          defaultValue={schedule}
           list="defaultSchedule"
           min={0}
           max={365}
@@ -72,6 +86,23 @@ export const EditPlant = (props: Props) => {
           <option value="30" />
         </datalist>
       </div>
+      <label>
+        Group
+        <select
+          className="select w-full max-w-xs"
+          name="group"
+          defaultValue={group_id.toString()}
+        >
+          <option>None</option>
+          {groups.map((group) => {
+            return (
+              <option key={group.id} value={group.id}>
+                {group.name}
+              </option>
+            );
+          })}
+        </select>
+      </label>
       <Buttons cancel={() => useShowFormStore.setState({ editPlant: false })} />
     </form>
   );

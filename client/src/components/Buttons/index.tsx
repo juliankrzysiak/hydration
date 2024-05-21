@@ -9,16 +9,14 @@ interface Props {
 export const Buttons = ({ accept, cancel }: Props) => {
   return (
     <div className="flex gap-6">
-      {accept && (
-        <button
-          className="rounded-md border-2 border-gray-800 hover:bg-gray-300/50"
-          aria-label="Show Add Date Form"
-          type="submit"
-          onClick={accept}
-        >
-          <img className="w-7" src={plusSVG} alt="Plus" />
-        </button>
-      )}
+      <button
+        className="rounded-md border-2 border-gray-800 hover:bg-gray-300/50"
+        aria-label="Show Add Date Form"
+        type="submit"
+        onClick={accept}
+      >
+        <img className="w-7" src={plusSVG} alt="Plus" />
+      </button>
       {cancel && (
         <button
           className="hover:bg-gray-30 rounded-md border-2 border-gray-800 hover:bg-gray-300/50"

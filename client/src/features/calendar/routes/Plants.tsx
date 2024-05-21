@@ -24,17 +24,17 @@ export const Plants = () => {
 
   // Put into custom hook
   const createCombinedPlants = () => {
-    const multiplePlants = groups.data.map((group) => {
+    const groupedPlants = groups.data.map((group) => {
       const filteredPlants = plants.data.filter(
         (plant) => plant.group_id === group.id
       );
       return { ...group, plants: filteredPlants };
     });
     const singlePlants = plants.data.filter((plant) => !plant.group_id);
-    return { groups: multiplePlants, singlePlants };
+    return { groupedPlants, singlePlants };
   };
 
-  const combinedPlants = createCombinedPlants();
+  const { groupedPlants, singlePlants } = createCombinedPlants();
 
   return (
     <section className=" flex h-full w-full max-w-md ">
@@ -42,9 +42,10 @@ export const Plants = () => {
         {id ? (
           <ListPlantInfo
             plant={plants.data.filter((plant) => plant.id === Number(id)).at(0)}
+            groups={groupedPlants}
           />
         ) : (
-          <List singlePlants={sortAsc(combinedPlants.singlePlants)} groups={combinedPlants.groups} />
+          <List singlePlants={sortAsc(singlePlants)} groups={groupedPlants} />
         )}
       </div>
     </section>
