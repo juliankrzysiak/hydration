@@ -45,13 +45,13 @@ plantsRouter.post('/', async (req, res) => {
 
 //Edit one plant
 plantsRouter.patch('/:id', async (req, res) => {
-	const { name, schedule } = Z.newPlant.parse(req.body);
+	const { name, schedule, group_id } = Z.newPlant.parse(req.body);
 	const { id } = req.params;
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plant = await sql`
     UPDATE plants 
-    SET name = ${name}, schedule = ${schedule}
+    SET name = ${name}, schedule = ${schedule}, group_id = ${group_id}
     WHERE uid = ${uid} AND id = ${id}
     RETURNING name, schedule
     `;

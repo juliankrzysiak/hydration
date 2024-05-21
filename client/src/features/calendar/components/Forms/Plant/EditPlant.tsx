@@ -43,25 +43,31 @@ export const EditPlant = ({ id, name, schedule, group_id, groups }: Props) => {
     },
   });
 
-  function submitForm(e: FormEvent) {
+  function submitForm(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    e.target;
+    const form = e.currentTarget;
+    const name = form.plantName.value;
+    const schedule = Number(form.schedule.value);
+    const group_id = Number(form.group.value) ?? null;
 
-    // editPlantMutation.mutate({
-    //   id: props.id,
-    //   name: name.value,
-    //   schedule: Number(schedule.value),
-    // });
+    const data = {
+      id,
+      name,
+      schedule,
+      group_id,
+    };
+
+    editPlantMutation.mutate(data);
   }
 
   return (
     <form className="flex flex-col gap-3" onSubmit={submitForm}>
       <div className=" flex w-3/4 flex-col">
-        <label htmlFor="name">Name *</label>
+        <label htmlFor="plantName">Name *</label>
         <input
           className="rounded-md  bg-gray-100 px-2"
           type="text"
-          name="name"
+          name="plantName"
           defaultValue={name}
           required
         />
@@ -69,7 +75,7 @@ export const EditPlant = ({ id, name, schedule, group_id, groups }: Props) => {
       <div className="mb-2 flex w-1/5  flex-col">
         <label htmlFor="schedule">Schedule</label>
         <input
-          className=" rounded-md  bg-gray-100 px-2"
+          className="rounded-md  bg-gray-100 px-2"
           type="number"
           name="schedule"
           defaultValue={schedule}
@@ -91,7 +97,7 @@ export const EditPlant = ({ id, name, schedule, group_id, groups }: Props) => {
         <select
           className="select w-full max-w-xs"
           name="group"
-          defaultValue={group_id.toString()}
+          defaultValue={group_id}
         >
           <option>None</option>
           {groups.map((group) => {

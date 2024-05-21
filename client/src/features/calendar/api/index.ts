@@ -56,14 +56,16 @@ export const editPlant = async ({
   id,
   name,
   schedule,
+  group_id
 }: {
   id: number;
   name: string;
   schedule: number;
+  group_id: number | null;
 }) => {
   try {
     const uid = await getUid();
-    const body = JSON.stringify({ name, schedule });
+    const body = JSON.stringify({ name, schedule, group_id });
     const res = await fetch(`${url}/${id}`, {
       method: "PATCH",
       headers: {
