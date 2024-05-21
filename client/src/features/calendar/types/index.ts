@@ -15,3 +15,10 @@ export interface PlantDate {
 }
 
 export type PlantEdit = Pick<Plant, "id" | "name" | "schedule">;
+
+
+export type Group = {
+  id: number;
+  name: string,
+  schedule: number;
+}

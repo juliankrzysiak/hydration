@@ -6,13 +6,24 @@ import Z from '../schema/plants';
 plantsRouter.get('/', async (req, res) => {
 	const uid = Z.uid.parse(req.get('uid'));
 	const plants = await sql`
-    SELECT plants.id, name, schedule, "group", array_agg(water.date ORDER BY water.date ASC) as watered,
+    SELECT plants.id, name, schedule, group_id, array_agg(water.date ORDER BY water.date ASC) as watered,
     MAX(water.date) + schedule as next_water
         FROM plants
         LEFT JOIN water
         ON plants.id = water.plant_id
         WHERE uid = ${uid}
         GROUP BY plants.id, name, schedule
+    `;
+	return res.status(200).json(plants);
+});
+
+plantsRouter.get('/groups', async (req, res) => {
+	const uid = Z.uid.parse(req.get('uid'));
+
+	const plants = await sql`
+   SELECT groups.id, groups.name, groups.schedule FROM groups 
+   JOIN plants on groups.id = plants.group_id 
+   WHERE uid = ${uid}
     `;
 	return res.status(200).json(plants);
 });

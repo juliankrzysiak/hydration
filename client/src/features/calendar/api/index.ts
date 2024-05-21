@@ -1,7 +1,7 @@
 import { getUid } from "../utils/getUid";
 import { catchApiError } from "../utils/catchApiError";
 import { PlantDate, PlantCreate } from "../types";
-import { Plant } from "../types";
+import { Plant, Group } from "../types";
 
 // TODO: Throw this in env
 const url =
@@ -10,6 +10,19 @@ const url =
 export const getAllPlants = async (): Promise<Plant[]> => {
   const uid = await getUid();
   const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      uid,
+    },
+  });
+
+  return res.json();
+};
+
+export const getAllGroups = async (): Promise<Group[]> => {
+  const uid = await getUid();
+  const res = await fetch(`${url}/groups`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
