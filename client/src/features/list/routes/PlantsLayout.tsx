@@ -5,19 +5,21 @@ import { Info } from "../components/Plants/Info";
 import { List } from "../components/Plants/List";
 
 type Props = {
+  allPlants: Plant[];
   singles: Plant[];
   groups: Group[];
 };
 
-export default function PlantsLayout({ singles, groups }: Props) {
+export default function PlantsLayout({ allPlants, singles, groups }: Props) {
   const id = useIdStore((state) => state.id);
-  const lastWaterDate = singles.find((plant) => plant.id === id);
+  const currentPlant = allPlants.find((plant) => plant.id === id);
+  // Are groups not sorted?
   const sortedPlants = sortAsc(singles);
 
   return (
-    <div className="relative flex w-full flex-col rounded-md bg-gray-900/20 p-4 shadow-lg">
+    <div className="relative">
       {id ? (
-        <Info plant={lastWaterDate} groups={groups} />
+        <Info plant={currentPlant} groups={groups} />
       ) : (
         <List singlePlants={sortedPlants} groups={groups} />
       )}

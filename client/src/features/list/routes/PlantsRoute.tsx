@@ -56,7 +56,7 @@ export const PlantsRoute = () => {
         value="tab1"
         className="w-full rounded-b-md bg-gray-900/20 p-4"
       >
-        <PlantsLayout singles={singlePlants} groups={groupedPlants} />
+        <PlantsLayout allPlants={allPlants.data} singles={singlePlants} groups={groupedPlants} />
       </Tab.Content>
       <Tab.Content
         value="tab2"
