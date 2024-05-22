@@ -1,4 +1,4 @@
-import { Plant } from "../types";
+import { Plant } from "../../../types";
 import { useCalendarDates } from "./useCalendarDates";
 import { sortAsc } from "@/utils/sortAsc";
 

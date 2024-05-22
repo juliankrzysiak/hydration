@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Plant } from "../types";
+import { Plant } from "../../../types";
 
 interface State {
   plants: Plant[];

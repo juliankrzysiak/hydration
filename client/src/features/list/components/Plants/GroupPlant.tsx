@@ -1,4 +1,4 @@
-import { Plant as PlantType } from "../../../calendar/types";
+import { Plant as PlantType } from "../../../../types";
 import { Entry } from "./Entry";
 
 type Props = {

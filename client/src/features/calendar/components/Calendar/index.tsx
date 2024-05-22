@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plant } from "../../types";
+import { Plant } from "../../../../types";
 import { default as DateCalendar } from "react-calendar";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";

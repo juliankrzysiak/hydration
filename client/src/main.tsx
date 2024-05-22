@@ -16,7 +16,7 @@ import { User } from "./features/user/routes/User";
 import { checkSession } from "./utils/checkSession";
 import { PasswordForm } from "@/features/auth/components/Forms/PasswordForm";
 import { NewPasswordForm } from "@/features/auth/components/Forms/NewPasswordForm";
-import { PlantsRoute } from "@/features/plants/routes/PlantsRoute";
+import { PlantsRoute } from "@/features/list/routes/PlantsRoute";
 import { Layout } from "./routes/Layout";
 
 const queryClient = new QueryClient();

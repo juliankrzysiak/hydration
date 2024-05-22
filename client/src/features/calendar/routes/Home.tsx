@@ -9,7 +9,7 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { Info } from "../components/Info";
 import { useFilterStore } from "../stores/filterStore";
 import { useShowFormStore } from "../stores/showFormStore";
-import { PlantsRoute } from "../../plants/routes/PlantsRoute";
+import { PlantsRoute } from "../../list/routes/PlantsRoute";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({

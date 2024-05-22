@@ -1,4 +1,4 @@
-import { Group, Plant } from "../../../calendar/types";
+import { Group, Plant } from "../../../../types";
 import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { deletePlant } from "../../../calendar/api";

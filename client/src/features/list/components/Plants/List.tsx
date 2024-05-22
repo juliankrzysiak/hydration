@@ -1,10 +1,7 @@
 import plusSVG from "@/assets/plus.svg";
 import { AddPlant } from "../../../calendar/components/Forms/Plant/AddPlant";
 import { useShowFormStore } from "../../../calendar/stores/showFormStore";
-import {
-  Group as GroupType,
-  Plant as PlantType,
-} from "../../../calendar/types";
+import { Group as GroupType, Plant as PlantType } from "../../../../types";
 import { Entry } from "./Entry";
 import Group from "./GroupPlant";
 

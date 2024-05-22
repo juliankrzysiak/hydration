@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { addDate, deleteDate } from "../../api";
 import { useCalendarDates } from "../../hooks/useCalendarDates";
 import { useDateStore } from "../../stores/dateStore";
-import { Plant } from "../../types";
+import { Plant } from "../../../../types";
 import { AllPlantButton } from "./AllPlantsButton";
 import { PlantsInfo } from "./PlantsInfo";
 import { ShowForm } from "./ShowForm";

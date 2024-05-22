@@ -1,7 +1,7 @@
 import { getUid } from "../utils/getUid";
 import { catchApiError } from "../utils/catchApiError";
-import { PlantDate, PlantCreate } from "../types";
-import { Plant, Group } from "../types";
+import { PlantDate, PlantCreate } from "../../../types";
+import { Plant, Group } from "../../../types";
 
 // TODO: Throw this in env
 const url =
@@ -56,7 +56,7 @@ export const editPlant = async ({
   id,
   name,
   schedule,
-  group_id
+  group_id,
 }: {
   id: number;
   name: string;
