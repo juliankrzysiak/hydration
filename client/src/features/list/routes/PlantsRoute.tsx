@@ -4,6 +4,7 @@ import * as Tab from "@radix-ui/react-tabs";
 import { useQuery } from "@tanstack/react-query";
 import { getAllGroups, getAllPlants } from "../../calendar/api";
 import PlantsLayout from "./PlantsLayout";
+import GroupsLayout from "./GroupsLayout";
 
 export const PlantsRoute = () => {
   const allPlants = useQuery({
@@ -34,7 +35,7 @@ export const PlantsRoute = () => {
   const { groupedPlants, singlePlants } = separatePlants();
 
   return (
-    <Tab.Root defaultValue="tab1" className="mb-8 w-full max-w-sm">
+    <Tab.Root defaultValue="tab1" className="mb-8 h-full w-full max-w-sm">
       <Tab.List
         aria-label="Pick to see plants or groups"
         className="flex w-full justify-evenly gap-6 rounded-t-md border-b border-gray-900 bg-gray-900/20 px-4 py-2 text-gray-700"
@@ -54,14 +55,20 @@ export const PlantsRoute = () => {
       </Tab.List>
       <Tab.Content
         value="tab1"
-        className="w-full rounded-b-md bg-gray-900/20 p-4"
+        className="h-full w-full rounded-b-md bg-gray-900/20 p-4"
       >
-        <PlantsLayout allPlants={allPlants.data} singles={singlePlants} groups={groupedPlants} />
+        <PlantsLayout
+          allPlants={allPlants.data}
+          singles={singlePlants}
+          groups={groupedPlants}
+        />
       </Tab.Content>
       <Tab.Content
         value="tab2"
-        className="w-full rounded-b-md  bg-gray-900/20 p-4"
-      ></Tab.Content>
+        className="h-full w-full rounded-b-md  bg-gray-900/20 p-4"
+      >
+        <GroupsLayout groups={groupedPlants} />
+      </Tab.Content>
     </Tab.Root>
   );
 };

@@ -1,9 +1,9 @@
 import plusSVG from "@/assets/plus.svg";
 import { AddPlant } from "../../../calendar/components/Forms/Plant/AddPlant";
-import { useShowFormStore } from "../../../calendar/stores/showFormStore";
-import { Group as GroupType, Plant as PlantType } from "../../../../types";
+import { useShowFormStore } from "../../../../stores/showFormStore";
+import { Group as GroupType, Plant as PlantType } from "@/types";
 import { Entry } from "./Entry";
-import Group from "./GroupPlant";
+import Group from "./Group";
 
 interface Props {
   singlePlants: PlantType[];
@@ -16,7 +16,6 @@ export const List = ({ singlePlants, groups }: Props) => {
 
   return (
     <div>
-      <h1 className="mb-4 text-3xl text-gray-950 ">Your Plants</h1>
       <ul>
         {groups.map((group) => {
           return (
@@ -24,7 +23,7 @@ export const List = ({ singlePlants, groups }: Props) => {
           );
         })}
       </ul>
-      <ol className="mb-6 flex flex-col gap-2">
+      <ul className="mb-6 flex flex-col gap-2">
         {singlePlants.map((plant) => (
           <Entry
             key={plant.id}
@@ -33,7 +32,7 @@ export const List = ({ singlePlants, groups }: Props) => {
             watered={plant.watered.slice(-1).at(0)}
           />
         ))}
-      </ol>
+      </ul>
       <button
         className="rounded-md border-2 border-gray-800 hover:bg-gray-300/50"
         aria-label="Show Add Date Form"
