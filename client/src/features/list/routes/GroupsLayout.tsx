@@ -1,17 +1,20 @@
-import { useIdStore } from "@/features/calendar/stores/idStore";
+import { useIdStore } from "../stores/idStore";
 import { Group } from "@/types";
 import List from "../components/Groups/List";
+import Info from "../components/Groups/Info";
+import { ErrorPage } from "@/routes/ErrorPage";
 
 type Props = {
   groups: Group[];
 };
 
 export default function GroupsLayout({ groups }: Props) {
-  //   const id = useIdStore((state) => state.id);
+  const groupId = useIdStore((state) => state.groupId);
+  const currentGroup = groups.find((group) => group.id === groupId);
 
   return (
     <div className="relative">
-      <List groups={groups} />
+      {groupId ? <Info group={currentGroup} /> : <List groups={groups} />}
     </div>
   );
 }

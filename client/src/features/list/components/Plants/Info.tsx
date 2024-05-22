@@ -1,4 +1,4 @@
-import { Group, Plant } from "../../../../types";
+import { Group, Plant } from "@/types";
 import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { deletePlant } from "../../../calendar/api";
@@ -10,7 +10,7 @@ import { EditPlant } from "../../../calendar/components/Forms/Plant/EditPlant";
 import cancelSVG from "@/assets/cancel.svg";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";
-import { useIdStore } from "../../../calendar/stores/idStore";
+import { useIdStore } from "../../stores/idStore";
 import { ErrorPage } from "@/routes/ErrorPage";
 dayjs.extend(relativeTime);
 
@@ -32,7 +32,6 @@ export const Info = ({ plant, groups }: Props) => {
   const dialogRef = useRef<DialogHandle>(null);
   const showEditForm = useShowFormStore((state) => state.editPlant);
 
-  console.log(plant);
   if (!plant) return <ErrorPage />;
   const { id, name, schedule, next_water, watered, group_id } = plant;
 

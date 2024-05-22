@@ -1,5 +1,5 @@
 import { Plant, Group } from "@/types";
-import { useIdStore } from "@/features/calendar/stores/idStore";
+import { useIdStore } from "../stores/idStore";
 import { sortAsc } from "@/utils/sortAsc";
 import { Info } from "../components/Plants/Info";
 import { List } from "../components/Plants/List";

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useIdStore } from "../../../calendar/stores/idStore";
+import { useIdStore } from "../../stores/idStore";
 
 interface Props {
   name: string;
