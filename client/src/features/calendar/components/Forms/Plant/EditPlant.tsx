@@ -1,11 +1,11 @@
 import { useField } from "@/hooks/useField";
-import { useShowFormStore } from "@/features/calendar/stores/showFormStore";
+import { useShowFormStore } from "@/stores/showFormStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editPlant } from "@/features/calendar/api";
 import { notify } from "@/utils/notify";
 import { useNavigate } from "react-router-dom";
 import { Buttons } from "@/components/Buttons";
-import { Group } from "@/features/calendar/types";
+import { Group } from "@//types";
 import { FormEvent } from "react";
 
 type Props = {
