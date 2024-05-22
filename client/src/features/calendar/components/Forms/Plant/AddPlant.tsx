@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useField } from "@/hooks/useField";
-import { useShowFormStore } from "../../../stores/showFormStore";
+import { useShowFormStore } from '@/stores/showFormStore";
 import { createPlant } from "../../../api";
 import { notify } from "@/utils/notify";
 import { Buttons } from "@/components/Buttons";
-import { Group } from "@/features/calendar/types";
+import { Group } from "@/types";
 import { useState } from "react";
 
 type Props = {

@@ -8,7 +8,7 @@ import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
 import { Info } from "../components/Info";
 import { useFilterStore } from "../stores/filterStore";
-import { useShowFormStore } from "../stores/showFormStore";
+import { useShowFormStore } from "@/stores/showFormStore";
 import { PlantsRoute } from "../../list/routes/PlantsRoute";
 
 export const Home = () => {

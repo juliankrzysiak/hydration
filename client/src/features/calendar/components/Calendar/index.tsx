@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 import { useDateStore } from "../../stores/dateStore";
-import { useShowFormStore } from "../../stores/showFormStore";
+import { useShowFormStore } from "@/stores/showFormStore";
 
 import droplet from "@/assets/droplet-dark.svg";
 

@@ -5,7 +5,7 @@ import { deletePlant } from "../../../calendar/api";
 import { notify } from "@/utils/notify";
 import { useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useShowFormStore } from "../../../calendar/stores/showFormStore";
+import { useShowFormStore } from "@/stores/showFormStore";
 import { EditPlant } from "../../../calendar/components/Forms/Plant/EditPlant";
 import cancelSVG from "@/assets/cancel.svg";
 import dayjs from "dayjs";
@@ -32,12 +32,13 @@ export const Info = ({ plant, groups }: Props) => {
   const dialogRef = useRef<DialogHandle>(null);
   const showEditForm = useShowFormStore((state) => state.editPlant);
 
+  console.log(plant);
   if (!plant) return <ErrorPage />;
   const { id, name, schedule, next_water, watered, group_id } = plant;
 
   return (
     <>
-      <h1 className=" mb-4 text-3xl text-gray-950 ">{name}</h1>
+      <h1 className=" mb-4 text-3xl text-gray-950">{name}</h1>
       <button
         className="absolute right-3 top-3  w-fit"
         onClick={() => {
