@@ -17,13 +17,16 @@ plantsRouter.get('/', async (req, res) => {
 	return res.status(200).json(plants);
 });
 
+// Get all groups
 plantsRouter.get('/groups', async (req, res) => {
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plants = await sql`
-   SELECT groups.id, groups.name, groups.schedule FROM groups 
+   SELECT groups.id, groups.name, groups.schedule
+   FROM groups 
    JOIN plants on groups.id = plants.group_id 
    WHERE uid = ${uid}
+   GROUP BY groups.id
     `;
 	return res.status(200).json(plants);
 });

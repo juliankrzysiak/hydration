@@ -8,7 +8,7 @@ import { ListPlantInfo } from "../components/List/ListPlantInfo";
 import { useIdStore } from "../stores/idStore";
 
 export const Plants = () => {
-  const plants = useQuery({
+  const allPlants = useQuery({
     queryKey: ["plants"],
     queryFn: getAllPlants,
   });
@@ -19,29 +19,32 @@ export const Plants = () => {
 
   const id = useIdStore((state) => state.id);
 
-  if (plants.isLoading || groups.isLoading) return <Loader />;
-  if (plants.isError || groups.isError) return <ErrorPage />;
+  if (allPlants.isLoading || groups.isLoading) return <Loader />;
+  if (allPlants.isError || groups.isError) return <ErrorPage />;
 
   // Put into custom hook
-  const createCombinedPlants = () => {
+  const separatePlants = () => {
     const groupedPlants = groups.data.map((group) => {
-      const filteredPlants = plants.data.filter(
+      const plants = allPlants.data.filter(
         (plant) => plant.group_id === group.id
       );
-      return { ...group, plants: filteredPlants };
+      return { ...group, plants };
     });
-    const singlePlants = plants.data.filter((plant) => !plant.group_id);
+    const singlePlants = allPlants.data.filter((plant) => !plant.group_id);
+
     return { groupedPlants, singlePlants };
   };
 
-  const { groupedPlants, singlePlants } = createCombinedPlants();
+  const { groupedPlants, singlePlants } = separatePlants();
 
   return (
     <section className=" flex h-full w-full max-w-md ">
       <div className="relative flex w-full flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
         {id ? (
           <ListPlantInfo
-            plant={plants.data.filter((plant) => plant.id === Number(id)).at(0)}
+            plant={allPlants.data
+              .filter((plant) => plant.id === Number(id))
+              .at(0)}
             groups={groupedPlants}
           />
         ) : (
