@@ -4,8 +4,8 @@ type Props = {
 
 export default function BackButton({ handleClick }: Props) {
   return (
-    <button onClick={handleClick}>
-      <span className="flex">
+    <button  onClick={handleClick}>
+      <span className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
