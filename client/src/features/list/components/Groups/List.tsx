@@ -14,7 +14,7 @@ export default function List({ groups }: Props) {
     <div>
       <ul>
         {groups.map((group) => {
-          return <Group key={group.id} name={group.name} />;
+          return <Group key={group.id} id={group.id} name={group.name} />;
         })}
       </ul>
       <button
