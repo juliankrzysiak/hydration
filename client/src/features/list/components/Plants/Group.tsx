@@ -1,9 +1,9 @@
-import { Plant as PlantType } from "../../../../types";
+import { Plant } from "@/types";
 import { Entry } from "./Entry";
 
 type Props = {
   name: string;
-  plants: PlantType[];
+  plants: Plant[];
 };
 
 export default function Group({ name, plants }: Props) {
@@ -14,12 +14,13 @@ export default function Group({ name, plants }: Props) {
       <div className="collapse-content">
         <ul>
           {plants.map((plant) => {
+            const watered = plant.watered.slice(-1).at(0);
             return (
               <Entry
                 key={plant.id}
                 id={plant.id}
                 name={plant.name}
-                watered={plant.watered.slice(-1).at(0)}
+                watered={watered}
               />
             );
           })}
