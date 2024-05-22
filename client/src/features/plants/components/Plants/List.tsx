@@ -1,13 +1,16 @@
 import plusSVG from "@/assets/plus.svg";
-import { useShowFormStore } from "../../stores/showFormStore";
-import { Group, Plant } from "../../types";
-import { AddPlant } from "../Forms/Plant/AddPlant";
-import GroupPlant from "./GroupPlant";
-import { ListPlant } from "./ListPlant";
+import { AddPlant } from "../../../calendar/components/Forms/Plant/AddPlant";
+import { useShowFormStore } from "../../../calendar/stores/showFormStore";
+import {
+  Group as GroupType,
+  Plant as PlantType,
+} from "../../../calendar/types";
+import { Entry } from "./Entry";
+import Group from "./GroupPlant";
 
 interface Props {
-  singlePlants: Plant[];
-  groups: Group[];
+  singlePlants: PlantType[];
+  groups: GroupType[];
 }
 
 export const List = ({ singlePlants, groups }: Props) => {
@@ -15,22 +18,18 @@ export const List = ({ singlePlants, groups }: Props) => {
   if (showCreateForm) return <AddPlant groups={groups} />;
 
   return (
-    <section>
+    <div>
       <h1 className="mb-4 text-3xl text-gray-950 ">Your Plants</h1>
       <ul>
         {groups.map((group) => {
           return (
-            <GroupPlant
-              key={group.id}
-              name={group.name}
-              plants={group.plants}
-            />
+            <Group key={group.id} name={group.name} plants={group.plants} />
           );
         })}
       </ul>
       <ol className="mb-6 flex flex-col gap-2">
         {singlePlants.map((plant) => (
-          <ListPlant
+          <Entry
             key={plant.id}
             id={plant.id}
             name={plant.name}
@@ -45,6 +44,6 @@ export const List = ({ singlePlants, groups }: Props) => {
       >
         <img className="w-7" src={plusSVG} alt="Plus" />
       </button>
-    </section>
+    </div>
   );
 };

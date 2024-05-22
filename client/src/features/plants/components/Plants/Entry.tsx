@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useIdStore } from "../../stores/idStore";
+import { useIdStore } from "../../../calendar/stores/idStore";
 
 interface Props {
   name: string;
@@ -7,12 +7,12 @@ interface Props {
   watered: Date | undefined;
 }
 
-export const ListPlant = ({ name, id, watered }: Props) => {
+export const Entry = ({ name, id, watered }: Props) => {
   return (
     <li key={id} className="flex h-fit justify-between gap-4 align-baseline">
       <button
         className="h-fit rounded-lg px-2 text-start text-xl font-medium text-gray-950 hover:bg-gray-700 hover:text-gray-200"
-        onClick={() => useIdStore.setState({id})}
+        onClick={() => useIdStore.setState({ id })}
       >
         {name}
       </button>

@@ -1,16 +1,16 @@
-import { Group, Plant } from "../../types";
+import { Group, Plant } from "../../../calendar/types";
 import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { deletePlant } from "../../api";
+import { deletePlant } from "../../../calendar/api";
 import { notify } from "@/utils/notify";
 import { useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useShowFormStore } from "../../stores/showFormStore";
-import { EditPlant } from "../Forms/Plant/EditPlant";
+import { useShowFormStore } from "../../../calendar/stores/showFormStore";
+import { EditPlant } from "../../../calendar/components/Forms/Plant/EditPlant";
 import cancelSVG from "@/assets/cancel.svg";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";
-import { useIdStore } from "../../stores/idStore";
+import { useIdStore } from "../../../calendar/stores/idStore";
 import { ErrorPage } from "@/routes/ErrorPage";
 dayjs.extend(relativeTime);
 
@@ -19,7 +19,7 @@ interface Props {
   groups: Group[];
 }
 
-export const ListPlantInfo = ({ plant, groups }: Props) => {
+export const Info = ({ plant, groups }: Props) => {
   const queryClient = useQueryClient();
   const deletePlantMutation = useMutation({
     mutationFn: deletePlant,

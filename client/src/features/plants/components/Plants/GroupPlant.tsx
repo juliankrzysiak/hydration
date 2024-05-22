@@ -1,12 +1,12 @@
-import { Plant } from "../../types";
-import { ListPlant } from "./ListPlant";
+import { Plant as PlantType } from "../../../calendar/types";
+import { Entry } from "./Entry";
 
 type Props = {
   name: string;
-  plants: Plant[];
+  plants: PlantType[];
 };
 
-export default function GroupPlant({ name, plants }: Props) {
+export default function Group({ name, plants }: Props) {
   return (
     <div className="collapse-arrow collapse border ">
       <input type="checkbox" />
@@ -15,7 +15,7 @@ export default function GroupPlant({ name, plants }: Props) {
         <ul>
           {plants.map((plant) => {
             return (
-              <ListPlant
+              <Entry
                 key={plant.id}
                 id={plant.id}
                 name={plant.name}

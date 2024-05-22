@@ -35,7 +35,6 @@ export const EditPlant = ({ id, name, schedule, group_id, groups }: Props) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["plants"] });
       useShowFormStore.setState({ editPlant: false });
-      navigate("/home");
       notify("success", "Plant edited");
     },
     onError: () => {

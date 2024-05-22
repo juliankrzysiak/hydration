@@ -2,12 +2,13 @@ import { Loader } from "@/components/Loader";
 import { ErrorPage } from "@/routes/ErrorPage";
 import { sortAsc } from "@/utils/sortAsc";
 import { useQuery } from "@tanstack/react-query";
-import { getAllGroups, getAllPlants } from "../api";
-import { List } from "../components/List";
-import { ListPlantInfo } from "../components/List/ListPlantInfo";
-import { useIdStore } from "../stores/idStore";
+import { getAllGroups, getAllPlants } from "../../calendar/api";
+import { List } from "../components/Plants/List";
+import { Info } from "../components/Plants/Info";
+import { useIdStore } from "../../calendar/stores/idStore";
+import * as Tab from "@radix-ui/react-tabs";
 
-export const Plants = () => {
+export const PlantsRoute = () => {
   const allPlants = useQuery({
     queryKey: ["plants"],
     queryFn: getAllPlants,
@@ -38,10 +39,10 @@ export const Plants = () => {
   const { groupedPlants, singlePlants } = separatePlants();
 
   return (
-    <section className=" flex h-full w-full max-w-md ">
+    <div className="flex h-full w-full max-w-md ">
       <div className="relative flex w-full flex-col rounded-md bg-gray-900/20  p-4 shadow-lg">
         {id ? (
-          <ListPlantInfo
+          <Info
             plant={allPlants.data
               .filter((plant) => plant.id === Number(id))
               .at(0)}
@@ -51,6 +52,6 @@ export const Plants = () => {
           <List singlePlants={sortAsc(singlePlants)} groups={groupedPlants} />
         )}
       </div>
-    </section>
+    </div>
   );
 };
