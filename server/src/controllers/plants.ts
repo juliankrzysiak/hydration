@@ -22,11 +22,9 @@ plantsRouter.get('/groups', async (req, res) => {
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plants = await sql`
-   SELECT groups.id, groups.name, groups.schedule
+   SELECT id, name, schedule
    FROM groups 
-   JOIN plants on groups.id = plants.group_id 
    WHERE uid = ${uid}
-   GROUP BY groups.id
     `;
 	return res.status(200).json(plants);
 });
@@ -60,6 +58,36 @@ plantsRouter.patch('/:id', async (req, res) => {
     `;
 	return res.status(201).json(plant);
 });
+
+//Edit one group
+plantsRouter.patch('groups/:id', async (req, res) => {
+	const { name, schedule } = Z.editGroup.parse(req.body);
+	const { id } = req.params;
+	// const uid = Z.uid.parse(req.get('uid'));
+
+	const group = await sql`
+    UPDATE groups
+    SET name = ${name}, schedule = ${schedule}
+    WHERE id = ${id}
+    RETURNING name, schedule
+    `;
+	return res.status(201).json(group);
+});
+
+// edit plants group_id
+// plantsRouter.patch('groups/:id', async (req, res) => {
+// 	const { name, schedule } = Z..parse(req.body);
+// 	const { id } = req.params;
+// 	const uid = Z.uid.parse(req.get('uid'));
+
+// 	const group = await sql`
+//     UPDATE groups
+//     SET name = ${name}, schedule = ${schedule}
+//     WHERE id = ${id}
+//     RETURNING name, schedule
+//     `;
+// 	return res.status(201).json(group);
+// });
 
 // Post single date
 plantsRouter.post('/water', async (req, res) => {
