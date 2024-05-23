@@ -1,7 +1,6 @@
-import { getUid } from "../utils/getUid";
+import { Group, Plant, PlantDate } from "../../../types";
 import { catchApiError } from "../utils/catchApiError";
-import { PlantDate, PlantCreate } from "../../../types";
-import { Plant, Group } from "../../../types";
+import { getUid } from "../utils/getUid";
 
 // TODO: Throw this in env
 const url =
@@ -31,25 +30,6 @@ export const getAllGroups = async (): Promise<Group[]> => {
   });
 
   return res.json();
-};
-
-export const createPlant = async (plant: PlantCreate) => {
-  try {
-    const uid = await getUid();
-    const body = JSON.stringify(plant);
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        uid,
-      },
-      body,
-    });
-
-    return res.json();
-  } catch (error) {
-    catchApiError(error, "Could not create plant!");
-  }
 };
 
 export const editPlant = async ({

@@ -6,7 +6,7 @@ import { notify } from "@/utils";
 import { useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useShowFormStore } from "@/stores/showFormStore";
-import { EditPlant } from "../../../calendar/components/Forms/Plant/EditPlant";
+import { EditPlant } from "../Forms/Plants/EditPlant";
 import cancelSVG from "@/assets/cancel.svg";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";
