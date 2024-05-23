@@ -71,7 +71,7 @@ export async function editGroupForPlants({
       },
       body,
     });
-    return res.json();
+    return res;
   } catch (error) {
     catchApiError(error, "Could not edit group.");
   }

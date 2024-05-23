@@ -69,7 +69,7 @@ export const PlantsRoute = () => {
           value="tab2"
           className="h-full w-full rounded-b-md  bg-gray-900/20 p-4"
         >
-          <GroupsLayout  groups={groupedPlants} />
+          <GroupsLayout groups={groupedPlants} />
         </Tab.Content>
       </Tab.Root>
     </SinglePlantsContext.Provider>

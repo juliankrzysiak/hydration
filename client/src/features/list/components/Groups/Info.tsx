@@ -3,7 +3,7 @@ import DeleteButton from "@/components/Buttons/DeleteButton";
 import { ErrorPage } from "@/routes/ErrorPage";
 import { Group } from "@/types";
 import { useIdStore } from "../../stores/idStore";
-import EditForm from "../Forms/Groups/EditForm";
+import EditGroup from "../Forms/Groups/EditGroup";
 
 type Props = {
   group: Group | undefined;
@@ -16,13 +16,14 @@ export default function Info({ group }: Props) {
 
   if (!group) return <ErrorPage />;
 
+
   return (
     <div className="w-full">
       <div className="mb-4 flex w-full justify-between">
         <BackButton handleClick={exitInfo} />
         <div className="flex gap-4">
-          <EditForm group={group} />
-          <DeleteButton />
+          <EditGroup group={group} />
+          {/* <DeleteButton /> */}
         </div>
       </div>
       <div className="flex flex-col gap-4">

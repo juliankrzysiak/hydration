@@ -30,10 +30,11 @@ export default function EditGroup({ group }: Props) {
     },
   });
 
-  const editGroupOForPlantsMutation = useMutation({
+  const editGroupForPlantsMutation = useMutation({
     mutationFn: editGroupForPlants,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["groups"] });
+      console.log(123);
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
       notify("success", "Group edited");
     },
     onError: () => {
@@ -90,7 +91,8 @@ export default function EditGroup({ group }: Props) {
       mapId(group.plants),
       mapId(groupPlants)
     );
-    editGroupOForPlantsMutation.mutate({ id: group.id, add, remove });
+    editGroupForPlantsMutation.mutate({ id: group.id, add, remove });
+    modalRef.current?.close();
   }
 
   return (

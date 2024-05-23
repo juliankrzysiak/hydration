@@ -72,7 +72,7 @@ plantsRouter.patch('/group/:id', async (req, res) => {
         `;
 	}
 
-	return res.status(201);
+	return res.status(201).send();
 });
 
 // Post single date
