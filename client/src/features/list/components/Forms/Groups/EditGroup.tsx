@@ -1,10 +1,10 @@
 import EditButton from "@/components/Buttons/EditButton";
+import { editGroup, editGroupForPlants } from "@/features/list/api";
 import { SinglePlantsContext } from "@/features/list/context";
 import { Group, Plant } from "@/types";
+import { getDifferenceOfArrays, mapId, notify } from "@/utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormEvent, useContext, useRef, useState } from "react";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { notify } from "@/utils";
-import { editGroup } from "@/features/list/api";
 
 type Props = {
   group: Group;
@@ -21,6 +21,17 @@ export default function EditGroup({ group }: Props) {
   const queryClient = useQueryClient();
   const editGroupMutation = useMutation({
     mutationFn: editGroup,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
+      notify("success", "Group edited");
+    },
+    onError: () => {
+      notify("error", "Could not edit group.");
+    },
+  });
+
+  const editGroupOForPlantsMutation = useMutation({
+    mutationFn: editGroupForPlants,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["groups"] });
       notify("success", "Group edited");
@@ -71,15 +82,15 @@ export default function EditGroup({ group }: Props) {
     const name = form.groupName.value;
     const schedule = Number(form.schedule.value);
 
-    console.log(name, schedule);
+    if (name !== group.name || schedule !== group.schedule) {
+      editGroupMutation.mutate({ id: group.id, name, schedule });
+    }
 
-    const data = {
-      id: group.id,
-      name,
-      schedule,
-    };
-
-    editGroupMutation.mutate(data);
+    const [add, remove] = getDifferenceOfArrays(
+      mapId(group.plants),
+      mapId(groupPlants)
+    );
+    editGroupOForPlantsMutation.mutate({ id: group.id, add, remove });
   }
 
   return (

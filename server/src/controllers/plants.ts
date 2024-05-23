@@ -47,20 +47,33 @@ plantsRouter.patch('/:id', async (req, res) => {
 	return res.status(201).json(plant);
 });
 
-// edit plants group_id
-// plantsRouter.patch('groups/:id', async (req, res) => {
-// 	const { name, schedule } = Z..parse(req.body);
-// 	const { id } = req.params;
-// 	const uid = Z.uid.parse(req.get('uid'));
+// edit many plants to match group_id
+plantsRouter.patch('/group/:id', async (req, res) => {
+	const { add, remove } = Z.arrDifferences.parse(req.body);
+	const { id } = req.params;
+	const uid = Z.uid.parse(req.get('uid'));
 
-// 	const group = await sql`
-//     UPDATE groups
-//     SET name = ${name}, schedule = ${schedule}
-//     WHERE id = ${id}
-//     RETURNING name, schedule
-//     `;
-// 	return res.status(201).json(group);
-// });
+	if (add.length) {
+		const values = add.join(',');
+		console.log(values);
+		await sql`
+        UPDATE plants 
+        SET group_id = ${id}
+        WHERE id IN (${values}) AND uid = ${uid}
+        `;
+	}
+
+	if (remove.length) {
+		const values = remove.join(',');
+		await sql`
+        UPDATE plants 
+        SET group_id = null
+        WHERE id IN (${values}) AND uid = ${uid}
+        `;
+	}
+
+	return res.status(201);
+});
 
 // Post single date
 plantsRouter.post('/water', async (req, res) => {

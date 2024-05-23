@@ -15,10 +15,15 @@ const editGroup = z.object({
 	schedule: z.number().int().max(365),
 });
 
+const arrDifferences = z.object({
+	add: z.number().array(),
+	remove: z.number().array(),
+});
+
 const date = z.object({
 	plant_id: z.number().array(),
 	date: z.coerce.date(),
 });
 const uid = z.string().uuid();
 
-export default { deletePlant, newPlant, editGroup, date, uid };
+export default { deletePlant, newPlant, arrDifferences, editGroup, date, uid };

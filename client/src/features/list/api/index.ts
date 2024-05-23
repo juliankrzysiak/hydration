@@ -1,6 +1,6 @@
-import { PlantCreate } from "@/types";
-import { getUid } from "@/features/calendar/utils/getUid";
 import { catchApiError } from "@/features/calendar/utils/catchApiError";
+import { getUid } from "@/features/calendar/utils/getUid";
+import { PlantCreate } from "@/types";
 
 const url =
   import.meta.env.VITE_LOCALHOST || "https://water-schedule.fly.dev/api";
@@ -47,3 +47,32 @@ export const editGroup = async ({ id, name, schedule }: editGroupParams) => {
     catchApiError(error, "Could not edit group.");
   }
 };
+
+type EditGroupForPlantsParams = {
+  id: number;
+  add: number[];
+  remove: number[];
+};
+
+// Change multiple plants associated with a group
+export async function editGroupForPlants({
+  id,
+  add,
+  remove,
+}: EditGroupForPlantsParams) {
+  try {
+    const uid = await getUid();
+    const body = JSON.stringify({ add, remove });
+    const res = await fetch(`${url}/plants/group/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+      body,
+    });
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not edit group.");
+  }
+}
