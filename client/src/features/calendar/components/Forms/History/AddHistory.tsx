@@ -7,7 +7,7 @@ import { addDate } from "@/features/calendar/api";
 import { useDateStore } from "@/features/calendar/stores/dateStore";
 import dayjs from "dayjs";
 import { useQueryFilter } from "@/features/calendar/hooks/useQueryFilter";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 
 interface Props {
   plants: Plant[];

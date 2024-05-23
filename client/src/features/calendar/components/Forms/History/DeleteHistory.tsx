@@ -7,7 +7,7 @@ import { deleteDate } from "../../../api";
 import { useDateStore } from "../../../stores/dateStore";
 import dayjs from "dayjs";
 import { useQueryFilter } from "../../../hooks/useQueryFilter";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 
 interface Props {
   plants: Plant[];

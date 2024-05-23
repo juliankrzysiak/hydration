@@ -1,4 +1,4 @@
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { addDate, deleteDate } from "../../api";

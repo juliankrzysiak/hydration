@@ -1,4 +1,4 @@
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { supabase } from "../../lib/auth";
 import { useNavigate } from "react-router-dom";
 

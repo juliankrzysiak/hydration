@@ -3,7 +3,7 @@ import { Tabs } from "../components/Tabs";
 import { useQuery } from "@tanstack/react-query";
 import { getName } from "../api/supabase";
 import { AuthError } from "@supabase/supabase-js";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../api";

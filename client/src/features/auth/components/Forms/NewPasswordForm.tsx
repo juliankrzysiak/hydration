@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createNewPassword } from "../../api";
 import { useField } from "@/hooks/useField";
 import { Title } from "./Common/Title";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { useNavigate } from "react-router-dom";
 import { AuthError } from "@supabase/supabase-js";
 

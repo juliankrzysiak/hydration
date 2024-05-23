@@ -2,7 +2,7 @@ import { useField } from "@/hooks/useField";
 import { Title } from "./Common/Title";
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "../../lib/auth";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 export const PasswordForm = () => {

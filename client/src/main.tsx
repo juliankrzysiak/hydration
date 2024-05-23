@@ -13,7 +13,7 @@ import { Login } from "@/features/auth/routes/Login";
 import { LoginForm } from "@/features/auth/components/Forms/LoginForm";
 import { RegisterForm } from "@/features/auth/components/Forms/RegisterForm";
 import { User } from "./features/user/routes/User";
-import { checkSession } from "./utils/checkSession";
+import { checkSession } from "@/utils";
 import { PasswordForm } from "@/features/auth/components/Forms/PasswordForm";
 import { NewPasswordForm } from "@/features/auth/components/Forms/NewPasswordForm";
 import { PlantsRoute } from "@/features/list/routes/PlantsRoute";

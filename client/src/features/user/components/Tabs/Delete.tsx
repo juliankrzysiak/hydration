@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { notify } from "@/utils/notify.ts";
+import { notify } from "@/utils";
 import { deleteAccount, deleteData } from "../../api/index.js";
 import { AuthError } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";

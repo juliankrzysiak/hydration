@@ -4,7 +4,7 @@ import { changePassword } from "../../api/supabase";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { AuthError } from "@supabase/supabase-js";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 
 export const Password = () => {
   const navigate = useNavigate();

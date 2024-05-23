@@ -1,6 +1,6 @@
-import { Plant } from "../../../types";
+import { Plant } from "@/types";
 import { useCalendarDates } from "./useCalendarDates";
-import { sortAsc } from "@/utils/sortAsc";
+import { sortAsc } from "@/utils";
 
 interface Args {
   plants: Plant[];

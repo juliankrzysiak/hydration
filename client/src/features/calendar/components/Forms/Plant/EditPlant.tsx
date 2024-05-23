@@ -2,7 +2,7 @@ import { useField } from "@/hooks/useField";
 import { useShowFormStore } from "@/stores/showFormStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editPlant } from "@/features/calendar/api";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { useNavigate } from "react-router-dom";
 import { Buttons } from "@/components/Buttons";
 import { Group } from "@//types";

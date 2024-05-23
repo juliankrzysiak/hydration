@@ -2,7 +2,7 @@ import { Group, Plant } from "@/types";
 import { Dialog, DialogHandle } from "@/components/Dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { deletePlant } from "../../../calendar/api";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useShowFormStore } from "@/stores/showFormStore";

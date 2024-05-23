@@ -4,7 +4,7 @@ import React from "react";
 import { supabase } from "../../lib/auth";
 import { useField } from "@/hooks/useField";
 import { Demo } from "../Demo";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 
 export const LoginForm = () => {
   const [{ ...email }, setEmail] = useField({ type: "text", id: "email" });
