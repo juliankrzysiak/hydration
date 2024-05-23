@@ -54,61 +54,123 @@ export default function EditForm({ group }: Props) {
       <EditButton handleClick={showModal} />
       <dialog ref={modalRef} className="modal">
         <div className="modal-box">
-          <form action="">
-            <h3 className="text-lg font-bold">Edit Group</h3>
-            <label className="input-bordered input flex items-center gap-2">
-              Name
-              <input type="text" className="grow" defaultValue={group.name} />
-            </label>
-            <label className="input-bordered input flex items-center gap-2">
-              Schedule
+          <form action="" className="flex flex-col gap-2">
+            <span className="flex items-center justify-between">
+              <h3 className="text-2xl">Edit Group</h3>
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </span>
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text">Name</span>
+              </div>
               <input
-                type="number"
-                className="grow"
+                type="text"
+                className="input-bordered input w-full max-w-xs"
+                defaultValue={group.name}
+              />
+            </label>
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text">Schedule</span>
+              </div>
+              <input
+                type="text"
+                className="input-bordered input w-full max-w-xs"
                 defaultValue={group.schedule}
               />
             </label>
-            <label htmlFor="">
-              Plants
+            <label htmlFor="addPlant" className="flex flex-col gap-1">
+              <h3 className="text-lg">Plants</h3>
               <ul>
                 {groupPlants.map((plant) => {
                   return (
                     <li key={plant.id} className="w-full">
-                      <span>
+                      <span className="flex items-center gap-2">
                         {plant.name}
-                        <button onClick={() => removePlantFromGroup(plant.id)}>
-                          X
+                        <button
+                          className="btn-error btn btn-square btn-sm"
+                          onClick={() => removePlantFromGroup(plant.id)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-5"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M6 18 18 6M6 6l12 12"
+                            />
+                          </svg>
                         </button>
                       </span>
                     </li>
                   );
                 })}
               </ul>
+              <div className="flex items-center justify-between gap-2">
+                <select
+                  ref={selectRef}
+                  className="select w-full max-w-xs"
+                  id="addPlant"
+                  defaultValue="null"
+                >
+                  <option value="null">Add plant to group</option>
+                  {singlePlants.map((plant) => {
+                    return (
+                      <option key={plant.id} value={plant.id}>
+                        {plant.name}
+                      </option>
+                    );
+                  })}
+                </select>
+                <button
+                  type="button"
+                  className="btn-primary btn btn-square btn-sm"
+                  onClick={addPlantToGroup}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m4.5 12.75 6 6 9-13.5"
+                    />
+                  </svg>
+                </button>
+              </div>
             </label>
-            <div>
-              <select ref={selectRef} className="select w-full max-w-xs">
-                <option disabled selected>
-                  Add plant to group
-                </option>
-                {singlePlants.map((plant) => {
-                  return (
-                    <option key={plant.id} value={plant.id}>
-                      {plant.name}
-                    </option>
-                  );
-                })}
-              </select>
-              <button type="button" onClick={addPlantToGroup}>
-                Add
-              </button>
-            </div>
+            <button type="submit" className="btn-primary btn mt-6">
+              Submit
+            </button>
           </form>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
-          </div>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
