@@ -17,18 +17,6 @@ plantsRouter.get('/', async (req, res) => {
 	return res.status(200).json(plants);
 });
 
-// Get all groups
-plantsRouter.get('/groups', async (req, res) => {
-	const uid = Z.uid.parse(req.get('uid'));
-
-	const plants = await sql`
-   SELECT id, name, schedule
-   FROM groups 
-   WHERE uid = ${uid}
-    `;
-	return res.status(200).json(plants);
-});
-
 // Create new plant
 plantsRouter.post('/', async (req, res) => {
 	const { name, schedule, group_id } = Z.newPlant.parse(req.body);
@@ -57,21 +45,6 @@ plantsRouter.patch('/:id', async (req, res) => {
     RETURNING name, schedule
     `;
 	return res.status(201).json(plant);
-});
-
-//Edit one group
-plantsRouter.patch('groups/:id', async (req, res) => {
-	const { name, schedule } = Z.editGroup.parse(req.body);
-	const { id } = req.params;
-	// const uid = Z.uid.parse(req.get('uid'));
-
-	const group = await sql`
-    UPDATE groups
-    SET name = ${name}, schedule = ${schedule}
-    WHERE id = ${id}
-    RETURNING name, schedule
-    `;
-	return res.status(201).json(group);
 });
 
 // edit plants group_id

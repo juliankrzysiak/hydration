@@ -8,7 +8,7 @@ const url =
 
 export const getAllPlants = async (): Promise<Plant[]> => {
   const uid = await getUid();
-  const res = await fetch(url, {
+  const res = await fetch(`${url}/plants`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const editPlant = async ({
   try {
     const uid = await getUid();
     const body = JSON.stringify({ name, schedule, group_id });
-    const res = await fetch(`${url}/${id}`, {
+    const res = await fetch(`${url}/plants/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ export const editPlant = async ({
 export const addDate = async (payload: PlantDate) => {
   try {
     const body = JSON.stringify(payload);
-    const res = await fetch(`${url}/water`, {
+    const res = await fetch(`${url}/plants/water`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export const addDate = async (payload: PlantDate) => {
 export const deleteDate = async (payload: PlantDate) => {
   try {
     const body = JSON.stringify(payload);
-    const res = await fetch(`${url}/water`, {
+    const res = await fetch(`${url}/plants/water`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export const deletePlant = async (id: { plant_id: number }) => {
     const body = JSON.stringify(id);
     const uid = await getUid();
 
-    const res = await fetch(`${url}`, {
+    const res = await fetch(`${url}/plants`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
