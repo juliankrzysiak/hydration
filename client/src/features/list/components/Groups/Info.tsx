@@ -1,9 +1,9 @@
+import BackButton from "@/components/Buttons/BackButton";
+import DeleteButton from "@/components/Buttons/DeleteButton";
+import { ErrorPage } from "@/routes/ErrorPage";
 import { Group } from "@/types";
 import { useIdStore } from "../../stores/idStore";
-import { ErrorPage } from "@/routes/ErrorPage";
-import BackButton from "@/components/Buttons/BackButton";
-import EditButton from "@/components/Buttons/EditButton";
-import DeleteButton from "@/components/Buttons/DeleteButton";
+import EditForm from "../Forms/Groups/EditForm";
 
 type Props = {
   group: Group | undefined;
@@ -21,7 +21,7 @@ export default function Info({ group }: Props) {
       <div className="mb-4 flex w-full justify-between">
         <BackButton handleClick={exitInfo} />
         <div className="flex gap-4">
-          <EditButton />
+          <EditForm group={group} />
           <DeleteButton />
         </div>
       </div>

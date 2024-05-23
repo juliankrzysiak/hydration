@@ -14,7 +14,11 @@ export default function GroupsLayout({ groups }: Props) {
 
   return (
     <div className="relative">
-      {groupId ? <Info group={currentGroup} /> : <List groups={groups} />}
+      {groupId ? (
+        <Info group={currentGroup} />
+      ) : (
+        <List groups={groups} />
+      )}
     </div>
   );
 }
