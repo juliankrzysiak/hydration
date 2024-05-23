@@ -3,8 +3,9 @@ import { ErrorPage } from "@/routes/ErrorPage";
 import * as Tab from "@radix-ui/react-tabs";
 import { useQuery } from "@tanstack/react-query";
 import { getAllGroups, getAllPlants } from "../../calendar/api";
-import PlantsLayout from "./PlantsLayout";
+import { SinglePlantsContext } from "../context";
 import GroupsLayout from "./GroupsLayout";
+import PlantsLayout from "./PlantsLayout";
 
 export const PlantsRoute = () => {
   const allPlants = useQuery({
@@ -35,40 +36,42 @@ export const PlantsRoute = () => {
   const { groupedPlants, singlePlants } = separatePlants();
 
   return (
-    <Tab.Root defaultValue="tab1" className="mb-8 h-full w-full max-w-sm">
-      <Tab.List
-        aria-label="Pick to see plants or groups"
-        className="flex w-full justify-evenly gap-6 rounded-t-md border-b border-gray-900 bg-gray-900/20 px-4 py-2 text-gray-700"
-      >
-        <Tab.Trigger
+    <SinglePlantsContext.Provider value={singlePlants}>
+      <Tab.Root defaultValue="tab1" className="mb-8 h-full w-full max-w-sm">
+        <Tab.List
+          aria-label="Pick to see plants or groups"
+          className="flex w-full justify-evenly gap-6 rounded-t-md border-b border-gray-900 bg-gray-900/20 px-4 py-2 text-gray-700"
+        >
+          <Tab.Trigger
+            value="tab1"
+            className="text-lg data-[state=active]:scale-110  data-[state=active]:font-semibold data-[state=active]:text-gray-900  "
+          >
+            Plants
+          </Tab.Trigger>
+          <Tab.Trigger
+            value="tab2"
+            className="text-lg data-[state=active]:scale-110 data-[state=active]:font-medium data-[state=active]:text-gray-900"
+          >
+            Groups
+          </Tab.Trigger>
+        </Tab.List>
+        <Tab.Content
           value="tab1"
-          className="text-lg data-[state=active]:scale-110  data-[state=active]:font-semibold data-[state=active]:text-gray-900  "
+          className="h-full w-full rounded-b-md bg-gray-900/20 p-4"
         >
-          Plants
-        </Tab.Trigger>
-        <Tab.Trigger
+          <PlantsLayout
+            allPlants={allPlants.data}
+            singles={singlePlants}
+            groups={groupedPlants}
+          />
+        </Tab.Content>
+        <Tab.Content
           value="tab2"
-          className="text-lg data-[state=active]:scale-110 data-[state=active]:font-medium data-[state=active]:text-gray-900"
+          className="h-full w-full rounded-b-md  bg-gray-900/20 p-4"
         >
-          Groups
-        </Tab.Trigger>
-      </Tab.List>
-      <Tab.Content
-        value="tab1"
-        className="h-full w-full rounded-b-md bg-gray-900/20 p-4"
-      >
-        <PlantsLayout
-          allPlants={allPlants.data}
-          singles={singlePlants}
-          groups={groupedPlants}
-        />
-      </Tab.Content>
-      <Tab.Content
-        value="tab2"
-        className="h-full w-full rounded-b-md  bg-gray-900/20 p-4"
-      >
-        <GroupsLayout groups={groupedPlants} />
-      </Tab.Content>
-    </Tab.Root>
+          <GroupsLayout  groups={groupedPlants} />
+        </Tab.Content>
+      </Tab.Root>
+    </SinglePlantsContext.Provider>
   );
 };
