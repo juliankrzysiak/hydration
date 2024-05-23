@@ -22,7 +22,7 @@ export default function EditGroup({ group }: Props) {
   const editGroupMutation = useMutation({
     mutationFn: editGroup,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["plants"] });
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
       notify("success", "Group edited");
     },
     onError: () => {
@@ -68,9 +68,10 @@ export default function EditGroup({ group }: Props) {
   function submitForm(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-
     const name = form.groupName.value;
     const schedule = Number(form.schedule.value);
+
+    console.log(name, schedule);
 
     const data = {
       id: group.id,
@@ -105,7 +106,7 @@ export default function EditGroup({ group }: Props) {
               </svg>
             </button>
           </form>
-          <form className="flex flex-col gap-2 ">
+          <form className="flex flex-col gap-2" onSubmit={submitForm}>
             <label className="form-control w-full max-w-xs">
               <div className="label">
                 <span className="label-text">Name</span>
