@@ -4,18 +4,25 @@ import { ErrorPage } from "@/routes/ErrorPage";
 import { Group } from "@/types";
 import { useIdStore } from "../../stores/idStore";
 import EditGroup from "../Forms/Groups/EditGroup";
+import DeleteModal from "@/components/Dialog/DeleteModal";
+import { useRef } from "react";
 
 type Props = {
   group: Group | undefined;
 };
 
 export default function Info({ group }: Props) {
+  const deleteModalRef = useRef<HTMLDialogElement>(null);
+
+  function openModal() {
+    deleteModalRef.current?.showModal();
+  }
+
   function exitInfo() {
     useIdStore.setState({ groupId: null });
   }
 
   if (!group) return <ErrorPage />;
-
 
   return (
     <div className="w-full">
@@ -23,7 +30,9 @@ export default function Info({ group }: Props) {
         <BackButton handleClick={exitInfo} />
         <div className="flex gap-4">
           <EditGroup group={group} />
-          {/* <DeleteButton /> */}
+          <DeleteModal ref={deleteModalRef} item="Group">
+            <DeleteButton handleClick={openModal} />
+          </DeleteModal>
         </div>
       </div>
       <div className="flex flex-col gap-4">
