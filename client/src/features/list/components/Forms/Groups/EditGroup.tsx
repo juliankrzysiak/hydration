@@ -174,43 +174,22 @@ export default function EditGroup({ group }: Props) {
                   );
                 })}
               </ul>
-              <div className="flex items-center justify-between gap-2">
-                <select
-                  ref={selectRef}
-                  className="select w-full max-w-xs"
-                  id="addPlant"
-                  defaultValue="null"
-                >
-                  <option value="null">Add plant to group</option>
-                  {singlePlants.map((plant) => {
-                    return (
-                      <option key={plant.id} value={plant.id}>
-                        {plant.name}
-                      </option>
-                    );
-                  })}
-                </select>
-                <button
-                  type="button"
-                  className="btn-primary btn btn-square btn-sm"
-                  onClick={addPlantToGroup}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m4.5 12.75 6 6 9-13.5"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <select
+                ref={selectRef}
+                className="select w-full max-w-xs"
+                id="addPlant"
+                defaultValue="null"
+                onChange={addPlantToGroup}
+              >
+                <option value="null">Add plant to group</option>
+                {singlePlants.map((plant) => {
+                  return (
+                    <option key={plant.id} value={plant.id}>
+                      {plant.name}
+                    </option>
+                  );
+                })}
+              </select>
             </label>
             <button type="submit" className="btn-primary btn mt-6">
               Submit
