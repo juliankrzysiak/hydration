@@ -12,7 +12,6 @@ type Props = {
 
 export default function EditGroup({ group }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
-  const selectRef = useRef<HTMLSelectElement>(null);
 
   const initialSinglePlants = useContext(SinglePlantsContext);
   const [groupPlants, setGroupPlants] = useState<Plant[]>(group.plants);
@@ -33,7 +32,6 @@ export default function EditGroup({ group }: Props) {
   const editGroupForPlantsMutation = useMutation({
     mutationFn: editGroupForPlants,
     onSuccess: () => {
-      console.log(123);
       queryClient.invalidateQueries({ queryKey: ["plants"] });
       notify("success", "Group edited");
     },
@@ -63,9 +61,10 @@ export default function EditGroup({ group }: Props) {
     setSinglePlants(updatedSinglePlants);
   }
 
-  function addPlantToGroup() {
+  function addPlantToGroup(e: React.ChangeEvent<HTMLSelectElement>) {
+    const currentId = Number(e.target.value);
     const currentSinglePlant = singlePlants.find(
-      (plant) => plant.id === Number(selectRef.current?.value)
+      (plant) => plant.id === currentId
     );
     if (!currentSinglePlant) return;
     const updatedSinglePlants = singlePlants.filter(
@@ -175,7 +174,6 @@ export default function EditGroup({ group }: Props) {
                 })}
               </ul>
               <select
-                ref={selectRef}
                 className="select w-full max-w-xs"
                 id="addPlant"
                 defaultValue="null"
