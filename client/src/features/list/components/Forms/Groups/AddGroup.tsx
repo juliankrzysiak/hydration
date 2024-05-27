@@ -16,7 +16,9 @@ export default function AddGroup() {
   const addGroupMutation = useMutation({
     mutationFn: addGroup,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["groups", "plants"] });
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+
       notify("success", "Group added");
     },
     onError: () => {

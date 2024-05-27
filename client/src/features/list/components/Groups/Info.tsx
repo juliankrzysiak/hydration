@@ -6,6 +6,9 @@ import { useIdStore } from "../../stores/idStore";
 import EditGroup from "../Forms/Groups/EditGroup";
 import DeleteModal from "@/components/Dialog/DeleteModal";
 import { useRef } from "react";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { notify } from "@/utils";
+import { deleteGroup } from "../../api";
 
 type Props = {
   group: Group | undefined;
@@ -13,6 +16,26 @@ type Props = {
 
 export default function Info({ group }: Props) {
   const deleteModalRef = useRef<HTMLDialogElement>(null);
+
+  const queryClient = useQueryClient();
+  const deleteGroupMutation = useMutation({
+    mutationFn: deleteGroup,
+    onSuccess: () => {
+      //BUG: For some reason I have to separate the keys instead of one array
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
+      queryClient.invalidateQueries({ queryKey: ["plants"] });
+      notify("success", "Group deleted");
+    },
+    onError: () => {
+      notify("error", "Could not delete group.");
+    },
+  });
+
+  function submitForm(e: SubmitEvent) {
+    e.preventDefault();
+    deleteGroupMutation.mutate(group.id);
+    useIdStore.setState({ groupId: null });
+  }
 
   function openModal() {
     deleteModalRef.current?.showModal();
@@ -30,7 +53,11 @@ export default function Info({ group }: Props) {
         <BackButton handleClick={exitInfo} />
         <div className="flex gap-4">
           <EditGroup group={group} />
-          <DeleteModal ref={deleteModalRef} item="Group">
+          <DeleteModal
+            ref={deleteModalRef}
+            item="Group"
+            handleSubmit={submitForm}
+          >
             <DeleteButton handleClick={openModal} />
           </DeleteModal>
         </div>
