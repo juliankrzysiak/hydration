@@ -76,3 +76,27 @@ export async function editGroupForPlants({
     catchApiError(error, "Could not edit group.");
   }
 }
+
+type addGroupParams = {
+  name: string;
+  schedule: number;
+  plantsToAdd: number[];
+};
+
+export async function addGroup(payload: addGroupParams) {
+  try {
+    const uid = await getUid();
+    const body = JSON.stringify(payload);
+    const res = await fetch(`${url}/groups`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+      body,
+    });
+    return res;
+  } catch (error) {
+    catchApiError(error, "Could not edit group.");
+  }
+}
