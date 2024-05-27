@@ -4,7 +4,7 @@ type Props = {
 
 export default function DeleteButton({ handleClick }: Props) {
   return (
-    <button className="" onClick={handleClick}>
+    <button onClick={handleClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
