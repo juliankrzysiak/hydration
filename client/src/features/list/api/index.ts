@@ -73,7 +73,7 @@ export async function editGroupForPlants({
     });
     return res;
   } catch (error) {
-    catchApiError(error, "Could not edit group.");
+    catchApiError(error, "Could not edit plants.");
   }
 }
 
@@ -97,6 +97,22 @@ export async function addGroup(payload: addGroupParams) {
     });
     return res;
   } catch (error) {
-    catchApiError(error, "Could not edit group.");
+    catchApiError(error, "Could not add group.");
+  }
+}
+
+export async function deleteGroup(id: number) {
+  try {
+    const uid = await getUid();
+    const res = await fetch(`${url}/groups/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+    });
+    return res;
+  } catch (error) {
+    catchApiError(error, "Could not delete group.");
   }
 }
