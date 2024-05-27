@@ -28,7 +28,7 @@ groupsRouter.post('/', async (req, res) => {
 
 	const { id } = groups[0];
 	const values = plantsToAdd.join(',');
-    console.log(values)
+
 	await sql`
     UPDATE plants 
     SET group_id = ${id}
@@ -51,4 +51,22 @@ groupsRouter.patch('/:id', async (req, res) => {
     RETURNING name, schedule
     `;
 	return res.status(201).json(group);
+});
+
+//Delete one group
+groupsRouter.delete('/:id', async (req, res) => {
+	const { id } = req.params;
+	const uid = Z.uid.parse(req.get('uid'));
+
+	await sql`
+    DELETE FROM groups
+    WHERE id = ${id} and uid = ${uid}
+    `;
+
+	await sql`
+    UPDATE plants
+    SET group_id = null
+    WHERE groupd_id  = ${id}
+    `;
+	return res.status(201).send();
 });
