@@ -59,14 +59,15 @@ groupsRouter.delete('/:id', async (req, res) => {
 	const uid = Z.uid.parse(req.get('uid'));
 
 	await sql`
-    DELETE FROM groups
-    WHERE id = ${id} and uid = ${uid}
-    `;
-
-	await sql`
     UPDATE plants
     SET group_id = null
     WHERE group_id  = ${id}
     `;
+
+	await sql`
+    DELETE FROM groups
+    WHERE id = ${id} and uid = ${uid}
+    `;
+
 	return res.status(201).send();
 });
