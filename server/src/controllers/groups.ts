@@ -66,7 +66,7 @@ groupsRouter.delete('/:id', async (req, res) => {
 	await sql`
     UPDATE plants
     SET group_id = null
-    WHERE groupd_id  = ${id}
+    WHERE group_id  = ${id}
     `;
 	return res.status(201).send();
 });
