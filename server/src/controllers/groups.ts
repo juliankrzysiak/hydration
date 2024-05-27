@@ -15,6 +15,29 @@ groupsRouter.get('/', async (req, res) => {
 	return res.status(200).json(plants);
 });
 
+//Add one group
+groupsRouter.post('/', async (req, res) => {
+	const { name, schedule, plantsToAdd } = Z.addGroup.parse(req.body);
+	const uid = Z.uid.parse(req.get('uid'));
+
+	const groups = await sql`
+    INSERT INTO groups (name, schedule, uid)
+    VALUES (${name}, ${schedule}, ${uid})
+    RETURNING groups.id
+    `;
+
+	const { id } = groups[0];
+	const values = plantsToAdd.join(',');
+    console.log(values)
+	await sql`
+    UPDATE plants 
+    SET group_id = ${id}
+    WHERE id IN (${values}) AND uid = ${uid}
+    `;
+
+	return res.status(200).send();
+});
+
 //Edit one group
 groupsRouter.patch('/:id', async (req, res) => {
 	const { name, schedule } = Z.editGroup.parse(req.body);

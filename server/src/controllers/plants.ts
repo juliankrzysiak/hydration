@@ -55,7 +55,6 @@ plantsRouter.patch('/group/:id', async (req, res) => {
 
 	if (add.length) {
 		const values = add.join(',');
-		console.log(values);
 		await sql`
         UPDATE plants 
         SET group_id = ${id}
