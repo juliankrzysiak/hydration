@@ -1,11 +1,16 @@
 import { catchApiError } from "@/features/calendar/utils/catchApiError";
 import { getUid } from "@/features/calendar/utils/getUid";
-import { PlantCreate } from "@/types";
 
 const url =
   import.meta.env.VITE_LOCALHOST || "https://water-schedule.fly.dev/api";
 
-export const createPlant = async (plant: PlantCreate) => {
+type createPlantParams = {
+  name: string;
+  schedule: number;
+  group_id: number | null;
+};
+
+export const createPlant = async (plant: createPlantParams) => {
   try {
     const uid = await getUid();
     const body = JSON.stringify(plant);
