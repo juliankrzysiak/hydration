@@ -74,14 +74,32 @@ export default function AddGroup() {
 
   return (
     <>
-      <button className="btn-primary btn" onClick={showModal}>
+      <button
+        className=" btn-neutral btn-outline btn btn-sm "
+        onClick={showModal}
+      >
         Add
       </button>
       <dialog ref={modalRef} className="modal">
         <div className="modal-box">
           <form method="dialog" className="flex items-center justify-between">
             <h3 className="text-2xl">Add Group</h3>
-            <button></button>
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </form>
           <form className="flex flex-col gap-2" onSubmit={submitForm}>
             <label className="form-control w-full max-w-xs">
