@@ -46,17 +46,22 @@ export const Password = () => {
         <p>Change your password here.</p>
         <p>You will be logged out.</p>
       </div>
-      <fieldset className=" flex flex-col">
-        <label htmlFor="pwd">Password</label>
-        <input className="w-full rounded-md bg-gray-100 px-2" {...password} />
-      </fieldset>
-      <fieldset className="mb-2 flex flex-col">
-        <label htmlFor="cpwd">Confirm Password</label>
+      <label>
+        Password
+        <input
+          className="w-full rounded-md bg-gray-100 px-2"
+          autoComplete="new-password"
+          {...password}
+        />
+      </label>
+      <label htmlFor="cpwd">
+        Confirm Password
         <input
           className="w-full  rounded-md bg-gray-100 px-2"
+          autoComplete="new-password"
           {...confirmPassword}
         />
-      </fieldset>
+      </label>
       <button className="self-end rounded border-2 border-gray-800 px-2 py-2 font-semibold">
         Change Password
       </button>
