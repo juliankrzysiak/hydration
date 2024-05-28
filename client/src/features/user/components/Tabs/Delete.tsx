@@ -1,16 +1,18 @@
-import { useRef } from "react";
-import { Dialog, DialogHandle } from "@/components/Dialog";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import DeleteModal from "@/components/Dialog/DeleteModal.js";
 import { notify } from "@/utils";
-import { deleteAccount, deleteData } from "../../api/index.js";
 import { AuthError } from "@supabase/supabase-js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { deleteAccount, deleteData } from "../../api/index.js";
 
 export const Delete = () => {
   const navigate = useNavigate();
+
+  const dataModalRef = useRef<HTMLDialogElement>(null);
+  const accountModalRef = useRef<HTMLDialogElement>(null);
+
   const queryClient = useQueryClient();
-  const dataModalRef = useRef<DialogHandle>(null);
-  const accountModalRef = useRef<DialogHandle>(null);
   const dataMutation = useMutation({
     mutationFn: deleteData,
     onSuccess: () => {
@@ -30,28 +32,37 @@ export const Delete = () => {
     onError: (error: AuthError) => notify("error", error.message),
   });
 
+  function openDataModal() {
+    dataModalRef.current?.showModal();
+  }
+
+  function openAccountModal() {
+    accountModalRef.current?.showModal();
+  }
+
   return (
     <fieldset className="flex flex-col items-center gap-4">
-      <p className="mb-4">Delete your data or account.</p>
+      <p>Delete your data or account.</p>
       <div className="flex w-fit flex-col items-center gap-4">
-        <button
-          className="btn-warning"
-          onClick={() => dataModalRef.current?.open()}
+        <DeleteModal
+          ref={dataModalRef}
+          item="Data"
+          handleSubmit={() => dataMutation.mutate()}
         >
-          Delete Data
-        </button>
-        <button
-          className="btn-warning"
-          onClick={() => accountModalRef.current?.open()}
+          <button className="btn-error btn" onClick={openDataModal}>
+            Delete Data
+          </button>
+        </DeleteModal>
+        <DeleteModal
+          ref={accountModalRef}
+          item="Account"
+          handleSubmit={() => accountMutation.mutate()}
         >
-          Delete Account
-        </button>
+          <button className="btn-error btn" onClick={openAccountModal}>
+            Delete Account
+          </button>
+        </DeleteModal>
       </div>
-      <Dialog ref={dataModalRef} handleClick={() => dataMutation.mutate()} />
-      <Dialog
-        ref={accountModalRef}
-        handleClick={() => accountMutation.mutate()}
-      />
     </fieldset>
   );
 };
