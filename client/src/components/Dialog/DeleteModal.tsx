@@ -1,8 +1,8 @@
-import { FormEventHandler, ReactNode, forwardRef } from "react";
+import { FormEventHandler, ReactNode, RefObject, forwardRef } from "react";
 
 type Props = {
   item: string;
-  message: string;
+  message?: string;
   handleSubmit: FormEventHandler<HTMLFormElement>;
   children: ReactNode;
 };
@@ -14,6 +14,10 @@ const DeleteModal = forwardRef<Ref, Props>(
     { item, message = "Are you sure about that?", handleSubmit, children },
     ref
   ) => {
+    function closeModal() {
+      const modalRef = ref as RefObject<HTMLDialogElement>;
+      modalRef.current?.close();
+    }
     return (
       <>
         {children}
@@ -42,7 +46,7 @@ const DeleteModal = forwardRef<Ref, Props>(
             </div>
             <p>{message}</p>
             <div className="modal-action flex w-full justify-around">
-              <button className="btn" type="submit">
+              <button className="btn" type="button" onClick={closeModal}>
                 No, take me back
               </button>
               <button className="btn-error btn" type="submit">
