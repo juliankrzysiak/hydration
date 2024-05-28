@@ -15,15 +15,15 @@ export const List = ({ singlePlants, groups }: Props) => {
   if (showCreateForm) return <AddPlant groups={groups} />;
 
   return (
-    <div>
-      <ul>
+    <div className="flex w-full flex-col gap-4">
+      <ul className="flex flex-col gap-1">
         {groups.map((group) => {
           return (
             <Group key={group.id} name={group.name} plants={group.plants} />
           );
         })}
       </ul>
-      <ul className="mb-6 flex flex-col gap-2">
+      <ul className=" flex flex-col gap-1">
         {singlePlants.map((plant) => (
           <Entry
             key={plant.id}
@@ -33,13 +33,7 @@ export const List = ({ singlePlants, groups }: Props) => {
           />
         ))}
       </ul>
-      <button
-        className="rounded-md border-2 border-gray-800 hover:bg-gray-300/50"
-        aria-label="Show Add Date Form"
-        onClick={() => useShowFormStore.setState({ addPlant: true })}
-      >
-        <img className="w-7" src={plusSVG} alt="Plus" />
-      </button>
+      <AddPlant groups={groups} />
     </div>
   );
 };
