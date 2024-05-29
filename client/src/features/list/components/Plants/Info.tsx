@@ -1,25 +1,24 @@
-import { Group, Plant } from "@/types";
-import { Dialog, DialogHandle } from "@/components/Dialog";
-import { useQueryClient } from "@tanstack/react-query";
-import { deletePlant } from "../../../calendar/api";
+import BackButton from "@/components/Buttons/BackButton";
+import DeleteButton from "@/components/Buttons/DeleteButton";
+import DeleteModal from "@/components/Dialog/DeleteModal";
+import { ErrorPage } from "@/routes/ErrorPage";
+import { Plant } from "@/types";
 import { notify } from "@/utils";
-import { useRef } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useShowFormStore } from "@/stores/showFormStore";
-import { EditPlant } from "../Forms/Plants/EditPlant";
-import cancelSVG from "@/assets/cancel.svg";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";
+import { useRef } from "react";
+import { deletePlant } from "../../../calendar/api";
 import { useIdStore } from "../../stores/idStore";
-import { ErrorPage } from "@/routes/ErrorPage";
 dayjs.extend(relativeTime);
 
 interface Props {
   plant: Plant | undefined;
-  groups: Group[];
 }
 
-export const Info = ({ plant, groups }: Props) => {
+export const Info = ({ plant }: Props) => {
+  const deleteModalRef = useRef<HTMLDialogElement>(null);
+
   const queryClient = useQueryClient();
   const deletePlantMutation = useMutation({
     mutationFn: deletePlant,
@@ -29,44 +28,61 @@ export const Info = ({ plant, groups }: Props) => {
       useIdStore.setState({ id: null });
     },
   });
-  const dialogRef = useRef<DialogHandle>(null);
-  const showEditForm = useShowFormStore((state) => state.editPlant);
 
   if (!plant) return <ErrorPage />;
-  const { id, name, schedule, next_water, watered, group_id } = plant;
+
+  function submitForm() {
+    if (!plant) return;
+    deletePlantMutation.mutate(plant.id);
+    useIdStore.setState({ groupId: null });
+  }
+
+  function openModal() {
+    deleteModalRef.current?.showModal();
+  }
+
+  function exitInfo() {
+    useIdStore.setState({ id: null });
+  }
 
   return (
-    <>
-      <h1 className=" mb-4 text-3xl text-gray-950">{name}</h1>
-      <button
-        className="absolute right-3 top-3  w-fit"
-        onClick={() => {
-          useShowFormStore.setState({ editPlant: false });
-          useIdStore.setState({ id: null });
-        }}
-      >
-        <img className="w-7" src={cancelSVG} alt="Cancel" />
-      </button>
-      {!showEditForm ? (
-        <div className="grid grid-cols-2 gap-y-8">
-          <div className="flex flex-col items-center">
-            <h2 className="text-2xl font-semibold">Schedule</h2>
-            <p>Every {schedule} days</p>
+    <div className="w-full">
+      <div className="mb-4 flex w-full justify-between">
+        <BackButton handleClick={exitInfo} />
+        <div className="flex gap-4">
+          {/* <EditPlant /> */}
+          <DeleteModal
+            ref={deleteModalRef}
+            item="Group"
+            handleSubmit={submitForm}
+          >
+            <DeleteButton handleClick={openModal} />
+          </DeleteModal>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <h1 className="self-center text-2xl font-semibold underline">
+          {plant.name}
+        </h1>
+        <div className="flex flex-col justify-around gap-4">
+          <div className="flex flex-col  gap-0">
+            <h2 className="font-bold">Schedule</h2>
+            <p>Every {plant.schedule} days</p>
           </div>
-          <div className="flex flex-col items-center">
-            <h2 className="text-2xl font-semibold">Next Water</h2>
+          <div className="flex flex-col ">
+            <h2 className="font-bold">Next Water</h2>
             <p>
-              {next_water &&
-                `${dayjs(next_water).format("MMM D")}, ${dayjs().to(
-                  dayjs(next_water)
+              {plant.next_water &&
+                `${dayjs(plant.next_water).format("MMM D")}, ${dayjs().to(
+                  dayjs(plant.next_water)
                 )}`}
             </p>
           </div>
-          <div className=" flex flex-col items-center">
-            <h2 className="text-2xl font-semibold">History</h2>
-            <ul className="grid gap-2">
-              {watered.at(0) &&
-                watered
+          <div className=" flex flex-col ">
+            <h2 className="font-bold">History</h2>
+            <ul className="grid">
+              {plant.watered.at(0) &&
+                plant.watered
                   .sort((a, b) => (dayjs(a).isAfter(dayjs(b)) ? -1 : 1))
                   .map((date) => (
                     <li key={date.toString()}>
@@ -75,36 +91,8 @@ export const Info = ({ plant, groups }: Props) => {
                   ))}
             </ul>
           </div>
-          <div className="flex items-center justify-center gap-6">
-            <button
-              className="rounded-md border-2 border-gray-800 px-2 py-1 font-semibold"
-              aria-label="Edit current plant"
-              onClick={() => useShowFormStore.setState({ editPlant: true })}
-            >
-              Edit
-            </button>
-            <button
-              className="rounded-md border-2 border-gray-800 px-2 py-1 font-semibold"
-              aria-label="Delete current plant"
-              onClick={() => dialogRef.current?.open()}
-            >
-              Delete
-            </button>
-          </div>
         </div>
-      ) : (
-        <EditPlant
-          id={id}
-          name={name}
-          schedule={schedule}
-          group_id={group_id}
-          groups={groups}
-        />
-      )}
-      <Dialog
-        ref={dialogRef}
-        handleClick={() => deletePlantMutation.mutate({ plant_id: id })}
-      />
-    </>
+      </div>
+    </div>
   );
 };
