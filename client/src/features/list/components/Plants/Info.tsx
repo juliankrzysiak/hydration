@@ -2,7 +2,7 @@ import BackButton from "@/components/Buttons/BackButton";
 import DeleteButton from "@/components/Buttons/DeleteButton";
 import DeleteModal from "@/components/Dialog/DeleteModal";
 import { ErrorPage } from "@/routes/ErrorPage";
-import { Plant } from "@/types";
+import { Group, Plant } from "@/types";
 import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -14,9 +14,10 @@ dayjs.extend(relativeTime);
 
 interface Props {
   plant: Plant | undefined;
+  group?: Group;
 }
 
-export const Info = ({ plant }: Props) => {
+export const Info = ({ plant, group }: Props) => {
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   const queryClient = useQueryClient();
@@ -61,9 +62,12 @@ export const Info = ({ plant }: Props) => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <h1 className="self-center text-2xl font-semibold underline">
-          {plant.name}
-        </h1>
+        <div>
+          <h2 className="self-center text-2xl font-semibold underline">
+            {plant.name}
+          </h2>
+          <h3>{group?.name}</h3>
+        </div>
         <div className="flex flex-col justify-around gap-4">
           <div className="flex flex-col  gap-0">
             <h2 className="font-bold">Schedule</h2>
