@@ -1,14 +1,12 @@
+import { Plant } from "@/types";
 import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { Plant } from "@/types";
 import { addDate, deleteDate } from "../../api";
 import { usePlantsForToday } from "../../hooks/usePlantsForToday";
 import { useDateStore } from "../../stores/dateStore";
-import { AllPlantButton } from "./AllPlantsButton";
-import { ShowForm } from "./ShowForm";
-import { PlusIcon } from "@heroicons/react/20/solid";
 import { AddHistory } from "../Forms/History/AddHistory";
+import { AllPlantButton } from "./AllPlantsButton";
 
 interface Props {
   plants: Plant[];
@@ -75,12 +73,11 @@ export const Water = ({ plants }: Props) => {
   // TODO: Change backend to accept array of plants on one date
   return (
     <div className="flex h-full w-full flex-col items-center rounded-md bg-slate-300 p-4 text-gray-950 shadow-md">
-      <div className=" flex w-full items-center justify-between">
+      <div className="mb-2 flex w-full items-center justify-between">
         {/* <h3 className=" text-3xl">Status: {title}</h3> */}
         <h2 className="text-2xl text-gray-900">{formattedDate}</h2>
-        <div>
+        <div className="flex">
           <AddHistory plants={leftOverPlants} />
-          <ShowForm plants={plants} />
           <AllPlantButton
             title={title}
             waterAll={waterAll}
