@@ -1,12 +1,14 @@
 import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { Plant } from '@/types";
+import { Plant } from "@/types";
 import { addDate, deleteDate } from "../../api";
 import { usePlantsForToday } from "../../hooks/usePlantsForToday";
 import { useDateStore } from "../../stores/dateStore";
 import { AllPlantButton } from "./AllPlantsButton";
 import { ShowForm } from "./ShowForm";
+import { PlusIcon } from "@heroicons/react/20/solid";
+import { AddHistory } from "../Forms/History/AddHistory";
 
 interface Props {
   plants: Plant[];
@@ -20,7 +22,7 @@ export enum Title {
 
 export const Water = ({ plants }: Props) => {
   const queryClient = useQueryClient();
-  const [scheduledPlants, wateredPlants, todayOrDate] =
+  const { scheduledPlants, wateredPlants, leftOverPlants, formattedDate } =
     usePlantsForToday(plants);
   const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
 
@@ -75,12 +77,16 @@ export const Water = ({ plants }: Props) => {
     <div className="flex h-full w-full flex-col items-center rounded-md bg-slate-300 p-4 text-gray-950 shadow-md">
       <div className=" flex w-full items-center justify-between">
         {/* <h3 className=" text-3xl">Status: {title}</h3> */}
-        <h2 className="text-2xl text-gray-900">{todayOrDate}</h2>
-        <AllPlantButton
-          title={title}
-          waterAll={waterAll}
-          unwaterAll={unwaterAll}
-        />
+        <h2 className="text-2xl text-gray-900">{formattedDate}</h2>
+        <div>
+          <AddHistory plants={leftOverPlants} />
+          <ShowForm plants={plants} />
+          <AllPlantButton
+            title={title}
+            waterAll={waterAll}
+            unwaterAll={unwaterAll}
+          />
+        </div>
       </div>
       <div className="flex w-full flex-col ">
         <ul className="flex flex-col gap-1 pl-2">
@@ -112,7 +118,6 @@ export const Water = ({ plants }: Props) => {
           })}
         </ul>
       </div>
-      <ShowForm plants={plants} />
     </div>
   );
 };
