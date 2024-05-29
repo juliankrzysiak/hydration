@@ -10,12 +10,12 @@ import { useFilterStore } from "../stores/filterStore";
 import { useShowFormStore } from "@/stores/showFormStore";
 import { PlantsRoute } from "../../list/routes/PlantsRoute";
 import { Water } from "../components/Water";
+import { useSeparatePlants } from "@/hooks";
 
 export const Home = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["plants"],
-    queryFn: getAllPlants,
-  });
+  const { loading, error, allPlants, groupedPlants, singlePlants } =
+    useSeparatePlants();
+
   const filterSelections = useFilterStore((state) =>
     state.plants.map((plant) => plant.id)
   );
@@ -24,16 +24,18 @@ export const Home = () => {
 
   const [width] = useDesktopWidth();
 
-  if (isLoading) return <Loader />;
-  if (isError) return <ErrorPage />;
+  if (loading) return <Loader />;
+  if (error) return <ErrorPage />;
+
+  console.log(allPlants);
 
   return (
     <section className="flex h-full grow flex-col items-center gap-4 xl:flex-row xl:items-start xl:justify-evenly">
       <Calendar
         plants={
           filterSelections.length > 0
-            ? data?.filter((plant) => filterSelections.includes(plant.id))
-            : data
+            ? allPlants.filter((plant) => filterSelections.includes(plant.id))
+            : allPlants
         }
       />
 
@@ -41,13 +43,15 @@ export const Home = () => {
         <Filter />
         {/* todo move this inside Info */}
         {showFilterForm ? (
-          <FilterForm plants={data} />
+          <FilterForm plants={allPlants} />
         ) : (
           <Water
             plants={
               filterSelections.length > 0
-                ? data?.filter((plant) => filterSelections.includes(plant.id))
-                : data
+                ? allPlants.filter((plant) =>
+                    filterSelections.includes(plant.id)
+                  )
+                : allPlants
             }
           />
         )}
