@@ -6,6 +6,7 @@ import { getAllGroups, getAllPlants } from "../../calendar/api";
 import { SinglePlantsContext } from "../context";
 import GroupsLayout from "./GroupsLayout";
 import PlantsLayout from "./PlantsLayout";
+import { useSeparatePlants } from "@/hooks";
 
 export const PlantsRoute = () => {
   const allPlants = useQuery({
@@ -17,23 +18,13 @@ export const PlantsRoute = () => {
     queryFn: getAllGroups,
   });
 
+  const [groupedPlants, singlePlants] = useSeparatePlants(
+    allPlants.data,
+    groups.data
+  );
+
   if (allPlants.isLoading || groups.isLoading) return <Loader />;
   if (allPlants.isError || groups.isError) return <ErrorPage />;
-
-  // Put into custom hook
-  const separatePlants = () => {
-    const groupedPlants = groups.data.map((group) => {
-      const plants = allPlants.data.filter(
-        (plant) => plant.group_id === group.id
-      );
-      return { ...group, plants };
-    });
-    const singlePlants = allPlants.data.filter((plant) => !plant.group_id);
-
-    return { groupedPlants, singlePlants };
-  };
-
-  const { groupedPlants, singlePlants } = separatePlants();
 
   return (
     <SinglePlantsContext.Provider value={singlePlants}>
