@@ -1,16 +1,14 @@
 import { Loader } from "@/components/Loader";
+import { useSeparatePlants } from "@/hooks";
 import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 import { ErrorPage } from "@/routes/ErrorPage";
-import { useQuery } from "@tanstack/react-query";
-import { getAllPlants } from "../api";
+import { useShowFormStore } from "@/stores/showFormStore";
+import { PlantsRoute } from "../../list/routes/PlantsRoute";
 import Calendar from "../components/Calendar";
 import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
-import { useFilterStore } from "../stores/filterStore";
-import { useShowFormStore } from "@/stores/showFormStore";
-import { PlantsRoute } from "../../list/routes/PlantsRoute";
 import { Water } from "../components/Water";
-import { useSeparatePlants } from "@/hooks";
+import { useFilterStore } from "../stores/filterStore";
 
 export const Home = () => {
   const { loading, error, allPlants, groupedPlants, singlePlants } =
@@ -27,7 +25,6 @@ export const Home = () => {
   if (loading) return <Loader />;
   if (error) return <ErrorPage />;
 
-  console.log(allPlants);
 
   return (
     <section className="flex h-full grow flex-col items-center gap-4 xl:flex-row xl:items-start xl:justify-evenly">

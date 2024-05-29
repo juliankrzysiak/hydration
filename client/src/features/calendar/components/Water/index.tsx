@@ -1,7 +1,7 @@
 import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { Plant } from "../../../../types";
+import { Plant } from '@/types";
 import { addDate, deleteDate } from "../../api";
 import { usePlantsForToday } from "../../hooks/usePlantsForToday";
 import { useDateStore } from "../../stores/dateStore";
@@ -19,7 +19,6 @@ export enum Title {
 }
 
 export const Water = ({ plants }: Props) => {
-  console.log(plants);
   const queryClient = useQueryClient();
   const [scheduledPlants, wateredPlants, todayOrDate] =
     usePlantsForToday(plants);

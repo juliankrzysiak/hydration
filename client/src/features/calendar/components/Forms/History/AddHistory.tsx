@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plant } from "@/features/calendar/types";
+import { Plant } from "@/types";
 import { ComboBox } from "../ComboBox";
 import { Buttons } from "@/components/Buttons";
 import { addDate } from "@/features/calendar/api";

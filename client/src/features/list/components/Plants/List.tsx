@@ -1,7 +1,6 @@
-import plusSVG from "@/assets/plus.svg";
-import { AddPlant } from "../Forms/Plants/AddPlant";
 import { useShowFormStore } from "@/stores/showFormStore";
 import { Group as GroupType, Plant as PlantType } from "@/types";
+import { AddPlant } from "../Forms/Plants/AddPlant";
 import { Entry } from "./Entry";
 import Group from "./Group";
 
