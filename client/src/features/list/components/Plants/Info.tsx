@@ -8,16 +8,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";
 import { useRef } from "react";
-import { deletePlant } from "../../../calendar/api";
+import { deletePlant } from "../../api";
 import { useIdStore } from "../../stores/idStore";
+import { EditPlant } from "../Forms/Plants/EditPlant";
 dayjs.extend(relativeTime);
 
 interface Props {
   plant: Plant | undefined;
   group?: Group;
+  groups: Group[];
 }
 
-export const Info = ({ plant, group }: Props) => {
+export const Info = ({ plant, group, groups }: Props) => {
   const deleteModalRef = useRef<HTMLDialogElement>(null);
 
   const queryClient = useQueryClient();
@@ -51,7 +53,7 @@ export const Info = ({ plant, group }: Props) => {
       <div className="mb-4 flex w-full justify-between">
         <BackButton handleClick={exitInfo} />
         <div className="flex gap-4">
-          {/* <EditPlant /> */}
+          <EditPlant plant={plant} groups={groups} />
           <DeleteModal
             ref={deleteModalRef}
             item="Group"
@@ -62,10 +64,8 @@ export const Info = ({ plant, group }: Props) => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div>
-          <h2 className="self-center text-2xl font-semibold underline">
-            {plant.name}
-          </h2>
+        <div className="flex flex-col items-center">
+          <h2 className="text-2xl font-semibold underline">{plant.name}</h2>
           <h3>{group?.name}</h3>
         </div>
         <div className="flex flex-col justify-around gap-4">

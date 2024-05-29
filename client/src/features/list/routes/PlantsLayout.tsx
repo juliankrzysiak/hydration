@@ -22,7 +22,7 @@ export default function PlantsLayout({ allPlants, singles, groups }: Props) {
   return (
     <div className="relative">
       {id ? (
-        <Info plant={currentPlant} group={currentGroup} />
+        <Info plant={currentPlant} group={currentGroup} groups={groups} />
       ) : (
         <List singlePlants={sortedPlants} groups={groups} />
       )}

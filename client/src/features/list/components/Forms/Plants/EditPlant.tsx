@@ -1,33 +1,18 @@
-import { useField } from "@/hooks/useField";
-import { useShowFormStore } from "@/stores/showFormStore";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Group, Plant } from "@//types";
+import EditButton from "@/components/Buttons/EditButton";
 import { editPlant } from "@/features/calendar/api";
+import { useShowFormStore } from "@/stores/showFormStore";
 import { notify } from "@/utils";
-import { useNavigate } from "react-router-dom";
-import { Buttons } from "@/components/Buttons";
-import { Group } from "@//types";
-import { FormEvent } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FormEvent, useRef } from "react";
 
 type Props = {
-  id: number;
-  name: string;
-  schedule: number;
-  group_id: number;
+  plant: Plant;
   groups: Group[];
 };
 
-export const EditPlant = ({ id, name, schedule, group_id, groups }: Props) => {
-  const navigate = useNavigate();
-  // const [name] = useField({
-  //   type: "text",
-  //   id: "name",
-  //   defaultValue: props.name,
-  // });
-  // const [schedule] = useField({
-  //   type: "number",
-  //   id: "schedule",
-  //   defaultValue: props.schedule.toString(),
-  // });
+export const EditPlant = ({ plant, groups }: Props) => {
+  const modalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
 
   const editPlantMutation = useMutation({
@@ -47,68 +32,103 @@ export const EditPlant = ({ id, name, schedule, group_id, groups }: Props) => {
     const form = e.currentTarget;
     const name = form.plantName.value;
     const schedule = Number(form.schedule.value);
-    const group_id = Number(form.group.value) ?? null;
+    const group_id = Number(form.groupId.value) || null;
 
     const data = {
-      id,
+      id: plant.id,
       name,
       schedule,
       group_id,
     };
 
     editPlantMutation.mutate(data);
+    modalRef.current?.close();
+  }
+
+  function showModal() {
+    modalRef.current?.showModal();
   }
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={submitForm}>
-      <div className=" flex w-3/4 flex-col">
-        <label htmlFor="plantName">Name *</label>
-        <input
-          className="rounded-md  bg-gray-100 px-2"
-          type="text"
-          name="plantName"
-          defaultValue={name}
-          required
-        />
-      </div>
-      <div className="mb-2 flex w-1/5  flex-col">
-        <label htmlFor="schedule">Schedule</label>
-        <input
-          className="rounded-md  bg-gray-100 px-2"
-          type="number"
-          name="schedule"
-          defaultValue={schedule}
-          list="defaultSchedule"
-          min={0}
-          max={365}
-          required
-        />
-        <datalist id="defaultSchedule">
-          <option value="3" />
-          <option value="7" />
-          <option value="14" />
-          <option value="21" />
-          <option value="30" />
-        </datalist>
-      </div>
-      <label>
-        Group
-        <select
-          className="select w-full max-w-xs"
-          name="group"
-          defaultValue={group_id}
-        >
-          <option>None</option>
-          {groups.map((group) => {
-            return (
-              <option key={group.id} value={group.id}>
-                {group.name}
-              </option>
-            );
-          })}
-        </select>
-      </label>
-      <Buttons cancel={() => useShowFormStore.setState({ editPlant: false })} />
-    </form>
+    <>
+      <EditButton handleClick={showModal} />
+      <dialog ref={modalRef} className="modal">
+        <div className="modal-box">
+          <form
+            method="dialog"
+            className="mb-2 flex items-center justify-between"
+          >
+            <h3 className="text-2xl">Edit Plant</h3>
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </form>
+          <form className="flex flex-col gap-3" onSubmit={submitForm}>
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text">Name</span>
+              </div>
+              <input
+                type="text"
+                name="plantName"
+                className="input-bordered input w-full max-w-xs"
+                defaultValue={plant.name}
+              />
+            </label>
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text">Schedule</span>
+              </div>
+              <input
+                className="input-bordered input w-full max-w-xs"
+                type="number"
+                min="0"
+                max="365"
+                name="schedule"
+                defaultValue={plant.schedule}
+              />
+            </label>
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="label-text">Group</span>
+              </div>
+              <select
+                className="select w-full max-w-xs"
+                name="groupId"
+                defaultValue={plant.group_id}
+              >
+                <option value="null">Add plant to group</option>
+                {groups.map((group) => {
+                  return (
+                    <option key={group.id} value={group.id}>
+                      {group.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
+            <button type="submit" className="btn-primary btn mt-6">
+              Submit
+            </button>
+          </form>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+    </>
   );
 };
