@@ -6,8 +6,9 @@ import { useCalendarDates } from "../../hooks/useCalendarDates";
 import { useDateStore } from "../../stores/dateStore";
 import { Plant } from "../../../../types";
 import { AllPlantButton } from "./AllPlantsButton";
-import { PlantsInfo } from "./PlantsInfo";
+import { PlantsInfo } from "./List";
 import { ShowForm } from "./ShowForm";
+import List from "@/features/list/components/Groups/List";
 
 interface Props {
   plants: Plant[];
@@ -19,7 +20,7 @@ export enum Title {
   empty = "nothing",
 }
 
-export const Info = ({ plants }: Props) => {
+export const Water = ({ plants }: Props) => {
   const queryClient = useQueryClient();
   const [scheduledPlants, wateredPlants, todayOrDate] = useCalendarDates({
     plants,
@@ -84,15 +85,8 @@ export const Info = ({ plants }: Props) => {
           unwaterAll={unwaterAll}
         />
       </div>
-      <div className="flex w-full flex-col gap-1 py-2">
-        <PlantsInfo
-          plants={wateredPlants}
-          handleDate={handleDeleteDate}
-          watered
-        />
-        <PlantsInfo plants={scheduledPlants} handleDate={handleAddDate} />
-      </div>
-
+      <div className="flex w-full flex-col gap-1 py-2"></div>
+      {/* <List /> */}
       <ShowForm plants={plants} />
     </div>
   );

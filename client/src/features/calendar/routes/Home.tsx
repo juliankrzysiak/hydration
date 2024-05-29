@@ -6,10 +6,10 @@ import { getAllPlants } from "../api";
 import Calendar from "../components/Calendar";
 import { Filter } from "../components/Filter";
 import { FilterForm } from "../components/Filter/FilterForm";
-import { Info } from "../components/Info";
 import { useFilterStore } from "../stores/filterStore";
 import { useShowFormStore } from "@/stores/showFormStore";
 import { PlantsRoute } from "../../list/routes/PlantsRoute";
+import { Water } from "../components/Water";
 
 export const Home = () => {
   const { data, isLoading, isError } = useQuery({
@@ -43,7 +43,7 @@ export const Home = () => {
         {showFilterForm ? (
           <FilterForm plants={data} />
         ) : (
-          <Info
+          <Water
             plants={
               filterSelections.length > 0
                 ? data?.filter((plant) => filterSelections.includes(plant.id))
