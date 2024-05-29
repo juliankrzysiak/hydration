@@ -106,6 +106,26 @@ export async function addGroup(payload: addGroupParams) {
   }
 }
 
+export const deletePlant = async (plant_id: number | null) => {
+  try {
+    const body = JSON.stringify({ plant_id });
+    const uid = await getUid();
+
+    const res = await fetch(`${url}/plants`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+      body,
+    });
+
+    return res.json();
+  } catch (error) {
+    catchApiError(error, "Could not delete plant!");
+  }
+};
+
 export async function deleteGroup(id: number) {
   try {
     const uid = await getUid();

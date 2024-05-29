@@ -93,23 +93,3 @@ export const deleteDate = async (payload: PlantDate) => {
     catchApiError(error, "Could not delete date!");
   }
 };
-
-export const deletePlant = async (id: { plant_id: number }) => {
-  try {
-    const body = JSON.stringify(id);
-    const uid = await getUid();
-
-    const res = await fetch(`${url}/plants`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        uid,
-      },
-      body,
-    });
-
-    return res.json();
-  } catch (error) {
-    catchApiError(error, "Could not delete plant!");
-  }
-};
