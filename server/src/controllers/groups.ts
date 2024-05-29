@@ -27,12 +27,11 @@ groupsRouter.post('/', async (req, res) => {
     `;
 
 	const { id } = groups[0];
-	const values = plantsToAdd.join(',');
 
 	await sql`
     UPDATE plants 
     SET group_id = ${id}
-    WHERE id IN (${values}) AND uid = ${uid}
+    WHERE id IN ${sql(plantsToAdd)} AND uid = ${uid}
     `;
 
 	return res.status(200).send();

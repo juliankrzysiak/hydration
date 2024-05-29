@@ -54,20 +54,18 @@ plantsRouter.patch('/group/:id', async (req, res) => {
 	const uid = Z.uid.parse(req.get('uid'));
 
 	if (add.length) {
-		const values = add.join(',');
 		await sql`
         UPDATE plants 
         SET group_id = ${id}
-        WHERE id IN (${values}) AND uid = ${uid}
+        WHERE id IN ${sql(add)} AND uid = ${uid}
         `;
 	}
 
 	if (remove.length) {
-		const values = remove.join(',');
 		await sql`
         UPDATE plants 
         SET group_id = null
-        WHERE id IN (${values}) AND uid = ${uid}
+        WHERE id IN ${sql(remove)} AND uid = ${uid}
         `;
 	}
 
