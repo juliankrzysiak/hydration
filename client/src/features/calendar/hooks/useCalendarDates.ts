@@ -1,10 +1,10 @@
 import { useDateStore } from "../stores/dateStore";
-import { Plant } from "../../../types";
+import { Plant } from "@/types";
 import dayjs from "dayjs";
 
 type Tuple = [Plant[], Plant[], string];
 
-export const useCalendarDates = ({ plants }: { plants: Plant[] }) => {
+export const usePlantsForToday = (plants: Plant[]) => {
   const date = useDateStore((state) => state.date);
 
   const getScheduled = () =>

@@ -2,7 +2,7 @@ import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { addDate, deleteDate } from "../../api";
-import { useCalendarDates } from "../../hooks/useCalendarDates";
+import { usePlantsForToday } from "../../hooks/useCalendarDates";
 import { useDateStore } from "../../stores/dateStore";
 import { Plant } from "../../../../types";
 import { AllPlantButton } from "./AllPlantsButton";
@@ -22,9 +22,8 @@ export enum Title {
 
 export const Water = ({ plants }: Props) => {
   const queryClient = useQueryClient();
-  const [scheduledPlants, wateredPlants, todayOrDate] = useCalendarDates({
-    plants,
-  });
+  const [scheduledPlants, wateredPlants, todayOrDate] =
+    usePlantsForToday(plants);
   const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
 
   const addDateMutation = useMutation({
