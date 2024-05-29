@@ -6,7 +6,7 @@ type Tuple = [Plant[], Plant[], string];
 
 export const usePlantsForToday = (plants: Plant[]) => {
   const date = useDateStore((state) => state.date);
-
+  console.log(plants);
   const getScheduled = () =>
     plants.filter((plant) =>
       dayjs(plant.next_water).isSame(dayjs(date), "day")
