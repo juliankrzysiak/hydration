@@ -1,5 +1,5 @@
 import { Plant } from "@/types";
-import { useCalendarDates } from "./useCalendarDates";
+import { usePlantsForToday } from "./usePlantsForToday";
 import { sortAsc } from "@/utils";
 
 interface Args {
@@ -20,7 +20,7 @@ const filterWithQuery = (plants: Plant[], query: string) => {
 };
 
 export const useQueryFilter = ({ plants, query, type }: Args) => {
-  const [, addedPlants] = useCalendarDates({ plants });
+  const [, addedPlants] = usePlantsForToday(plants);
 
   const notAddedPlants = plants.filter((plant) => !addedPlants.includes(plant));
 
