@@ -1,14 +1,12 @@
 import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { addDate, deleteDate } from "../../api";
-import { usePlantsForToday } from "../../hooks/useCalendarDates";
-import { useDateStore } from "../../stores/dateStore";
 import { Plant } from "../../../../types";
+import { addDate, deleteDate } from "../../api";
+import { usePlantsForToday } from "../../hooks/usePlantsForToday";
+import { useDateStore } from "../../stores/dateStore";
 import { AllPlantButton } from "./AllPlantsButton";
-import { PlantsInfo } from "./List";
 import { ShowForm } from "./ShowForm";
-import List from "@/features/list/components/Groups/List";
 
 interface Props {
   plants: Plant[];
@@ -21,6 +19,7 @@ export enum Title {
 }
 
 export const Water = ({ plants }: Props) => {
+  console.log(plants);
   const queryClient = useQueryClient();
   const [scheduledPlants, wateredPlants, todayOrDate] =
     usePlantsForToday(plants);
@@ -84,8 +83,36 @@ export const Water = ({ plants }: Props) => {
           unwaterAll={unwaterAll}
         />
       </div>
-      <div className="flex w-full flex-col gap-1 py-2"></div>
-      {/* <List /> */}
+      <div className="flex w-full flex-col ">
+        <ul className="flex flex-col gap-1 pl-2">
+          {scheduledPlants.map((plant) => {
+            return (
+              <li key={plant.id}>
+                <button
+                  className={"text-xl font-medium"}
+                  onClick={() => handleAddDate([plant])}
+                >
+                  {plant.name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <ul className="flex flex-col gap-1 pl-2">
+          {wateredPlants.map((plant) => {
+            return (
+              <li key={plant.id}>
+                <button
+                  className={"text-xl font-medium line-through"}
+                  onClick={() => handleDeleteDate([plant])}
+                >
+                  {plant.name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       <ShowForm plants={plants} />
     </div>
   );
