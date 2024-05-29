@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plant } from "../../../../../types";
+import { Plant } from "@/types";
 import { Buttons } from "@/components/Buttons";
 import { ComboBox } from "../ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
