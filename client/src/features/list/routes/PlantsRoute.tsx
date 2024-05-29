@@ -1,30 +1,17 @@
 import { Loader } from "@/components/Loader";
+import { useSeparatePlants } from "@/hooks";
 import { ErrorPage } from "@/routes/ErrorPage";
 import * as Tab from "@radix-ui/react-tabs";
-import { useQuery } from "@tanstack/react-query";
-import { getAllGroups, getAllPlants } from "../../calendar/api";
 import { SinglePlantsContext } from "../context";
 import GroupsLayout from "./GroupsLayout";
 import PlantsLayout from "./PlantsLayout";
-import { useSeparatePlants } from "@/hooks";
 
 export const PlantsRoute = () => {
-  const allPlants = useQuery({
-    queryKey: ["plants"],
-    queryFn: getAllPlants,
-  });
-  const groups = useQuery({
-    queryKey: ["groups"],
-    queryFn: getAllGroups,
-  });
+  const { loading, error, allPlants, groupedPlants, singlePlants } =
+    useSeparatePlants();
 
-  const [groupedPlants, singlePlants] = useSeparatePlants(
-    allPlants.data,
-    groups.data
-  );
-
-  if (allPlants.isLoading || groups.isLoading) return <Loader />;
-  if (allPlants.isError || groups.isError) return <ErrorPage />;
+  if (loading) return <Loader />;
+  if (error) return <ErrorPage />;
 
   return (
     <SinglePlantsContext.Provider value={singlePlants}>
@@ -51,7 +38,7 @@ export const PlantsRoute = () => {
           className="w-full rounded-b-md bg-gray-900/20 p-4"
         >
           <PlantsLayout
-            allPlants={allPlants.data}
+            allPlants={allPlants}
             singles={singlePlants}
             groups={groupedPlants}
           />
