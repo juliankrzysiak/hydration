@@ -31,8 +31,8 @@ export default function Info({ group }: Props) {
     },
   });
 
-  function submitForm(e: SubmitEvent) {
-    e.preventDefault();
+  function submitForm() {
+    if (!group) return;
     deleteGroupMutation.mutate(group.id);
     useIdStore.setState({ groupId: null });
   }
