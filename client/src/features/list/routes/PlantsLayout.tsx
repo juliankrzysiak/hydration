@@ -3,6 +3,7 @@ import { useIdStore } from "../stores/idStore";
 import { sortAsc } from "@/utils";
 import { Info } from "../components/Plants/Info";
 import { List } from "../components/Plants/List";
+import { AddPlant } from "../components/Forms/Plants/AddPlant";
 
 type Props = {
   allPlants: Plant[];
@@ -20,11 +21,14 @@ export default function PlantsLayout({ allPlants, singles, groups }: Props) {
   const sortedPlants = sortAsc(singles);
 
   return (
-    <div className="relative">
+    <div className="h-full">
       {id ? (
         <Info plant={currentPlant} group={currentGroup} groups={groups} />
       ) : (
-        <List singlePlants={sortedPlants} groups={groups} />
+        <div className="flex h-full flex-col justify-between">
+          <List singlePlants={sortedPlants} groups={groups} />
+          <AddPlant groups={groups} />
+        </div>
       )}
     </div>
   );
