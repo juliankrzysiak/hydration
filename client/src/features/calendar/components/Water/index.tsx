@@ -75,7 +75,7 @@ export const Water = ({ plants }: Props) => {
     <div className="flex h-full w-full flex-col items-center rounded-md bg-slate-300 p-4 text-gray-950 shadow-md">
       <div className="mb-2 flex w-full items-center justify-between">
         {/* <h3 className=" text-3xl">Status: {title}</h3> */}
-        <h2 className="text-2xl text-gray-900">{formattedDate}</h2>
+        <button className="text-2xl text-gray-900">{formattedDate}</button>
         <div className="flex">
           <AddHistory plants={leftOverPlants} />
           <AllPlantButton
