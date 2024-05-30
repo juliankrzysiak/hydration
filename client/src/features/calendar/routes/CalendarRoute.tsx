@@ -10,9 +10,8 @@ import { FilterForm } from "../components/Filter/FilterForm";
 import { Water } from "../components/Water";
 import { useFilterStore } from "../stores/filterStore";
 
-export const Home = () => {
-  const { loading, error, allPlants, groupedPlants, singlePlants } =
-    useSeparatePlants();
+export const CalendarRoute = () => {
+  const { loading, error, allPlants } = useSeparatePlants();
 
   const filterSelections = useFilterStore((state) =>
     state.plants.map((plant) => plant.id)
@@ -24,7 +23,6 @@ export const Home = () => {
 
   if (loading) return <Loader />;
   if (error) return <ErrorPage />;
-
 
   return (
     <section className="flex h-full grow flex-col items-center gap-4 xl:flex-row xl:items-start xl:justify-evenly">

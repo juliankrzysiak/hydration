@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Home } from "@/features/calendar/routes/Home";
+import { CalendarRoute } from "@/features/calendar/routes/CalendarRoute";
 import { ErrorPage } from "@/routes/ErrorPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     path: "/calendar",
     element: (
       <Layout>
-        <Home />
+        <CalendarRoute />
       </Layout>
     ),
     loader: checkSession,
