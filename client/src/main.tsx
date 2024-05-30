@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     loader: () => redirect("/account/login"),
   },
   {
-    path: "/home",
+    path: "/calendar",
     element: (
       <Layout>
         <Home />
