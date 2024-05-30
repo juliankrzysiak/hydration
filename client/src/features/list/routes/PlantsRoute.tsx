@@ -17,7 +17,7 @@ export const PlantsRoute = () => {
     <SinglePlantsContext.Provider value={singlePlants}>
       <Tabs.Root
         defaultValue="tab1"
-        className="flex h-full w-full max-w-sm flex-col"
+        className="flex h-full w-full max-w-xl flex-col"
       >
         <Tabs.List
           aria-label="Pick to see plants or groups"

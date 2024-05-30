@@ -1,6 +1,5 @@
 import { Loader } from "@/components/Loader";
 import { useSeparatePlants } from "@/hooks";
-import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 import { ErrorPage } from "@/routes/ErrorPage";
 import { useShowFormStore } from "@/stores/showFormStore";
 import { PlantsRoute } from "../../list/routes/PlantsRoute";
@@ -19,22 +18,22 @@ export const CalendarRoute = () => {
 
   const showFilterForm = useShowFormStore((state) => state.filterPlant);
 
-  const [width] = useDesktopWidth();
-
   if (loading) return <Loader />;
   if (error) return <ErrorPage />;
 
   return (
-    <section className="flex h-full grow flex-col items-center gap-4 xl:flex-row xl:items-start xl:justify-evenly">
-      <Calendar
-        plants={
-          filterSelections.length > 0
-            ? allPlants.filter((plant) => filterSelections.includes(plant.id))
-            : allPlants
-        }
-      />
+    <div className="flex h-full max-w-xl grow flex-col items-start justify-evenly gap-4 lg:max-w-none lg:flex-row">
+      <div className="flex-1">
+        <Calendar
+          plants={
+            filterSelections.length > 0
+              ? allPlants.filter((plant) => filterSelections.includes(plant.id))
+              : allPlants
+          }
+        />
+      </div>
 
-      <div className="relative flex h-full w-full max-w-md flex-col gap-4 ">
+      <div className="relative flex h-full w-full flex-col  gap-4 lg:flex-1">
         <Filter />
         {/* todo move this inside Info */}
         {showFilterForm ? (
@@ -51,8 +50,9 @@ export const CalendarRoute = () => {
           />
         )}
       </div>
-      {/* Fix using media query */}
-      {width && <PlantsRoute />}
-    </section>
+      <div className="hidden h-full w-full flex-1  lg:block">
+        <PlantsRoute />
+      </div>
+    </div>
   );
 };

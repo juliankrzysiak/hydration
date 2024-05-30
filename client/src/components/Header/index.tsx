@@ -20,7 +20,7 @@ export const Header = () => {
               key={route}
               to={`/${route}`}
               className={`text-xl font-medium ${
-                route === "plants" && "md:hidden"
+                route === "plants" && "lg:hidden"
               } ${
                 location.pathname === `/${route}` &&
                 "underline underline-offset-4"
