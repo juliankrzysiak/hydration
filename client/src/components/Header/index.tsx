@@ -1,10 +1,9 @@
-import { useDesktopWidth } from "@/hooks/useDesktopWidth";
 import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
   const location = useLocation();
-  const [width] = useDesktopWidth();
   const routes = ["calendar", "plants", "user"];
+
   return (
     <header className="flex min-w-full items-center justify-between rounded-b-lg bg-teal-50 p-3 shadow-md">
       <Link
@@ -19,7 +18,9 @@ export const Header = () => {
           return (
             <Link
               to={`/${route}`}
-              className={`text-xl font-medium xl:text-2xl ${
+              className={`text-xl font-medium ${
+                route === "plants" && "hidden md:block"
+              } ${
                 location.pathname === `/${route}` &&
                 "underline underline-offset-4"
               }`}
