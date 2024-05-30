@@ -6,7 +6,7 @@ export const Header = () => {
   const [width] = useDesktopWidth();
   const routes = ["calendar", "plants", "user"];
   return (
-    <header className="flex min-w-full items-center justify-between border-b border-gray-700 bg-gray-900/20 p-3 text-gray-900 shadow-sm">
+    <header className="flex min-w-full items-center justify-between rounded-b-lg bg-teal-50 p-3 shadow-md">
       <Link
         className="pl-2 text-2xl font-medium xl:text-3xl"
         to="/home"
@@ -20,7 +20,8 @@ export const Header = () => {
             <Link
               to={`/${route}`}
               className={`text-xl font-medium xl:text-2xl ${
-                location.pathname !== `/${route}` && "text-gray-900/70"
+                location.pathname === `/${route}` &&
+                "underline underline-offset-4"
               }`}
             >
               {route}
