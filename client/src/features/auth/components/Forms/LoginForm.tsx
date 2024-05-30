@@ -26,7 +26,7 @@ export const LoginForm = () => {
     if (data.session) {
       setEmail("");
       setPassword("");
-      navigate("/home");
+      navigate("/calendar");
     }
   };
 
