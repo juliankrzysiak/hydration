@@ -17,6 +17,7 @@ export const Header = () => {
         {routes.map((route) => {
           return (
             <Link
+              key={route}
               to={`/${route}`}
               className={`text-xl font-medium ${
                 route === "plants" && "hidden md:block"
