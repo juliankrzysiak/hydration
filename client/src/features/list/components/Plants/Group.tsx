@@ -8,9 +8,9 @@ type Props = {
 
 export default function Group({ name, plants }: Props) {
   return (
-    <div className="collapse-arrow collapse">
-      <input type="checkbox" />
-      <div className="collapse-title px-0 ">{name}</div>
+    <div className="collapse">
+      <input type="checkbox" className="min-h-0" />
+      <div className="collapse-title min-h-0 px-0 py-0 text-xl">{name}</div>
       <ul className="collapse-content flex flex-col">
         {plants.map((plant) => {
           const watered = plant.watered.slice(-1).at(0);
