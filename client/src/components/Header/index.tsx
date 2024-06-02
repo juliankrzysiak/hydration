@@ -8,7 +8,7 @@ export const Header = () => {
     <header className="flex min-w-full items-center justify-between rounded-b-lg bg-teal-50 p-3 shadow-md">
       <Link
         className="pl-2 text-2xl font-medium xl:text-3xl"
-        to="/home"
+        to="/"
         aria-label="Navigate to home"
       >
         Hydration
