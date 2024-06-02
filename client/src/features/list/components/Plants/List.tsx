@@ -14,11 +14,16 @@ export const List = ({ singlePlants, groups }: Props) => {
   if (showCreateForm) return <AddPlant groups={groups} />;
 
   return (
-    <div className="flex w-full flex-col gap-4 overflow-auto">
+    <div className="flex w-full flex-col gap-2 overflow-auto">
       <ul className="flex flex-col">
         {groups.map((group) => {
           return (
-            <Group key={group.id} name={group.name} plants={group.plants} />
+            <Group
+              key={group.id}
+              id={group.id}
+              name={group.name}
+              plants={group.plants}
+            />
           );
         })}
       </ul>
