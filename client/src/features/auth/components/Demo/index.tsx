@@ -7,6 +7,7 @@ export const Demo = () => {
 
   const createGuest = async () => {
     const randomValues = crypto.getRandomValues(new Int8Array(8)).join("");
+    //  !: Supabase should have a guest option now
     const {
       data: { user },
       error,
@@ -16,7 +17,7 @@ export const Demo = () => {
     });
     if (user) sessionStorage.setItem("uid", user.id);
     if (error) notify("error", error.message);
-    navigate("/home");
+    navigate("/calendar");
   };
   return (
     <button
