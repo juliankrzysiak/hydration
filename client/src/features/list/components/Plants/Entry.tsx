@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { useIdStore } from "../../stores/idStore";
 
 interface Props {
@@ -7,7 +6,7 @@ interface Props {
   watered: Date | undefined;
 }
 
-export const Entry = ({ name, id, watered }: Props) => {
+export const Entry = ({ name, id }: Props) => {
   return (
     <li className="flex h-fit justify-between gap-2">
       <button
