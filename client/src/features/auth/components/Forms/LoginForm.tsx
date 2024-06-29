@@ -1,10 +1,9 @@
-import { Title } from "./Common/Title";
-import { Link, useNavigate } from "react-router-dom";
-import React from "react";
-import { supabase } from "../../lib/auth";
 import { useField } from "@/hooks/useField";
-import { Demo } from "../Demo";
 import { notify } from "@/utils";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/auth";
+import { Title } from "./Common/Title";
 
 export const LoginForm = () => {
   const [{ ...email }, setEmail] = useField({ type: "text", id: "email" });
