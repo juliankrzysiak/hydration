@@ -7,12 +7,12 @@ interface Props {
 
 export const Layout = ({ children }: Props) => {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex h-full justify-center p-4 text-gray-950">
+      <main className="flex flex-auto flex-col items-center bg-blue-200 p-4">
         {children}
         <Notification />
       </main>
-    </>
+    </div>
   );
 };

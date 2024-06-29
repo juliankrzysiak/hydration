@@ -3,7 +3,7 @@ import { Tabs } from "../components/Tabs";
 import { useQuery } from "@tanstack/react-query";
 import { getName } from "../api/supabase";
 import { AuthError } from "@supabase/supabase-js";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../api";
@@ -36,10 +36,7 @@ export const User = () => {
         <img className="w-12" src={person} alt="Person" />
         <p className="text-lg">{name ?? "Jane"}</p>
       </div>
-      <button
-        className="mb-10 rounded-md border-2 border-gray-900 bg-red-200 px-2 py-1 font-semibold"
-        onClick={signOut}
-      >
+      <button className="btn-error btn" onClick={signOut}>
         Sign Out
       </button>
       <Tabs />

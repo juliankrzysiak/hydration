@@ -1,13 +1,12 @@
-import { notify } from "@/utils/notify";
+import { Plant } from "@/types";
+import { notify } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { addDate, deleteDate } from "../../api";
-import { useCalendarDates } from "../../hooks/useCalendarDates";
+import { usePlantsForToday } from "../../hooks/usePlantsForToday";
 import { useDateStore } from "../../stores/dateStore";
-import { Plant } from "../../types";
+import { AddHistory } from "../Forms/History/AddHistory";
 import { AllPlantButton } from "./AllPlantsButton";
-import { PlantsInfo } from "./PlantsInfo";
-import { ShowForm } from "./ShowForm";
 
 interface Props {
   plants: Plant[];
@@ -19,11 +18,10 @@ export enum Title {
   empty = "nothing",
 }
 
-export const Info = ({ plants }: Props) => {
+export const Water = ({ plants }: Props) => {
   const queryClient = useQueryClient();
-  const [scheduledPlants, wateredPlants, todayOrDate] = useCalendarDates({
-    plants,
-  });
+  const { scheduledPlants, wateredPlants, leftOverPlants, formattedDate } =
+    usePlantsForToday(plants);
   const date = useDateStore((state) => dayjs(state.date).format("YYYY-MM-DD"));
 
   const addDateMutation = useMutation({
@@ -74,26 +72,49 @@ export const Info = ({ plants }: Props) => {
 
   // TODO: Change backend to accept array of plants on one date
   return (
-    <div className="flex h-full w-full flex-col items-center rounded-md bg-slate-300 p-4 text-gray-950 shadow-md">
-      <div className=" flex w-full items-center justify-between">
+    <div className="flex h-full w-full flex-col items-center rounded-md bg-blue-100 p-4 text-gray-950 shadow-md">
+      <div className="mb-2 flex w-full items-center justify-between">
         {/* <h3 className=" text-3xl">Status: {title}</h3> */}
-        <h2 className="text-2xl text-gray-900">{todayOrDate}</h2>
-        <AllPlantButton
-          title={title}
-          waterAll={waterAll}
-          unwaterAll={unwaterAll}
-        />
+        <button className="text-2xl text-gray-900">{formattedDate}</button>
+        <div className="flex">
+          <AddHistory plants={leftOverPlants} />
+          <AllPlantButton
+            title={title}
+            waterAll={waterAll}
+            unwaterAll={unwaterAll}
+          />
+        </div>
       </div>
-      <div className="flex w-full flex-col gap-1 py-2">
-        <PlantsInfo
-          plants={wateredPlants}
-          handleDate={handleDeleteDate}
-          watered
-        />
-        <PlantsInfo plants={scheduledPlants} handleDate={handleAddDate} />
+      <div className="flex w-full flex-col ">
+        <ul className="flex flex-col gap-1 pl-2">
+          {scheduledPlants.map((plant) => {
+            return (
+              <li key={plant.id}>
+                <button
+                  className={"text-xl font-medium"}
+                  onClick={() => handleAddDate([plant])}
+                >
+                  {plant.name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <ul className="flex flex-col gap-1 pl-2">
+          {wateredPlants.map((plant) => {
+            return (
+              <li key={plant.id}>
+                <button
+                  className={"text-xl font-medium line-through"}
+                  onClick={() => handleDeleteDate([plant])}
+                >
+                  {plant.name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-
-      <ShowForm plants={plants} />
     </div>
   );
 };

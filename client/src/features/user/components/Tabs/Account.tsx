@@ -1,7 +1,7 @@
 import { useField } from "@/hooks/useField";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { changeEmail, changeName } from "../../api/supabase";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { AuthError } from "@supabase/supabase-js";
 
 export const Account = () => {
@@ -48,9 +48,7 @@ export const Account = () => {
         <label htmlFor="email">Email</label>
         <input className="w-full rounded-md bg-gray-100 px-2" {...email} />
       </fieldset>
-      <button className="self-end rounded-md border-2 border-gray-800 px-2 py-2 font-semibold">
-        Save Changes
-      </button>
+      <button className="btn-primary btn self-end">Save Changes</button>
     </form>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plant } from "../../../types";
+import { Plant } from "@/types";
 import { Buttons } from "@/components/Buttons";
 import { ComboBox } from "../ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -7,7 +7,7 @@ import { deleteDate } from "../../../api";
 import { useDateStore } from "../../../stores/dateStore";
 import dayjs from "dayjs";
 import { useQueryFilter } from "../../../hooks/useQueryFilter";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 
 interface Props {
   plants: Plant[];

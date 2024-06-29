@@ -4,7 +4,7 @@ import { changePassword } from "../../api/supabase";
 import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { AuthError } from "@supabase/supabase-js";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 
 export const Password = () => {
   const navigate = useNavigate();
@@ -46,20 +46,23 @@ export const Password = () => {
         <p>Change your password here.</p>
         <p>You will be logged out.</p>
       </div>
-      <fieldset className=" flex flex-col">
-        <label htmlFor="pwd">Password</label>
-        <input className="w-full rounded-md bg-gray-100 px-2" {...password} />
-      </fieldset>
-      <fieldset className="mb-2 flex flex-col">
-        <label htmlFor="cpwd">Confirm Password</label>
+      <label>
+        Password
+        <input
+          className="w-full rounded-md bg-gray-100 px-2"
+          autoComplete="new-password"
+          {...password}
+        />
+      </label>
+      <label htmlFor="cpwd">
+        Confirm Password
         <input
           className="w-full  rounded-md bg-gray-100 px-2"
+          autoComplete="new-password"
           {...confirmPassword}
         />
-      </fieldset>
-      <button className="self-end rounded border-2 border-gray-800 px-2 py-2 font-semibold">
-        Change Password
-      </button>
+      </label>
+      <button className="btn-primary btn self-end">Change Password</button>
     </form>
   );
 };

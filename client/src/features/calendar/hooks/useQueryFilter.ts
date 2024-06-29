@@ -1,6 +1,6 @@
-import { Plant } from "../types";
-import { useCalendarDates } from "./useCalendarDates";
-import { sortAsc } from "@/utils/sortAsc";
+import { Plant } from "@/types";
+import { usePlantsForToday } from "./usePlantsForToday";
+import { sortAsc } from "@/utils";
 
 interface Args {
   plants: Plant[];
@@ -20,9 +20,11 @@ const filterWithQuery = (plants: Plant[], query: string) => {
 };
 
 export const useQueryFilter = ({ plants, query, type }: Args) => {
-  const [, addedPlants] = useCalendarDates({ plants });
+  const { wateredPlants } = usePlantsForToday(plants);
 
-  const notAddedPlants = plants.filter((plant) => !addedPlants.includes(plant));
+  const notAddedPlants = plants.filter(
+    (plant) => !wateredPlants.includes(plant)
+  );
 
   // Plants that are already listed are not allowed to be ADDED again
   if (type === "ADD") {
@@ -30,7 +32,7 @@ export const useQueryFilter = ({ plants, query, type }: Args) => {
   }
   // Plants that are already listed are the only ones that can be Deleted
   if (type === "DELETE") {
-    return filterWithQuery(sortAsc(addedPlants), query);
+    return filterWithQuery(sortAsc(wateredPlants), query);
   }
 
   return plants;

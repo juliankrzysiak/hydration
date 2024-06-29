@@ -6,7 +6,7 @@ import Z from '../schema/plants';
 plantsRouter.get('/', async (req, res) => {
 	const uid = Z.uid.parse(req.get('uid'));
 	const plants = await sql`
-    SELECT plants.id, name, schedule, array_agg(water.date ORDER BY water.date ASC) as watered,
+    SELECT plants.id, name, schedule, group_id, array_agg(water.date ORDER BY water.date ASC) as watered,
     MAX(water.date) + schedule as next_water
         FROM plants
         LEFT JOIN water
@@ -19,14 +19,14 @@ plantsRouter.get('/', async (req, res) => {
 
 // Create new plant
 plantsRouter.post('/', async (req, res) => {
-	const { name, schedule } = Z.newPlant.parse(req.body);
+	const { name, schedule, group_id } = Z.newPlant.parse(req.body);
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plants = await sql`
     INSERT INTO plants 
-        (name, schedule, uid) 
+        (name, schedule, group_id, uid) 
     VALUES 
-        (${name}, ${schedule}, ${uid})
+        (${name}, ${schedule}, ${group_id}, ${uid})
     RETURNING name, schedule
     `;
 	return res.status(201).json(plants);
@@ -34,17 +34,42 @@ plantsRouter.post('/', async (req, res) => {
 
 //Edit one plant
 plantsRouter.patch('/:id', async (req, res) => {
-	const { name, schedule } = Z.newPlant.parse(req.body);
+	const { name, schedule, group_id } = Z.newPlant.parse(req.body);
 	const { id } = req.params;
 	const uid = Z.uid.parse(req.get('uid'));
 
 	const plant = await sql`
     UPDATE plants 
-    SET name = ${name}, schedule = ${schedule}
+    SET name = ${name}, schedule = ${schedule}, group_id = ${group_id}
     WHERE uid = ${uid} AND id = ${id}
     RETURNING name, schedule
     `;
 	return res.status(201).json(plant);
+});
+
+// edit many plants to match group_id
+plantsRouter.patch('/group/:id', async (req, res) => {
+	const { add, remove } = Z.arrDifferences.parse(req.body);
+	const { id } = req.params;
+	const uid = Z.uid.parse(req.get('uid'));
+
+	if (add.length) {
+		await sql`
+        UPDATE plants 
+        SET group_id = ${id}
+        WHERE id IN ${sql(add)} AND uid = ${uid}
+        `;
+	}
+
+	if (remove.length) {
+		await sql`
+        UPDATE plants 
+        SET group_id = null
+        WHERE id IN ${sql(remove)} AND uid = ${uid}
+        `;
+	}
+
+	return res.status(201).send();
 });
 
 // Post single date

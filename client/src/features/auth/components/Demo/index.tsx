@@ -1,4 +1,4 @@
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { supabase } from "../../lib/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +7,7 @@ export const Demo = () => {
 
   const createGuest = async () => {
     const randomValues = crypto.getRandomValues(new Int8Array(8)).join("");
+    //  !: Supabase should have a guest option now
     const {
       data: { user },
       error,
@@ -16,16 +17,16 @@ export const Demo = () => {
     });
     if (user) sessionStorage.setItem("uid", user.id);
     if (error) notify("error", error.message);
-    navigate("/home");
+    navigate("/calendar");
   };
   return (
     <button
-      className="absolute -bottom-36 left-1/2 -translate-x-1/2 rounded-xl border border-gray-900 bg-gray-600 px-3 py-1 text-xl text-gray-200"
+      className="btn bg-blue-400"
       type="button"
       aria-label="Create guest account"
       onClick={createGuest}
     >
-      Demo
+      Try it out
     </button>
   );
 };

@@ -1,38 +1,38 @@
-import { useDesktopWidth } from "@/hooks/useDesktopWidth";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 
 export const Header = () => {
+  const isAuthenticated = useLoaderData() as boolean;
   const location = useLocation();
-  const [width] = useDesktopWidth();
+  const routes = ["calendar", "plants", "user"];
+  console.log(isAuthenticated);
+
   return (
-    <header className="flex min-w-full items-center justify-between border-b border-gray-700 bg-gray-900/20 p-3 text-gray-900 shadow-sm">
+    <header className="flex min-w-full items-center justify-between bg-blue-100 p-3 ">
       <Link
         className="pl-2 text-2xl font-medium xl:text-3xl"
-        to="/home"
+        to="/"
         aria-label="Navigate to home"
       >
         Hydration
       </Link>
-      <nav className="flex gap-4 px-2">
-        {!width && (
-          <Link
-            to="/plants"
-            className={`text-xl font-medium xl:text-2xl ${
-              location.pathname !== "/plants" && "text-gray-900/70"
-            }`}
-          >
-            Plants
-          </Link>
-        )}
-        <Link
-          to="/user"
-          className={`text-xl font-medium xl:text-2xl  ${
-            location.pathname !== "/user" && "text-gray-900/70"
-          }`}
-        >
-          User
-        </Link>
-      </nav>
+      {(!location.pathname.includes("account") || isAuthenticated) && (
+        <nav className="flex gap-4 px-2 text-slate-700">
+          {routes.map((route) => {
+            return (
+              <Link
+                key={route}
+                to={`/${route}`}
+                className={`text-lg ${route === "plants" && "lg:hidden"} ${
+                  location.pathname === `/${route}` &&
+                  "underline decoration-blue-300 underline-offset-8"
+                }`}
+              >
+                {route}
+              </Link>
+            );
+          })}
+        </nav>
+      )}
     </header>
   );
 };

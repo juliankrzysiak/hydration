@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createNewPassword } from "../../api";
 import { useField } from "@/hooks/useField";
 import { Title } from "./Common/Title";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { useNavigate } from "react-router-dom";
 import { AuthError } from "@supabase/supabase-js";
 
@@ -55,9 +55,7 @@ export const NewPasswordForm = () => {
           {...confirmPassword}
         />
       </div>
-      <button className="mb-8 w-full rounded-md bg-blue-400 py-1 font-bold text-gray-50">
-        Change Password
-      </button>
+      <button className="btn-primary btn">Change Password</button>
     </form>
   );
 };

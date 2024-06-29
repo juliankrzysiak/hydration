@@ -1,10 +1,9 @@
-import { Title } from "./Common/Title";
-import { Link, useNavigate } from "react-router-dom";
-import React from "react";
-import { supabase } from "../../lib/auth";
 import { useField } from "@/hooks/useField";
-import { Demo } from "../Demo";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/auth";
+import { Title } from "./Common/Title";
 
 export const LoginForm = () => {
   const [{ ...email }, setEmail] = useField({ type: "text", id: "email" });
@@ -26,7 +25,7 @@ export const LoginForm = () => {
     if (data.session) {
       setEmail("");
       setPassword("");
-      navigate("/home");
+      navigate("/calendar");
     }
   };
 
@@ -54,17 +53,13 @@ export const LoginForm = () => {
           {...password}
         />
       </div>
-      <button
-        className="mb-8 w-full rounded-md bg-blue-600 py-1 font-bold text-gray-50"
-        type="submit"
-      >
+      <button className="btn-primary btn mb-8" type="submit">
         Sign in
       </button>
       <div className="flex flex-col items-center gap-1 font-light underline">
         <Link to="/account/password">Forgot your password?</Link>
         <Link to="/account/register">Don't have an account? Sign up</Link>
       </div>
-      <Demo />
     </form>
   );
 };

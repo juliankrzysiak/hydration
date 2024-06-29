@@ -2,7 +2,7 @@ import { useField } from "@/hooks/useField";
 import { Title } from "./Common/Title";
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "../../lib/auth";
-import { notify } from "@/utils/notify";
+import { notify } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 export const PasswordForm = () => {
@@ -37,9 +37,7 @@ export const PasswordForm = () => {
         />
       </div>
 
-      <button className="mb-8 w-full rounded-md bg-blue-400 py-1 font-bold text-gray-50">
-        Recover Password
-      </button>
+      <button className="btn-primary btn">Recover Password</button>
     </form>
   );
 };

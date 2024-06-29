@@ -1,5 +1,5 @@
 import filter from "../../assets/filter.svg";
-import { useShowFormStore } from "../../stores/showFormStore";
+import { useShowFormStore } from "@/stores/showFormStore";
 
 export const FilterButton = () => {
   return (
