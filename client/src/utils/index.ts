@@ -17,9 +17,15 @@ export const checkSession = async () => {
     data: { session },
   } = await supabase.auth.getSession();
   const uid = sessionStorage.getItem("uid");
-  if (!session && !uid) return redirect("/account/login");
-  return null;
+  if (!session && !uid) return false;
+  else return true;
 };
+
+export async function redirectGuest() {
+  const isUser = await checkSession();
+  if (!isUser) return redirect("/account/login");
+  else return null;
+}
 
 export function mapId(items: Plant[] | Group[]) {
   return items.map((e) => e.id);

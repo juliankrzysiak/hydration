@@ -13,7 +13,7 @@ import { Login } from "@/features/auth/routes/Login";
 import { LoginForm } from "@/features/auth/components/Forms/LoginForm";
 import { RegisterForm } from "@/features/auth/components/Forms/RegisterForm";
 import { User } from "./features/user/routes/User";
-import { checkSession } from "@/utils";
+import { checkSession, redirectGuest } from "@/utils";
 import { PasswordForm } from "@/features/auth/components/Forms/PasswordForm";
 import { NewPasswordForm } from "@/features/auth/components/Forms/NewPasswordForm";
 import { PlantsRoute } from "@/features/list/routes/PlantsRoute";
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         <CalendarRoute />
       </Layout>
     ),
-    loader: checkSession,
+    loader: redirectGuest,
     errorElement: <ErrorPage />,
   },
   {
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         <PlantsRoute />
       </Layout>
     ),
-    loader: checkSession,
+    loader: redirectGuest,
     errorElement: <ErrorPage />,
   },
 
@@ -54,6 +54,7 @@ const router = createBrowserRouter([
         <Login />
       </Layout>
     ),
+    loader: checkSession,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -81,7 +82,7 @@ const router = createBrowserRouter([
         <User />
       </Layout>
     ),
-    loader: checkSession,
+    loader: redirectGuest,
     errorElement: <ErrorPage />,
   },
 ]);
