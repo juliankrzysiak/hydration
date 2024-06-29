@@ -20,12 +20,12 @@ export const Demo = () => {
   };
   return (
     <button
-      className="absolute -bottom-36 left-1/2 -translate-x-1/2 rounded-xl border border-gray-900 bg-gray-600 px-3 py-1 text-xl text-gray-200"
+      className="btn bg-blue-400"
       type="button"
       aria-label="Create guest account"
       onClick={createGuest}
     >
-      Demo
+      Try it out
     </button>
   );
 };

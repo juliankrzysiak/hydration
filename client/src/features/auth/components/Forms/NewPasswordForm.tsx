@@ -55,9 +55,7 @@ export const NewPasswordForm = () => {
           {...confirmPassword}
         />
       </div>
-      <button className="mb-8 w-full rounded-md bg-blue-400 py-1 font-bold text-gray-50">
-        Change Password
-      </button>
+      <button className="btn-primary btn">Change Password</button>
     </form>
   );
 };

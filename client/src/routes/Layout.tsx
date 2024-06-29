@@ -9,7 +9,7 @@ export const Layout = ({ children }: Props) => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex flex-auto justify-center bg-blue-200 p-4">
+      <main className="flex flex-auto flex-col justify-center bg-blue-200 p-4">
         {children}
         <Notification />
       </main>

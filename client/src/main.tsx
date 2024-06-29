@@ -49,7 +49,11 @@ const router = createBrowserRouter([
 
   {
     path: "/account",
-    element: <Login />,
+    element: (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {

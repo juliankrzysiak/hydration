@@ -37,9 +37,7 @@ export const PasswordForm = () => {
         />
       </div>
 
-      <button className="mb-8 w-full rounded-md bg-blue-400 py-1 font-bold text-gray-50">
-        Recover Password
-      </button>
+      <button className="btn-primary btn">Recover Password</button>
     </form>
   );
 };
