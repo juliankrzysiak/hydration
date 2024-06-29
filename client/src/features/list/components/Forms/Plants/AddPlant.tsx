@@ -38,7 +38,7 @@ export const AddPlant = ({ groups }: Props) => {
   return (
     <>
       <button
-        className="btn-neutral btn-outline btn btn-sm w-full"
+        className="btn-neutral btn-outline btn btn-sm w-full bg-blue-300"
         onClick={showModal}
       >
         Add

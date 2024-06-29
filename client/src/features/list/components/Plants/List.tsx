@@ -14,7 +14,7 @@ export const List = ({ singlePlants, groups }: Props) => {
   if (showCreateForm) return <AddPlant groups={groups} />;
 
   return (
-    <div className="flex w-full flex-col gap-2 overflow-auto">
+    <div className="flex w-full flex-col gap-1 overflow-auto">
       <ul className="flex flex-col">
         {groups.map((group) => {
           return (
@@ -27,7 +27,8 @@ export const List = ({ singlePlants, groups }: Props) => {
           );
         })}
       </ul>
-      <ul className=" flex flex-col gap-1">
+      <div className="divider my-0 w-1/2"></div>
+      <ul className=" flex flex-col">
         {singlePlants.map((plant) => (
           <Entry
             key={plant.id}

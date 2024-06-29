@@ -8,8 +8,19 @@ export default {
     "./node_modules/react-calendar/dist/*.css",
   ],
   //   safelist: [".react-calendar__tile"],
-   daisyui: {
-    themes: ["light", "dark", "cupcake", 'dim'],
+  daisyui: {
+    themes: [
+      "light",
+      "dark",
+      "cupcake",
+      "dim",
+      {
+        cupcake: {
+          ...require("daisyui/src/theming/themes")["cupcake"],
+          primary: "#93c5fd",
+        },
+      },
+    ],
   },
   theme: {
     extend: {},

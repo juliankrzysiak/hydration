@@ -62,9 +62,7 @@ export const Password = () => {
           {...confirmPassword}
         />
       </label>
-      <button className="self-end rounded border-2 border-gray-800 px-2 py-2 font-semibold">
-        Change Password
-      </button>
+      <button className="btn-primary btn self-end">Change Password</button>
     </form>
   );
 };

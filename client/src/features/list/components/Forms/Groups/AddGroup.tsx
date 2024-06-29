@@ -75,7 +75,7 @@ export default function AddGroup() {
   return (
     <>
       <button
-        className=" btn-neutral btn-outline btn btn-sm "
+        className=" btn-neutral btn-outline btn btn-sm bg-blue-300"
         onClick={showModal}
       >
         Add

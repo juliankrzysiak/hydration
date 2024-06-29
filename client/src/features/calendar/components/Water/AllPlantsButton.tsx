@@ -12,7 +12,7 @@ export const AllPlantButton = ({ title, waterAll, unwaterAll }: Props) => {
     case Title.water:
       return (
         <>
-          <div className="divider divider-neutral divider-horizontal mx-0"></div>
+          <div className="divider divider-horizontal mx-0"></div>
           <button aria-label="Water all plants" onClick={waterAll}>
             <img className="w-6" src={RainSVG} alt="Rain" />
           </button>
@@ -21,7 +21,7 @@ export const AllPlantButton = ({ title, waterAll, unwaterAll }: Props) => {
     case Title.watered:
       return (
         <>
-          <div className="divider divider-neutral divider-horizontal mx-0"></div>
+          <div className="divider divider-horizontal mx-0"></div>
           <button aria-label="Unwater all plants" onClick={unwaterAll}>
             <img className="w-6" src={SunSVG} alt="Sun" />
           </button>

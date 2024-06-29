@@ -17,11 +17,11 @@ export const PlantsRoute = () => {
     <SinglePlantsContext.Provider value={singlePlants}>
       <Tabs.Root
         defaultValue="tab1"
-        className="flex h-full w-full max-w-xl flex-col"
+        className="flex h-full w-full max-w-xl flex-col bg-blue-300"
       >
         <Tabs.List
           aria-label="Pick to see plants or groups"
-          className="flex w-full justify-evenly gap-6 rounded-t-md border-b border-gray-900 bg-gray-900/20 px-4 py-2 text-gray-700"
+          className="flex w-full justify-evenly gap-6 rounded-t-md px-4 py-2 "
         >
           <Tabs.Trigger
             value="tab1"
@@ -38,7 +38,7 @@ export const PlantsRoute = () => {
         </Tabs.List>
         <Tabs.Content
           value="tab1"
-          className="w-full flex-auto rounded-b-md bg-slate-300 p-4"
+          className="w-full flex-auto rounded-b-md bg-blue-100 p-4"
         >
           <PlantsLayout
             allPlants={allPlants}
@@ -48,7 +48,7 @@ export const PlantsRoute = () => {
         </Tabs.Content>
         <Tabs.Content
           value="tab2"
-          className=" w-full flex-auto rounded-b-md  bg-slate-300 p-4"
+          className=" w-full flex-auto rounded-b-md bg-blue-100 p-4"
         >
           <GroupsLayout groups={groupedPlants} />
         </Tabs.Content>
