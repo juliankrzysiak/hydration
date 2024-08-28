@@ -4,7 +4,6 @@ export const Header = () => {
   const isAuthenticated = useLoaderData() as boolean;
   const location = useLocation();
   const routes = ["calendar", "plants", "user"];
-  console.log(isAuthenticated);
 
   return (
     <header className="flex min-w-full items-center justify-between bg-blue-100 p-3 ">
