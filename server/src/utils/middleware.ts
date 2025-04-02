@@ -10,7 +10,7 @@ const replacer = (key: string, value: unknown) => {
 const requestLogger: RequestHandler = (_req, res, next) => {
 	logger.info(`Method: ${res.req.method}`);
 	logger.info(`PATH: ${res.req.path}`);
-	logger.info(`Body: ${res.req.body}`);
+	logger.info(`Body: ${JSON.stringify(res.req.body)}`);
 	logger.info('---');
 	next();
 };
