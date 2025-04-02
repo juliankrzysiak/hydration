@@ -1,4 +1,4 @@
-import { sql } from './db';
+import { sql } from '../../src/utils/db';
 
 const uid = '196e5ea6-bae9-417e-b0c2-66c1c5adab4a';
 const uidB = '196e5ea6-bae9-417e-b0c2-66c1c5adab4b';
@@ -17,7 +17,8 @@ const createTables = async () => {
 		id SERIAL PRIMARY KEY,
 		name text NOT NULL,
 		schedule integer,
-		uid uuid NOT NULL
+		uid uuid NOT NULL,
+		group_id integer DEFAULT NULL
 		);
     `;
 

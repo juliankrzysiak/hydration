@@ -1,16 +1,16 @@
 import supertest from 'supertest';
 import { beforeAll, it, describe, afterAll, expect } from 'vitest';
-import { dbURI } from '../utils/db';
-import { app } from '../app';
-import { plants } from '../utils/testHelper';
-import { config } from '../utils/config';
-import { sql } from '../utils/db';
+import { dbURI } from '../../src/utils/db';
+import { app } from '../../src/app';
+import { plants } from '../utils/testHelper.ts';
+import { config } from '../../src/utils/config';
+import { sql } from '../../src/utils/db';
 
 const api = supertest(app);
 const uid = '196e5ea6-bae9-417e-b0c2-66c1c5adab4a';
 const uidB = '196e5ea6-bae9-417e-b0c2-66c1c5adab4b';
 
-beforeAll(async () => {
+beforeAll(async function () {
 	// Just in case, don't wanna delete prod DB
 	if (dbURI !== config.TEST_DB_URI) return;
 	await plants.dropTables();
@@ -18,7 +18,7 @@ beforeAll(async () => {
 	await plants.insertIntoTables();
 });
 
-afterAll(async () => {
+afterAll(async function () {
 	await plants.dropTables();
 });
 
@@ -33,6 +33,7 @@ describe('GET all route', () => {
 			watered: ['2023-05-20'],
 			schedule: 7,
 			next_water: '2023-05-27',
+			group_id: null,
 		};
 
 		const res = await api.get('/api/plants').set('uid', `${uid}`);
@@ -65,6 +66,7 @@ describe('POST plant route', () => {
 			schedule: 3,
 			watered: [null],
 			next_water: null,
+			group_id: null,
 		});
 	});
 });
@@ -98,6 +100,7 @@ describe('PATCH single plant', () => {
 			schedule: 7,
 			watered: [null],
 			next_water: null,
+			group_id: null,
 		});
 	});
 });
@@ -165,6 +168,7 @@ describe('DELETE entire plant and data route', () => {
 			schedule: 3,
 			watered: [null],
 			next_water: null,
+			group_id: null,
 		});
 	});
 	it('should not have anything left in water table', async () => {
