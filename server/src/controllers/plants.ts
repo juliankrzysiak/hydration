@@ -26,7 +26,7 @@ plantsRouter.post('/', async (req, res) => {
     INSERT INTO plants 
         (name, schedule, group_id, uid) 
     VALUES 
-        (${name}, ${schedule}, ${group_id}, ${uid})
+        (${name}, ${schedule}, ${group_id ?? null}, ${uid})
     RETURNING name, schedule
     `;
 	return res.status(201).json(plants);
@@ -40,7 +40,7 @@ plantsRouter.patch('/:id', async (req, res) => {
 
 	const plant = await sql`
     UPDATE plants 
-    SET name = ${name}, schedule = ${schedule}, group_id = ${group_id}
+    SET name = ${name}, schedule = ${schedule}, group_id = ${group_id ?? null}
     WHERE uid = ${uid} AND id = ${id}
     RETURNING name, schedule
     `;

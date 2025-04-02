@@ -8,9 +8,8 @@ const deletePlant = z.object({
 const newPlant = z.object({
 	name: z.string().min(1),
 	schedule: z.number().int().max(365),
-	group_id: z.number().int().nullable(),
+	group_id: z.number().int().optional(),
 });
-
 
 const addGroup = z.object({
 	name: z.string().min(1),
@@ -34,4 +33,12 @@ const date = z.object({
 });
 const uid = z.string().uuid();
 
-export default { deletePlant, newPlant, arrDifferences, editGroup, addGroup, date, uid };
+export default {
+	deletePlant,
+	newPlant,
+	arrDifferences,
+	editGroup,
+	addGroup,
+	date,
+	uid,
+};
