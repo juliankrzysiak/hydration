@@ -22,7 +22,7 @@ export const CalendarRoute = () => {
   if (error) return <ErrorPage />;
 
   return (
-    <div className="flex h-full w-full flex-col items-start justify-evenly gap-4 lg:max-w-none lg:flex-row">
+    <div className="flex h-full w-full flex-col lg:items-start items-center justify-evenly gap-4 lg:max-w-none lg:flex-row">
       <div className="flex-1">
         <Calendar
           plants={

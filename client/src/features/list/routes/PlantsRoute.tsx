@@ -25,13 +25,13 @@ export const PlantsRoute = () => {
         >
           <Tabs.Trigger
             value="tab1"
-            className="text-lg data-[state=active]:scale-110  data-[state=active]:font-semibold data-[state=active]:text-gray-900  "
+            className="text-lg data-[state=active]:scale-110  data-[state=active]:font-semibold data-[state=active]:text-gray-900"
           >
             Plants
           </Tabs.Trigger>
           <Tabs.Trigger
             value="tab2"
-            className="text-lg data-[state=active]:scale-110 data-[state=active]:font-medium data-[state=active]:text-gray-900"
+            className="text-lg data-[state=active]:scale-110 data-[state=active]:font-semibold data-[state=active]:text-gray-900"
           >
             Groups
           </Tabs.Trigger>

@@ -15,7 +15,6 @@ export const List = ({ singlePlants, groups }: Props) => {
 
   return (
     <div className="flex w-full flex-col gap-1 overflow-auto">
-      <h3>groups</h3>
       <ul className="flex flex-col">
         {groups.map((group) => {
           return (
