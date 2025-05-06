@@ -15,6 +15,7 @@ export const List = ({ singlePlants, groups }: Props) => {
 
   return (
     <div className="flex w-full flex-col gap-1 overflow-auto">
+      <h3>groups</h3>
       <ul className="flex flex-col">
         {groups.map((group) => {
           return (
@@ -27,7 +28,7 @@ export const List = ({ singlePlants, groups }: Props) => {
           );
         })}
       </ul>
-      <div className="divider my-0 w-1/2"></div>
+      {/* <div className="divider my-0 w-1/2"></div> */}
       <ul className=" flex flex-col">
         {singlePlants.map((plant) => (
           <Entry
