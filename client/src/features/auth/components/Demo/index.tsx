@@ -2,20 +2,11 @@ import { notify } from "@/utils";
 import { supabase } from "../../lib/auth";
 import { useNavigate } from "react-router-dom";
 
-export const Demo = () => {
+export function Demo () {
   const navigate = useNavigate();
 
   const createGuest = async () => {
-    const randomValues = crypto.getRandomValues(new Int8Array(8)).join("");
-    //  !: Supabase should have a guest option now
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.signUp({
-      email: `${randomValues}@invalid.com`,
-      password: "testing123",
-    });
-    if (user) sessionStorage.setItem("uid", user.id);
+    const { error } = await supabase.auth.signInAnonymously()
     if (error) notify("error", error.message);
     navigate("/calendar");
   };
