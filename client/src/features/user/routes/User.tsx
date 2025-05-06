@@ -1,17 +1,19 @@
 import person from "@/assets/person.svg";
-import { supabase } from "@/features/auth/lib/auth";
-import { notify } from "@/utils";
+import { Tabs } from "../components/Tabs";
 import { useQuery } from "@tanstack/react-query";
+import { getName } from "../api/supabase";
+import { AuthError } from "@supabase/supabase-js";
+import { notify } from "@/utils";
+import { supabase } from "@/features/auth/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../api";
-import { getName } from "../api/supabase";
-import { Tabs } from "../components/Tabs";
 
 export const User = () => {
   const navigate = useNavigate();
   const { data: name } = useQuery({
     queryFn: getName,
     queryKey: ["name"],
+    onError: (error: AuthError) => notify("error", error.message),
   });
 
   const signOut = async (e: React.SyntheticEvent) => {
@@ -32,7 +34,7 @@ export const User = () => {
     <section className="relative flex w-full flex-col items-center">
       <div className=" mb-2 flex flex-col items-center ">
         <img className="w-12" src={person} alt="Person" />
-        <p className="text-lg">{name ?? "Jane Doe"}</p>
+        <p className="text-lg">{name ?? "Jane"}</p>
       </div>
       <button className="btn-error btn" onClick={signOut}>
         Sign Out

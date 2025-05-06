@@ -2,12 +2,10 @@ import { supabase, supabaseAdmin } from "@/features/auth/lib/auth";
 
 export const getName = async () => {
   const { data, error } = await supabase.auth.getSession();
-
-  if (sessionStorage.getItem("uid")) return "Guest";
-
   if (error) throw error;
-  const name = await data.session?.user.user_metadata.first_name;
-  return name;
+  const isAnon = data.session?.user.is_anonymous
+  const name =  data.session?.user.user_metadata.first_name;
+  return isAnon ? 'Guest' : name
 };
 
 export const changeName = async (name: string) => {
