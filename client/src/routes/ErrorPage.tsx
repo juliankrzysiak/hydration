@@ -5,7 +5,7 @@ export const ErrorPage = () => {
   let errorMessage;
 
   if (isRouteErrorResponse(error)) {
-    errorMessage = error.statusText || error.error?.message;
+    errorMessage = error.statusText;
   }
   return (
     <div
@@ -14,9 +14,7 @@ export const ErrorPage = () => {
     >
       <h1 className="text-4xl">Uh, oh!</h1>
       <p className="mb-10 text-xl">Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{errorMessage}</i>
-      </p>
+      {errorMessage || <i>{errorMessage}</i>}
     </div>
   );
 };
