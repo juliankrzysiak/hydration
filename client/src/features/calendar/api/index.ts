@@ -4,7 +4,7 @@ import { getUid } from "../utils/getUid";
 
 // TODO: Throw this in env
 const url =
-  import.meta.env.VITE_LOCALHOST || "https://water-schedule.fly.dev/api/plants";
+  import.meta.env.VITE_LOCALHOST || "https://water-schedule.fly.dev/api";
 
 export const getAllPlants = async (): Promise<Plant[]> => {
   const uid = await getUid();
